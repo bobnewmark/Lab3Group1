@@ -8,9 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>Online Shop</title>
+    <link rel="stylesheet" href="/css/style.css"/>
   </head>
   <body>
+  <header>
+  </header>
   $END$
   </body>
 </html>
