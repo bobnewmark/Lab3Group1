@@ -1,9 +1,10 @@
-package entity;
+package com.shop.database.entities;
 
 /**
- * Created by said on 02.05.2017.
+ * Created by said on 06.05.2017.
  */
 public class Attribute {
+
     private int id;
     private String name;
     private int type;

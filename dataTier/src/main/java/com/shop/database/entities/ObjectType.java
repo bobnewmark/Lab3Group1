@@ -1,20 +1,19 @@
-package entity;
+package com.shop.database.entities;
 
 /**
- * Created by said on 02.05.2017.
+ * Created by said on 06.05.2017.
  */
-public class Object {
+public class ObjectType {
+
     private int id;
     private String name;
-    private int parent;
 
-    public Object() {
+    public ObjectType() {
     }
 
-    public Object(int id, String name, int parent) {
+    public ObjectType(int id, String name) {
         this.id = id;
         this.name = name;
-        this.parent = parent;
     }
 
     public int getId() {
@@ -31,13 +30,5 @@ public class Object {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getParent() {
-        return parent;
-    }
-
-    public void setParent(int parent) {
-        this.parent = parent;
     }
 }

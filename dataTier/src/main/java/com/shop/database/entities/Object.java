@@ -1,18 +1,21 @@
-package entity;
+package com.shop.database.entities;
 
 /**
- * Created by said on 02.05.2017.
+ * Created by said on 06.05.2017.
  */
-public class ObjectType {
+public class Object {
+
     private int id;
     private String name;
+    private int type;
 
-    public ObjectType() {
+    public Object() {
     }
 
-    public ObjectType(int id, String name) {
+    public Object(int id, String name, int type) {
         this.id = id;
         this.name = name;
+        this.type = type;
     }
 
     public int getId() {
@@ -29,5 +32,13 @@ public class ObjectType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
