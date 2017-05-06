@@ -8,7 +8,7 @@
     <script src="<c:url value='/resources/js/app.js' />"></script>
     <script src="<c:url value='/resources/js/user_service.js' />"></script>
     <script src="<c:url value='/resources/js/user_controller.js' />"></script>
-    <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet"></link>
+    <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://code.jquery.com/jquery.min.js"></script>
