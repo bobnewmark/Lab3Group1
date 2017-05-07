@@ -1,10 +1,12 @@
-package entity;
+package com.shop.database.entities;
+
+import java.lang.*;
 
 /**
- * Created by said on 02.05.2017.
+ * Created by said on 06.05.2017.
  */
 public class Parameter {
-    private int id;
+
     private int objectId;
     private int attributeId;
     private String value;
@@ -13,18 +15,9 @@ public class Parameter {
     }
 
     public Parameter(int objectId, int attributeId, String value) {
-        this.id = objectId + attributeId;
         this.objectId = objectId;
         this.attributeId = attributeId;
         this.value = value;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getObjectId() {
