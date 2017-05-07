@@ -1,0 +1,47 @@
+body, #mainWrapper {  height: 70%;  background-color:rgb(245, 245, 245);  }
+body, .form-control{  font-size:16px!important;  }
+.floatRight{  float:right;  margin-right: 18px;  }
+.has-error{  color:red;  }
+.formcontainer{  background-color: #DAE8E8;  padding: 20px;  }
+.tablecontainer{  padding-left: 20px;  }
+.generic-container {  width:80%;  margin: 0 auto;  margin-top: 20px;  margin-bottom: 20px;  padding: 20px;  background-color: #EAE7E7;  border: 1px solid #ddd;  border-radius: 4px;  box-shadow: 0 0 30px black;  }
+.custom-width {  width: 80px !important;  }
+.phonename.ng-valid {
+    background-color: lightgreen;
+}
+
+.phonename.ng-dirty.ng-invalid-required {
+    background-color: red;
+}
+
+.phonename.ng-dirty.ng-invalid-minlength {
+    background-color: yellow;
+}
+
+.email.ng-valid {
+    background-color: lightgreen;
+}
+
+.email.ng-dirty.ng-invalid-required {
+    background-color: red;
+}
+
+.email.ng-dirty.ng-invalid-email {
+    background-color: yellow;
+}
+header {background-color: steelblue; width:100%; height:100px;}
+#logo {width: 120px}
+#bodyheader{width: 100%; height: 75px}
+#bodyheader #login{float: right; margin-top: 10px}
+header ul{width: 100%; margin-top: 0}
+header ul li{display: inline-block;}
+header ul li.menu{ width: 100px; height: 25px; cursor: pointer; text-align: center}
+header ul li.menu:hover{background-color: white}
+
+
+
+
+
+
+
+footer {background-color: steelblue; width: 100%; height:100px}
