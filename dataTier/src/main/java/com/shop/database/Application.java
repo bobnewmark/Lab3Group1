@@ -48,7 +48,6 @@ public class Application {
         ObjectTypeRepository objTypeRepo = ctx.getBean(ObjectTypeRepository.class);
         ObjectRepository objectRepo = ctx.getBean(ObjectRepository.class);
         AttributeRepository attributeRepo = ctx.getBean(AttributeRepository.class);
-        ParameterRepository parameterRepo = ctx.getBean(ParameterRepository.class);
         ReferenceRepository referenceRepo = ctx.getBean(ReferenceRepository.class);
 
         objTypeRepo.insert(new ObjectType(1, "Smartphone"));
@@ -56,13 +55,11 @@ public class Application {
         objectRepo.insert(new Object(1, "Samsung", 1));
         objectRepo.insert(new Object(2, "Samsung headphones", 2));
         attributeRepo.insert(new Attribute(1, "Price", 1));
-        parameterRepo.insert(new Parameter(1, 1, "150"));
         referenceRepo.insert(new Reference(2, 1, "accessories"));
 
         System.out.println(objTypeRepo.countRows());
         System.out.println(objectRepo.countRows());
         System.out.println(attributeRepo.countRows());
-        System.out.println(parameterRepo.countRows());
         System.out.println(referenceRepo.countRows());
 
 

@@ -1,7 +1,6 @@
 package com.shop.database.repositories.impl;
 
 import com.shop.database.entities.Object;
-import com.shop.database.entities.ObjectType;
 import com.shop.database.repositories.ObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,7 +26,8 @@ public class ObjectRepositoryImpl implements ObjectRepository {
     private static final String FIND_BY_TYPE_QUERY = "SELECT " + COLUMNS + " FROM LAB3_OBJECTS WHERE TYPE = ?";
     private static final String CREATE_ROW = "INSERT INTO LAB3_OBJECTS VALUES (?, ?, ?)";
 
-
+    public ObjectRepositoryImpl() {
+    }
 
     @Autowired
     public ObjectRepositoryImpl (DataSource dataSource) {

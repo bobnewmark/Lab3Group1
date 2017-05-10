@@ -26,6 +26,9 @@ public class AttributeRepositoryImpl implements AttributeRepository {
     private static final String FIND_BY_TYPE_QUERY = "SELECT " + COLUMNS + " FROM LAB3_ATTRIBUTES WHERE TYPE = ?";
     private static final String CREATE_ROW = "INSERT INTO LAB3_ATTRIBUTES VALUES (?, ?, ?)";
 
+    public AttributeRepositoryImpl() {
+    }
+
     public AttributeRepositoryImpl(DataSource dataSource) {
         template = new JdbcTemplate(dataSource);
     }

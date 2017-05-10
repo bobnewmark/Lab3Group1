@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>Labs.Lab3Group1</groupId>
+        <artifactId>Lab3Group1-pom</artifactId>
+        <version>1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>Labs.Lab3Group1</groupId>
+	<artifactId>packear</artifactId>
+	<packaging>ear</packaging>
+    <description>
+        This packaging project brings together the following elements into the main EAR
+        file:
+    </description>
+	
+	<properties>
+	</properties>
+
+	<dependencies>
+        <dependency>
+            <groupId>Labs.Lab3Group1</groupId>
+            <artifactId>webTier</artifactId>
+            <version>1.0</version>
+            <type>war</type>
+        </dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<finalName>webTier</finalName>
+					<displayName>webTier</displayName>
+					<defaultLibBundleDir>lib/</defaultLibBundleDir>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+					<modules>
+						<webModule>
+                            <groupId>Labs.Lab3Group1</groupId>
+                            <artifactId>webTier</artifactId>
+							<contextRoot>/webTier</contextRoot>
+							<bundleFileName>webTier.war</bundleFileName>
+						</webModule>
+                        <module>
+                            <groupId>Labs.Lab3Group1</groupId>
+                            <artifactId>dataTier</artifactId>
+                            <contextRoot>/dataTier</contextRoot>
+                            <bundleFileName>dataTier.jar</bundleFileName>
+                        </module>
+					</modules>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	
+</project>

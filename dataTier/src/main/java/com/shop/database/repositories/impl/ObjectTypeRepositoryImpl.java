@@ -26,6 +26,8 @@ public class ObjectTypeRepositoryImpl implements ObjectTypeRepository {
     private static final String FIND_BY_NAME_QUERY = "SELECT " + COLUMNS + " FROM LAB3_OBJECT_TYPES WHERE NAME = ?";
     private static final String CREATE_ROW = "INSERT INTO LAB3_OBJECT_TYPES VALUES (?, ?)";
 
+    public ObjectTypeRepositoryImpl() {
+    }
 
     public String findNameById(int id) {
         return template.queryForObject(FIND_NAME_BY_ID, new Object[] {id}, String.class);

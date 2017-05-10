@@ -1,6 +1,5 @@
 package com.shop.database.repositories.impl;
 
-import com.shop.database.entities.Parameter;
 import com.shop.database.entities.Reference;
 import com.shop.database.repositories.ReferenceRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,6 +29,8 @@ public class ReferenceRepositoryImpl implements ReferenceRepository {
         template = new JdbcTemplate(dataSource);
     }
 
+    public ReferenceRepositoryImpl() {
+    }
 
     public void insert(Reference entity) {
         template.update(CREATE_ROW, new Object[]{entity.getObjectId(), entity.getReferenceId(), entity.getName()});
