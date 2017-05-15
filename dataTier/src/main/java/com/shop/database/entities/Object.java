@@ -1,21 +1,32 @@
 package com.shop.database.entities;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by said on 06.05.2017.
  */
+@Entity
+@Table(name = "LAB3_OBJECTS")
 public class Object {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "OBJECT_ID", length = 10, insertable = false, updatable = false, nullable = false)
     private int id;
+    @Column(name = "NAME")
     private String name;
-    private int type;
+    @ManyToOne
+    @JoinColumn(name = "OBJECT_TYPE_ID", referencedColumnName = "OBJECT_TYPE_ID")
+    private ObjectType objectType;
+    @ManyToOne
+    @JoinColumn(name = "PARENT_ID", insertable = false, updatable = false)
+    private Object parent;
 
     public Object() {
     }
 
-    public Object(int id, String name, int type) {
-        this.id = id;
+    public Object(String name, ObjectType objectType) {
         this.name = name;
-        this.type = type;
+        this.objectType = objectType;
     }
 
     public int getId() {
@@ -34,11 +45,19 @@ public class Object {
         this.name = name;
     }
 
-    public int getType() {
-        return type;
+    public ObjectType getObjectType() {
+        return objectType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setObjectType(ObjectType objectType) {
+        this.objectType = objectType;
+    }
+
+    public Object getParent() {
+        return parent;
+    }
+
+    public void setParent(Object parent) {
+        this.parent = parent;
     }
 }
