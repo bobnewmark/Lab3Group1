@@ -1,17 +1,17 @@
 package com.shop.database.repositories;
 
 import com.shop.database.entities.Object;
+import com.shop.database.entities.ObjectType;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 /**
- * Created by said on 06.05.2017.
+ * Created by said on 09.05.2017.
  */
-public interface ObjectRepository extends Repo<Object> {
+public interface ObjectRepository extends JpaRepository<Object, Integer> {
 
-    String findNameById(int id);
-    int countRows();
     Object findById(int id);
     List<Object> findByName(String name);
-    List<Object> findByType(int type);
+    List<Object> findByObjectType(ObjectType objectType);
 }
