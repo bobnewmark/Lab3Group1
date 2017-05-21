@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html>
@@ -16,8 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 </head>
-<body ng-app="myApp" class="ng-cloak">
-
+<body ng-app="myApp" class="ng-cloak" ng-controller="PhonesCtrl as ctrl">
 
 <div class="tablecontainer">
     <table class="table table-hover">

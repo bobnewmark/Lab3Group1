@@ -1,6 +1,5 @@
 package com.shop.database.repositories;
 
-import com.shop.database.entities.Object;
 import com.shop.database.entities.ObjectType;
 import org.springframework.data.jpa.repository.JpaRepository;
 

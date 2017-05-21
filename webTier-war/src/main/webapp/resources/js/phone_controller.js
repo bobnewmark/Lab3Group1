@@ -1,5 +1,5 @@
-'use strict';
+"use strict";
 
-App.controller('PhonesCtrl', ['$scope', 'Phone', function($scope, Phone) {
+App.controller("PhonesCtrl", ["$scope", "Phone", function($scope, Phone) {
 
 }]);

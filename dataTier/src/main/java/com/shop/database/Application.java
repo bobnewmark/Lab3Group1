@@ -1,14 +1,5 @@
 package com.shop.database;
 
-import com.shop.database.entities.*;
-import com.shop.database.entities.Object;
-import com.shop.database.repositories.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import javax.sql.DataSource;
-
 /**
  * Created by said on 06.05.2017.
  */

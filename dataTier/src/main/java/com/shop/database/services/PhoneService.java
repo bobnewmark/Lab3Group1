@@ -24,6 +24,6 @@ public interface PhoneService {
 
     void deleteAllPhones();
 
-    public boolean isPhoneExist(Phone user);
+    boolean isPhoneExist(Phone user);
 
 }

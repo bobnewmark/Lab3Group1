@@ -1,9 +1,7 @@
 package com.shop.database.services.impl;
 
-import com.shop.database.entities.Object;
 import com.shop.database.entities.ObjectType;
 import com.shop.database.repositories.ObjectTypeRepository;
-import com.shop.database.services.ObjectService;
 import com.shop.database.services.ObjectTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

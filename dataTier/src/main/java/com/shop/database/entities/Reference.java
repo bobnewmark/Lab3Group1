@@ -1,9 +1,7 @@
 package com.shop.database.entities;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.lang.*;
-import java.util.Objects;
 
 /**
  * Created by said on 06.05.2017.
