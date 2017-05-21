@@ -38,4 +38,8 @@ public class ReferenceServiceImpl implements ReferenceService{
     public List<Reference> findByName(String name) {
         return referenceRepository.findByName(name);
     }
+
+    public Reference findById(int id) {
+        return referenceRepository.findById(id);
+    }
 }

@@ -38,7 +38,7 @@
                         <li ng-repeat="u in ctrl.phones"><a href="#"><span ng-bind="u.brand"></span><span ng-bind="u.model"></span></a></li>
                     </ul>
                 </li>
-                <li><a href="#">Контакты</a></li>
+                <li><a href="/phones">Контакты</a></li>
             </ul>
             <ul class="nav navbar-nav pull-right">
                 <li class="pull-right"><a href="#" data-toggle="modal" data-target="#myModal">Вход</a></li>

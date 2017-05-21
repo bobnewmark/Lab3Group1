@@ -9,9 +9,10 @@ import java.util.List;
 /**
  * Created by said on 09.05.2017.
  */
-public interface ReferenceRepository extends JpaRepository<Reference, Reference.Key> {
+public interface ReferenceRepository extends JpaRepository<Reference, Integer> {
 
     List<Reference> findByObject(Object object);
     List<Reference> findByRefObject(Object refObject);
     List<Reference> findByName(String name);
+    Reference findById(int id);
 }

@@ -31,7 +31,7 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
     }
 
 
-    public List<ObjectType> findByName(String name) {
+    public List <ObjectType> findByName(String name) {
         return objectTypeRepository.findByName(name);
     }
 }

@@ -17,10 +17,10 @@ public class ObjectType {
     @Column(name = "OBJECT_TYPE_ID", length = 10, nullable = false)
     private int id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", unique = true)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PARENT_ID", referencedColumnName = "OBJECT_TYPE_ID", insertable = false, updatable = false)
     private ObjectType parent;
 
@@ -32,9 +32,10 @@ public class ObjectType {
     public ObjectType() {
     }
 
-    public ObjectType(int id, String name) {
-        this.id = id;
+    public ObjectType(String name, ObjectType parent, List<Attribute> attributes) {
         this.name = name;
+        this.parent = parent;
+        this.attributes = attributes;
     }
 
     public int getId() {

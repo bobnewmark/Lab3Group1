@@ -9,9 +9,10 @@ import java.util.List;
 /**
  * Created by said on 09.05.2017.
  */
-public interface ParameterRepository extends JpaRepository<Parameter, Parameter.Key> {
+public interface ParameterRepository extends JpaRepository<Parameter, Integer> {
 
     List<Parameter> findByObject(Object object);
     List<Parameter> findByAttribute(Attribute attribute);
     List<Parameter> findByValue(String value);
+    Parameter findById(int id);
 }

@@ -23,6 +23,10 @@ public class ParameterServiceImpl implements ParameterService{
         parameterRepository.save(parameter);
     }
 
+    public Parameter findById(int id) {
+        return parameterRepository.findById(id);
+    }
+
 
     public List<Parameter> findByObject(Object object) {
         return parameterRepository.findByObject(object);
