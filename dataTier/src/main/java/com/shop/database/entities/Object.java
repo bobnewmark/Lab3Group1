@@ -1,9 +1,13 @@
 package com.shop.database.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -18,16 +22,19 @@ public class Object {
     private int id;
     @Column(name = "NAME")
     private String name;
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "OBJECT_TYPE_ID", referencedColumnName = "OBJECT_TYPE_ID")
     private ObjectType objectType;
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PARENT_ID", insertable = false, updatable = false)
     private Object parent;
-
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "object", cascade = CascadeType.ALL)
     private List<Parameter> parameters;
+    @Transient
+    private Map<String, Parameter> mapParameters = new HashMap<>();
 
     public Object() {
     }
@@ -36,7 +43,15 @@ public class Object {
         this.name = name;
         this.objectType = objectType;
         this.parent = parent;
+    }public Map<String, Parameter> getMapParameters() {
+        return mapParameters;
     }
+
+    public void setMapParameters(Map<String, Parameter> mapParameters) {
+        this.mapParameters = mapParameters;
+    }
+
+
 
     public int getId() {
         return id;

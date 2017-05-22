@@ -1,5 +1,7 @@
 package com.shop.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.lang.*;
 
@@ -13,9 +15,11 @@ public class Parameter {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "PARAMETER_ID", length = 10, nullable = false)
     private int id;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "OBJECT_ID", referencedColumnName = "OBJECT_ID")
     private Object object;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ATTRIBUTE_ID")
     private Attribute attribute;

@@ -1,5 +1,6 @@
 package com.shop.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -19,11 +20,11 @@ public class Attribute {
 
     @Column(name = "NAME")
     private String name;
-
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "OBJECT_TYPE_ID", referencedColumnName = "OBJECT_TYPE_ID")
     private ObjectType objectType;
-
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL)
     private List<Parameter> parameters;

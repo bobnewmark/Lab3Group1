@@ -1,6 +1,6 @@
-angular.module('app', ['ngResource']);
+vgangular.module('app', ['ngResource']);
 App.factory('User', ['$resource', function ($resource) {
-    return $resource('http://localhost:8080/Spring4MVCAngularJSNgResourceExample/user/:id');
+    return $resource('http://localhost:7001/laba/phone/:id');
 }]);
 $resource(url, [paramDefaults], [actions], options);
 

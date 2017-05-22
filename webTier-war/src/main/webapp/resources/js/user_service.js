@@ -1,7 +1,7 @@
 App.factory('Phone', ['$resource', function ($resource) {
     //$resource() function returns an object of resource class
     return $resource(
-        'http://localhost:8080/phone/:id',
+        'http://localhost:7001/laba/phone/:id',
         {id: '@id'},
         {
             update: {

@@ -1,5 +1,7 @@
 package com.shop.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.lang.*;
 
@@ -13,9 +15,11 @@ public class Reference {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "REFERENCE_ID", length = 10, insertable = false, updatable = false, nullable = false)
     private int id;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "OBJECT_ID", referencedColumnName = "OBJECT_ID")
     private Object object;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "REF_OBJECT_ID", referencedColumnName = "OBJECT_ID")
     private Object refObject;

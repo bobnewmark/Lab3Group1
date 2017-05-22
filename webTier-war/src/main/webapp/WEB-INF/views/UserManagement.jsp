@@ -118,41 +118,24 @@
     </a>
 </div>
 <div class="generic-container">
-    <div class="row">
+    <div class="row" >
 
         <!-- 1 Изображение -->
-        <div class="col-sm-6 col-md-4">
+        <div class="col-sm-6 col-md-4" ng-repeat="p in ctrl.phones">
             <div class="thumbnail">
                 <img src="${contextPath}/resources/images/samsung.jpg" alt="...">
                 <div class="caption">
                     <h3>Заголовок...</h3>
-                    <p>Контент...</p>
+                    <div ng-repeat="o in p.parameters">
+                         <p ng-bind="o.value"></p>
+                    </div>
                     <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
                 </div>
             </div>
         </div>
 
         <!--...-->
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="${contextPath}/resources/images/huawei.jpg" alt="...">
-                <div class="caption">
-                    <h3>Заголовок...</h3>
-                    <p>Контент...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="${contextPath}/resources/images/htc.jpg" alt="...">
-                <div class="caption">
-                    <h3>Заголовок...</h3>
-                    <p>Контент...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                </div>
-            </div>
-        </div>
+
 
     </div>
    <%-- <div class="panel panel-default">

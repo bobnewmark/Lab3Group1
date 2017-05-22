@@ -1,5 +1,6 @@
 package com.shop.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -19,11 +20,11 @@ public class ObjectType {
 
     @Column(name = "NAME", unique = true)
     private String name;
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PARENT_ID", referencedColumnName = "OBJECT_TYPE_ID", insertable = false, updatable = false)
     private ObjectType parent;
-
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "objectType", cascade = CascadeType.ALL)
     private List<Attribute> attributes;
