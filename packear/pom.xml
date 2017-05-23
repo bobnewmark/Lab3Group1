@@ -47,12 +47,6 @@
 							<contextRoot>/webTier</contextRoot>
 							<bundleFileName>webTier.war</bundleFileName>
 						</webModule>
-                        <module>
-                            <groupId>Labs.Lab3Group1</groupId>
-                            <artifactId>dataTier</artifactId>
-                            <contextRoot>/dataTier</contextRoot>
-                            <bundleFileName>dataTier.jar</bundleFileName>
-                        </module>
 					</modules>
 				</configuration>
 			</plugin>
