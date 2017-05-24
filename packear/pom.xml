@@ -48,7 +48,7 @@
 						<webModule>
                             <groupId>Labs.Lab3Group1</groupId>
                             <artifactId>webTier</artifactId>
-							<contextRoot>/webTier</contextRoot>
+							<contextRoot>/laba</contextRoot>
 							<bundleFileName>webTier.war</bundleFileName>
 						</webModule>
 					</modules>
