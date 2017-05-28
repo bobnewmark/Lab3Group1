@@ -55,30 +55,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- Activate PMD for java code checking -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${pmd.version}</version>
-				<configuration>
-					<rulesets>
-						<ruleset>${project.basedir}${file.separator}ruleset.xml</ruleset>
-					</rulesets>
-					<targetJdk>${java.version}</targetJdk>
-					<includeTests>true</includeTests>
-					<outputDirectory>${project.build.directory}/</outputDirectory>
-					<outputEncoding>UTF-8</outputEncoding>
-					<verbose>true</verbose>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
