@@ -7,8 +7,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
     <script src="<c:url value='/resources/js/app.js' />"></script>
-    <script src="<c:url value='/resources/js/user_service.js' />"></script>
-    <script src="<c:url value='/resources/js/user_controller.js' />"></script>
+    <%--<script src="<c:url value='/resources/js/user_service.js' />"></script>--%>
+    <%--<script src="<c:url value='/resources/js/user_controller.js' />"></script>--%>
+    <script src="<c:url value='/resources/js/item_controller.js' />"></script>
+    <script src="<c:url value='/resources/js/item_service.js' />"></script>
     <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet">
     <link href="<c:url value='/resources/css/common.css' />" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -17,7 +19,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 </head>
-<body ng-app="myApp" class="ng-cloak" ng-controller="PhoneController as ctrl">
+<body ng-app="myApp" class="ng-cloak" ng-controller="ItemController as ctrl">
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -121,7 +123,7 @@
     <div class="row" >
 
         <!-- 1 Изображение -->
-        <div class="col-sm-6 col-md-4" ng-repeat="p in ctrl.phones">
+        <div class="col-sm-6 col-md-4" ng-repeat="p in ctrl.items">
             <div class="thumbnail">
                 <img src="${contextPath}/resources/images/samsung.jpg" alt="...">
                 <div class="caption">
@@ -130,6 +132,7 @@
                          <p ng-bind="o.value"></p>
                     </div>
                     <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                    <button type="button" ng-click="ctrl.show(p.id)">TEST</button>
                 </div>
             </div>
         </div>

@@ -1,13 +1,9 @@
 package com.lab.account.web;
 
 import com.lab.account.validator.UserValidator;
+import com.shop.database.entities.*;
 import com.shop.database.entities.Object;
-import com.shop.database.entities.Parameter;
-import com.shop.database.entities.User;
-import com.shop.database.services.ObjectService;
-import com.shop.database.services.ObjectTypeService;
-import com.shop.database.services.SecurityService;
-import com.shop.database.services.UserService;
+import com.shop.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,23 +11,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
-;
+
 
 @Controller
 public class UserController {
     @Autowired
     private UserService userService;
-      @Autowired
+    @Autowired
     private ObjectService objectService;
     @Autowired
     private ObjectTypeService objectTypeService;
     @Autowired
     private SecurityService securityService;
+    @Autowired
+    private ParameterService parameterService;
+    @Autowired
+    private AttributeService attributeService;
 
     @Autowired
     private UserValidator userValidator;
@@ -93,10 +98,13 @@ public class UserController {
 
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
-        List<Object> objects = objectService.findByObjectType(objectTypeService.findById(1));
+        System.out.println("HELLO123");
+        List<Object> objects = objectService.findByObjectType(objectTypeService.findById(10));
+        System.out.println("LIST OF OBJECTS SIZE " + objects.size());
         for(Object o: objects) {
+            System.out.println("OBJECT NAME: " + o.getName());
             for (Parameter p : o.getParameters()) {
-                System.out.println(p.getValue());
+                System.out.println("parameter: " + p.getValue());
             }
         }
         if(objects.isEmpty()){
@@ -104,4 +112,14 @@ public class UserController {
         }
         return new ResponseEntity<List<Object>>(objects, HttpStatus.OK);
     }
+
+    @RequestMapping(value={"/phone/{id}"})
+    public ResponseEntity<Object> details(@PathVariable("id") int id) throws URISyntaxException {
+        URI location = new URI("/details");
+        Object object = objectService.findById(id);
+        return ResponseEntity.created(location).body(object);
+    }
+
+
+
 }

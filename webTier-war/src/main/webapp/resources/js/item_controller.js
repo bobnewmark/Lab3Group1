@@ -1,23 +1,24 @@
 'use strict';
 
-angular.module('myApp').controller('PhoneController', ['$scope', 'PhoneService', function($scope, UserService) {
+angular.module('myApp').controller('ItemController', ['$scope', 'ItemService', function($scope, ItemService) {
     var self = this;
-    self.phone={id:null,phonename:'',address:'',email:''};
-    self.phones=[];
+    self.item = {};
+    self.items=[];
 
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
+    self.show = show;
 
 
-    fetchAllUsers();
+    fetchAllItems();
 
-    function fetchAllUsers(){
-        UserService.fetchAllUsers()
+    function fetchAllItems(){
+        ItemService.fetchAllItems()
             .then(
                 function(d) {
-                    self.phones = d;
+                    self.items = d;
                 },
                 function(errResponse){
                     console.error('Error while fetching Users');
@@ -25,8 +26,20 @@ angular.module('myApp').controller('PhoneController', ['$scope', 'PhoneService',
             );
     }
 
-    function createUser(phone){
-        UserService.createUser(phone)
+    function showItem(id) {
+        ItemService.showItem(id)
+            .then(
+                function(d) {
+                    self.items = d;
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                }
+            );
+    }
+
+    function createUser(user){
+        UserService.createUser(user)
             .then(
                 fetchAllUsers,
                 function(errResponse){
@@ -35,8 +48,8 @@ angular.module('myApp').controller('PhoneController', ['$scope', 'PhoneService',
             );
     }
 
-    function updateUser(phone, id){
-        UserService.updateUser(phone, id)
+    function updateUser(user, id){
+        UserService.updateUser(user, id)
             .then(
                 fetchAllUsers,
                 function(errResponse){
@@ -55,22 +68,26 @@ angular.module('myApp').controller('PhoneController', ['$scope', 'PhoneService',
             );
     }
 
+    function show(id) {
+        showItem(id);
+    }
+
     function submit() {
-        if(self.phone.id===null){
-            console.log('Saving New User', self.phone);
-            createUser(self.phone);
+        if(self.user.id===null){
+            console.log('Saving New User', self.user);
+            createUser(self.user);
         }else{
-            updateUser(self.phone, self.phone.id);
-            console.log('User updated with id ', self.phone.id);
+            updateUser(self.user, self.user.id);
+            console.log('User updated with id ', self.user.id);
         }
         reset();
     }
 
     function edit(id){
         console.log('id to be edited', id);
-        for(var i = 0; i < self.phones.length; i++){
-            if(self.phones[i].id === id) {
-                self.phone = angular.copy(self.phones[i]);
+        for(var i = 0; i < self.users.length; i++){
+            if(self.users[i].id === id) {
+                self.user = angular.copy(self.users[i]);
                 break;
             }
         }
@@ -78,7 +95,7 @@ angular.module('myApp').controller('PhoneController', ['$scope', 'PhoneService',
 
     function remove(id){
         console.log('id to be deleted', id);
-        if(self.phone.id === id) {//clean form if the phone to be deleted is shown there.
+        if(self.user.id === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
         deleteUser(id);
@@ -86,7 +103,7 @@ angular.module('myApp').controller('PhoneController', ['$scope', 'PhoneService',
 
 
     function reset(){
-        self.phone={id:null,phonename:'',address:'',email:''};
+        self.user={id:null,username:'',address:'',email:''};
         $scope.myForm.$setPristine(); //reset Form
     }
 
