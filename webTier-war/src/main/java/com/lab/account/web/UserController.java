@@ -1,8 +1,9 @@
 package com.lab.account.web;
 
 import com.lab.account.validator.UserValidator;
-import com.shop.database.entities.*;
 import com.shop.database.entities.Object;
+import com.shop.database.entities.Parameter;
+import com.shop.database.entities.User;
 import com.shop.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-
 
 
 @Controller
@@ -87,10 +84,11 @@ public class UserController {
         userService.save(user);*/
         return "UserManagement";
     }
+
     @RequestMapping(value = {"/welcome"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> welcome() {
         List<Object> objects = objectService.findByObjectType(objectTypeService.findById(1));
-        if(objects.isEmpty()){
+        if (objects.isEmpty()) {
             return new ResponseEntity<List<Object>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Object>>(objects, HttpStatus.OK);
@@ -101,25 +99,29 @@ public class UserController {
         System.out.println("HELLO123");
         List<Object> objects = objectService.findByObjectType(objectTypeService.findById(10));
         System.out.println("LIST OF OBJECTS SIZE " + objects.size());
-        for(Object o: objects) {
+        for (Object o : objects) {
             System.out.println("OBJECT NAME: " + o.getName());
             for (Parameter p : o.getParameters()) {
                 System.out.println("parameter: " + p.getValue());
             }
         }
-        if(objects.isEmpty()){
+        if (objects.isEmpty()) {
             return new ResponseEntity<List<Object>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Object>>(objects, HttpStatus.OK);
     }
 
-    @RequestMapping(value={"/phone/{id}"})
-    public ResponseEntity<Object> details(@PathVariable("id") int id) throws URISyntaxException {
-        URI location = new URI("/details");
-        Object object = objectService.findById(id);
-        return ResponseEntity.created(location).body(object);
+    //    @RequestMapping(value={"/phone/{id}"})
+//    public ResponseEntity<Object> details(@PathVariable("id") int id) throws URISyntaxException {
+//        URI location = new URI("/details");
+//        Object object = objectService.findById(id);
+//        return ResponseEntity.created(location).body(object);
+//    }
+    @RequestMapping(value = {"/phone/{id}"})
+    public String details(@PathVariable("id") int id) throws URISyntaxException {
+        System.out.println("IN JAVA METHOD");
+        return "details";
     }
-
 
 
 }

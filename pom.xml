@@ -31,10 +31,7 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>${pmd.version}</version>
 				<configuration>
-					<rulesets>
-						<ruleset>${project.basedir}${file.separator}ruleset.xml</ruleset>
-					</rulesets>
-					<targetJdk>${java.version}</targetJdk>
+					<targetJdk>1.7</targetJdk>
 					<includeTests>true</includeTests>
 					<outputDirectory>${project.build.directory}/</outputDirectory>
 					<outputEncoding>UTF-8</outputEncoding>
@@ -44,7 +41,7 @@
 					<execution>
 						<phase>validate</phase>
 						<goals>
-							<goal>check</goal>
+							<goal>pmd</goal>
 						</goals>
 					</execution>
 				</executions>

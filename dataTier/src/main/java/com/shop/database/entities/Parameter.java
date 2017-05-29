@@ -3,7 +3,7 @@ package com.shop.database.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.lang.*;
+
 
 /**
  * Created by said on 06.05.2017.
