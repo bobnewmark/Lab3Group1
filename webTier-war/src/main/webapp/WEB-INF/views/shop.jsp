@@ -10,7 +10,8 @@
     <title>Online shop</title>
 
     <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet'
+          type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
@@ -37,10 +38,8 @@
     <script src="<c:url value='/resources/js/app.js' />"></script>
     <script src="<c:url value='/resources/js/item_controller.js' />"></script>
     <script src="<c:url value='/resources/js/item_service.js' />"></script>
-
 </head>
 <body ng-app="myApp" ng-controller="ItemController as ctrl">
-
 
 <div class="site-branding-area">
     <div class="container">
@@ -84,128 +83,67 @@
     </div>
 </div> <!-- End mainmenu area -->
 
-<div class="slider-area">
-    <!-- Slider -->
-    <div class="block-slider block-slider4">
-        <ul class="" id="bxslider-home4">
-            <li>
-                <img src="resources/img/h4-slide.png" alt="Slide">
-                <div class="caption-group">
-                    <h2 class="caption title">
-                        iPhone <span class="primary">6 <strong>Plus</strong></span>
-                    </h2>
-                    <h4 class="caption subtitle">Dual SIM</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                </div>
-            </li>
-            <li><img src="resources/img/h4-slide2.png" alt="Slide">
-                <div class="caption-group">
-                    <h2 class="caption title">
-                        by one, get one <span class="primary">50% <strong>off</strong></span>
-                    </h2>
-                    <h4 class="caption subtitle">school supplies & backpacks.*</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                </div>
-            </li>
-            <li><img src="resources/img/h4-slide3.png" alt="Slide">
-                <div class="caption-group">
-                    <h2 class="caption title">
-                        Apple <span class="primary">Store <strong>Ipod</strong></span>
-                    </h2>
-                    <h4 class="caption subtitle">Select Item</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                </div>
-            </li>
-            <li><img src="resources/img/h4-slide4.png" alt="Slide">
-                <div class="caption-group">
-                    <h2 class="caption title">
-                        Apple <span class="primary">Store <strong>Ipod</strong></span>
-                    </h2>
-                    <h4 class="caption subtitle">& Phone</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <!-- ./Slider -->
-</div> <!-- End slider area -->
-
-
-<div class="maincontent-area">
-    <div class="zigzag-bottom"></div>
+<div class="product-big-title-area">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="latest-product">
-                    <h2 class="section-title">Latest Products</h2>
-                    <div class="product-carousel" ng-cloak>
-
-                        <div class="single-product">
-                        <div class="product-f-image">
-                        <img src="resources/img/product-1.jpg" alt="">
-                        <div class="product-hover">
-                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                        <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                        </div>
-                        </div>
-
-                        <h2><a href="single-product.html">Samsung Galaxy s5- 2015</a></h2>
-
-                        <div class="product-carousel-price">
-                        <ins>$700.00</ins> <del>$100.00</del>
-                        </div>
-                        </div>
-
-
-                        <div class="single-product" id="test" ng-repeat="p in ctrl.items">
-                            <div class="product-f-image">
-                                <img src="resources/img/product-2.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
-                                        cart</a>
-                                    <a href="single-product.html" class="view-details-link"><i
-                                            class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-
-
-                            <h2 ng-bind="p.name"></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
-                        </div>
-
-
-                    </div>
+                <div class="product-bit-title text-center">
+                    <h2>Shop</h2>
                 </div>
             </div>
         </div>
     </div>
-</div> <!-- End main content area -->
+</div>
 
-<div class="brands-area">
+
+<div class="single-product-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="brand-wrapper">
-                    <div class="brand-list">
-                        <img src="resources/img/brand1.png" alt="">
-                        <img src="resources/img/brand2.png" alt="">
-                        <img src="resources/img/brand3.png" alt="">
-                        <img src="resources/img/brand4.png" alt="">
-                        <img src="resources/img/brand5.png" alt="">
-                        <img src="resources/img/brand6.png" alt="">
-                        <img src="resources/img/brand1.png" alt="">
-                        <img src="resources/img/brand2.png" alt="">
+            <div class="col-md-3 col-sm-6">
+
+                <div class="single-shop-product">
+                    <div class="product-upper">
+                        <img src="img/product-2.jpg" alt="">
                     </div>
+                    <h2><a href="">Apple new mac book 2015 March :P</a></h2>
+                    <div class="product-carousel-price">
+                        <ins>$899.00</ins> <del>$999.00</del>
+                    </div>
+
+                    <div class="product-option-shop">
+                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-pagination text-center">
+                    <nav>
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
-</div> <!-- End brands area -->
-
+</div>
 
 
 <div class="footer-bottom-area">
