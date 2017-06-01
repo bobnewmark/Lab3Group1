@@ -3,6 +3,7 @@ package com.lab.account.web;
 import com.lab.account.validator.UserValidator;
 import com.shop.database.entities.*;
 import com.shop.database.entities.Object;
+import com.shop.database.entities.Parameter;
 import com.shop.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,6 @@ import java.util.List;
 @Controller
 public class UserController {
     @Autowired
-    private UserService userService;
-    @Autowired
     private ObjectService objectService;
     @Autowired
     private ObjectTypeService objectTypeService;
@@ -39,13 +38,14 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-        model.addAttribute("userForm", new User());
+       /* model.addAttribute("userForm", new User());*/
 
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") Object userForm, BindingResult bindingResult, Model model) {
+/*
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {

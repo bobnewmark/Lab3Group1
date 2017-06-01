@@ -3,6 +3,8 @@ package com.shop.database.repositories;
 import com.shop.database.entities.Object;
 import com.shop.database.entities.ObjectType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -13,5 +15,7 @@ public interface ObjectRepository extends JpaRepository<Object, Integer> {
 
     Object findById(int id);
     List<Object> findByName(String name);
-    List<Object> findByObjectType(ObjectType objectType);
+    @Query("select o from Parameter p left join p.object o where p.attribute.name = :name and p.value = :value and p.attribute.objectType.name = :otName")
+    List<Object> findByIdAttr(@Param("name") String name, @Param("value") String value, @Param("otName") String otName );
+
 }

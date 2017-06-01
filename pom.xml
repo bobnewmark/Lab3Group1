@@ -10,12 +10,14 @@
     </description>
 
 	<properties>
-		<spring.version>4.2.0.RELEASE</spring.version>
-		<spring.data>1.3.4.RELEASE</spring.data>
-		<hb.manager>4.2.5.Final</hb.manager>
-		<spring.security>4.0.3.RELEASE</spring.security>
+		<spring.version>4.1.6.RELEASE</spring.version>
+		<spring.data>1.9.2.RELEASE</spring.data>
+		<hb.manager>5.0.7.Final</hb.manager>
+		<spring.security>3.2.0.RELEASE</spring.security>
 		<jstl.version>1.2</jstl.version>
 		<jackson.version>2.5.3</jackson.version>
+		<spring.test>4.1.6.RELEASE</spring.test>
+		<junit.version>4.11</junit.version>
 		<mysql.version>5.1.29</mysql.version>
 		<pmd.version>3.7</pmd.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -63,7 +65,11 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -78,6 +84,16 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hb.manager}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.2.Final</version> <!-- change version if required-->
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.1.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -119,6 +135,18 @@
 			<version>${spring.security}</version>
 		</dependency>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.test}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-core</artifactId>
 			<version>3.6.0</version>
@@ -127,11 +155,6 @@
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 			<version>2.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql.version}</version>
 		</dependency>
 	</dependencies>
 	<modules>
