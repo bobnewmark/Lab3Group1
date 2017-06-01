@@ -15,6 +15,7 @@ angular.module('myApp').factory('ItemService', ['$http', '$q', function($http, $
     return factory;
 
     function fetchAllItems() {
+        alert('IN SERVICE');
         var deferred = $q.defer();
         $http.get(REST_SERVICE_URI)
             .then(

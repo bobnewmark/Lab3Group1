@@ -1,9 +1,8 @@
 package com.lab.account.web;
 
 import com.lab.account.validator.UserValidator;
+import com.shop.database.entities.*;
 import com.shop.database.entities.Object;
-import com.shop.database.entities.Parameter;
-import com.shop.database.entities.User;
 import com.shop.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,6 +72,13 @@ public class UserController {
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String getIndexPage() {
+
+        //objectTypeService.save(new ObjectType("Phone", null, null));
+//        attributeService.save(new Attribute("price", objectTypeService.findById(10)));
+//        objectService.save(new Object("LG", objectTypeService.findById(10), null));
+//        objectService.save(new Object("Samsung", objectTypeService.findById(10), null));
+//        objectService.save(new Object("Nokia", objectTypeService.findById(10), null));
+
     /*    User user = new User();
         user.setId(1L);
         user.setUsername("slava");
@@ -82,7 +88,8 @@ public class UserController {
         set.add(new Role(1L,"ROLE_USER"));
         user.setRoles(set);
         userService.save(user);*/
-        return "UserManagement";
+        //return "UserManagement";
+        return "main";
     }
 
     @RequestMapping(value = {"/welcome"}, method = RequestMethod.GET)
@@ -118,9 +125,10 @@ public class UserController {
 //        return ResponseEntity.created(location).body(object);
 //    }
     @RequestMapping(value = {"/phone/{id}"})
-    public String details(@PathVariable("id") int id) throws URISyntaxException {
+    public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
         System.out.println("IN JAVA METHOD");
-        return "details";
+        model.addAttribute("test1", "test2");
+        return "welcome";
     }
 
 

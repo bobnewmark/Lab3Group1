@@ -15,6 +15,7 @@ angular.module('myApp').controller('ItemController', ['$scope', 'ItemService', f
     fetchAllItems();
 
     function fetchAllItems(){
+        alert('IN CONTROLLER');
         ItemService.fetchAllItems()
             .then(
                 function(d) {
