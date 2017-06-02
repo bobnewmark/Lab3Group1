@@ -1,3 +1,5 @@
+.username { float: right; color: white; background-color: #5a88ca; padding: 5px; margin-top:10px; }
+.logout { float: right; margin-left: 20px; margin-top:10px; padding: 5px;}
 .floatleft { float: left }
 .floatright { float: right }
 .alignleft {

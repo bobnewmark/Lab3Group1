@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp').controller('ItemController', ['$scope', 'ItemService', function($scope, ItemService) {
+angular.module('myApp').controller('ItemController', ['$scope', 'ItemService',  function($scope, ItemService) {
     var self = this;
     self.item = {};
     self.items=[];
@@ -10,12 +10,15 @@ angular.module('myApp').controller('ItemController', ['$scope', 'ItemService', f
     self.remove = remove;
     self.reset = reset;
     self.show = show;
-
-
+    function getClass() {
+        $scope.getClass = function (path) {
+            return ($location.path().substr(0, path.length) === path) ? 'active' : '';
+        }
+    }
+    getClass();
     fetchAllItems();
 
     function fetchAllItems(){
-        alert('IN CONTROLLER');
         ItemService.fetchAllItems()
             .then(
                 function(d) {

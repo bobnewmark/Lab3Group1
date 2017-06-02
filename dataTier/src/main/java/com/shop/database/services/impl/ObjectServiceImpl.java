@@ -20,7 +20,7 @@ public class ObjectServiceImpl implements ObjectService {
 
 
     public void save(Object object) {
-        objectRepository.save(object);
+        objectRepository.saveAndFlush(object);
     }
 
 

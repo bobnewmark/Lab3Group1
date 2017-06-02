@@ -11,5 +11,5 @@ import java.util.List;
 public interface ObjectTypeRepository extends JpaRepository<ObjectType, Integer> {
 
     ObjectType findById(int id);
-    List<ObjectType> findByName(String name);
+    ObjectType findByName(String name);
 }

@@ -23,11 +23,11 @@ public class Object {
     @Column(name = "NAME")
     private String name;
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "OBJECT_TYPE_ID", referencedColumnName = "OBJECT_TYPE_ID")
     private ObjectType objectType;
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "PARENT_ID", insertable = false, updatable = false)
     private Object parent;
     @LazyCollection(LazyCollectionOption.FALSE)

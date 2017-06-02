@@ -10,5 +10,5 @@ import java.util.List;
 public interface ObjectTypeService {
     void save(ObjectType objectType);
     ObjectType findById(int id);
-    List<ObjectType> findByName(String name);
+    ObjectType findByName(String name);
 }
