@@ -21,9 +21,10 @@ public class Testes {
    public Testes(){}
     @Test
     public void test(){
-/*for(Parameter p: service.findByIdAttr("name", "nokia", "phone").get(0).getParameters()){
-    System.out.println(p.getAttribute().getName()+" "+p.getValue());
-}*/
+       /* System.out.println(service.findByIdAttr("name", "phone", "nokia").size());
+       for(Parameter p: service.findByIdAttr("name", "phone", "nokia").get(0).getParameters()){
+            System.out.println(p.getAttribute().getName()+" "+p.getValue());
+       }*/
         assertEquals("1", "1");
     }
 }
