@@ -18,5 +18,7 @@ public interface ObjectRepository extends JpaRepository<Object, Integer> {
     @Query("select o from Parameter p left join p.object o where p.attribute.name = :name and p.value = :value and p.attribute.objectType.name = :otName")
     List<Object> findByIdAttr(@Param("otName") String name, @Param("name") String otName, @Param("value") String value);
     List<Object>findByObjectType(ObjectType objectType);
+    @Query("Select c from Object c where lower(c.name) like lower(CONCAT('%',:keyword,'%'))")
+    List<Object> findByNameContaining(@Param("keyword") String keyword);
 
 }

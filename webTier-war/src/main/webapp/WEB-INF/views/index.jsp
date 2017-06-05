@@ -11,7 +11,8 @@
     <title>Online shop</title>
 
     <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet'
+          type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
@@ -59,7 +60,10 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <sec:authorize access="isAuthenticated()"><div class="logout"><a href="${contextPath}/logout">logout</a></div><div class="username">login: <sec:authentication property="principal.username"/></div></sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    <div class="logout"><a href="${contextPath}/logout">logout</a></div>
+                    <div class="username">login: <sec:authentication property="principal.username"/></div>
+                </sec:authorize>
             </div>
         </div>
     </div>
@@ -81,14 +85,21 @@
                     <li class="active"><a href="${contextPath}/">Home</a></li>
                     <li><a href="#">Shop page</a></li>
                     <li><a href="#">Contacts</a></li>
-                    <li><input style="margin-top: 10px" type="text" placeholder="Search products..."></li>
-                    <sec:authorize access="!isAuthenticated()"><li><a href="${contextPath}/registration">login/registration</a></li></sec:authorize>
+                    <li>
+                        <form name="searchForm" action="${contextPath}/search/">
+                        <input style="margin-top: 10px" type="text" name="keyword" placeholder="Search products...">
+                        <%--<input type="submit" style="display:none;"/>--%>
+                        </form>
+                    </li>
+                    <sec:authorize access="!isAuthenticated()">
+                        <li><a href="${contextPath}/registration">login/registration</a></li>
+                    </sec:authorize>
                 </ul>
             </div>
         </div>
     </div>
 </div> <!-- End mainmenu area -->
-<jsp:include page="${current}"  flush="true"></jsp:include>
+<jsp:include page="${current}" flush="true"></jsp:include>
 <div class="footer-bottom-area">
     <div class="container">
         <div class="row">

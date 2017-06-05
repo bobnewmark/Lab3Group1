@@ -13,4 +13,5 @@ public interface ObjectService {
     Object findById(int id);
     List<Object> findByName(String name);
     List<Object> findByObjectType(ObjectType objectType);
+    List<Object> findByNameContaining(String keyword);
 }

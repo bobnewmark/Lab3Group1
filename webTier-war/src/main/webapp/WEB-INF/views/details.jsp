@@ -73,8 +73,6 @@
                                         <div role="tabpanel" class="tab-pane fade in active" id="home">
                                             <h2>Product Description</h2>
 
-
-
                                             <c:forEach var="entry" items="${paramsMap}">
                                                 <b> ${entry.key} : </b> ${entry.value} <br />
                                             </c:forEach>

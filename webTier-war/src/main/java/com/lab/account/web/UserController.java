@@ -6,6 +6,7 @@ import com.shop.database.entities.Object;
 import com.shop.database.entities.Parameter;
 import com.shop.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -135,4 +137,34 @@ public class UserController {
         }
         return new ResponseEntity<List<Object>>(objects, HttpStatus.OK);
     }
+
+    @RequestMapping(value = {"/search"})
+    public String search(Model model, HttpServletRequest request) {
+        String keyword = request.getParameter("keyword");
+        List<Object> result = objectService.findByNameContaining(keyword);
+        List<Map<String,String >> list = new ArrayList<>();
+        for (Object o: result) {
+            Map<String, String> itemInfo = new HashMap<>();
+            List<Parameter> params = o.getParameters();
+            for (Parameter p: params) {
+                if (p.getAttribute().getName().equals("name")) {
+                    itemInfo.put(p.getAttribute().getName(), p.getValue());
+                }
+                else if (p.getAttribute().getName().equals("icon")) {
+                    itemInfo.put(p.getAttribute().getName(), p.getValue());
+                }
+                else if (p.getAttribute().getName().equals("price")) {
+                    itemInfo.put(p.getAttribute().getName(), p.getValue());
+                }
+            }
+            list.add(itemInfo);
+        }
+        model.addAttribute("searchResult", list);
+        model.addAttribute("current", "/WEB-INF/views/search.jsp");
+        return "index";
+    }
+
+
+
+
 }
