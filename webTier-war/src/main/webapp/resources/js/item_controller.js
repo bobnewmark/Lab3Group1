@@ -43,7 +43,7 @@ angular.module('myApp').controller('ItemController', ['$scope', 'ItemService',  
     }
 
     function createUser(user){
-        UserService.createUser(user)
+        UserService.createItem(user)
             .then(
                 fetchAllUsers,
                 function(errResponse){

@@ -1,23 +1,21 @@
 package com.lab.account.web;
 
 import com.lab.account.validator.UserValidator;
-import com.shop.database.entities.*;
 import com.shop.database.entities.Object;
+import com.shop.database.entities.ObjectType;
 import com.shop.database.entities.Parameter;
 import com.shop.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URISyntaxException;
@@ -87,19 +85,28 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") Object userForm, BindingResult bindingResult, Model model) {
+    public String registration(@RequestParam("email")String login, @RequestParam("password")String password) {
+        System.out.println(login+" "+password);
+        Object user = new Object();
+       user.setName("user");
+       user.setObjectType(objectTypeService.findByName("user"));
+       user.setParameters(new ArrayList<Parameter>());
+        BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(11);
+       user.getParameters().add(new Parameter(user, attributeService.findById(4),login));
+        user.getParameters().add(new Parameter(user, attributeService.findById(5),encoder.encode(password)));
+        user.getParameters().add(new Parameter(user, attributeService.findById(6),"USER"));
+        objectService.save(user);
+        /*userValidator.validate(userForm, bindingResult);*/
 
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
+        /*if (bindingResult.hasErrors()) {
             return "registration";
-        }
+        }*/
 
-       /* userService.save(userForm);
+       /* userService.save(userForm);*/
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());*/
+        securityService.autologin(login, password);
 
-        return "redirect:/welcome";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -110,7 +117,7 @@ public class UserController {
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
-        return "index";
+        return "login";
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
@@ -127,10 +134,9 @@ public class UserController {
         }
         return new ResponseEntity<List<Object>>(objects, HttpStatus.OK);
     }
-
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
-        ObjectType phone = objectTypeService.findById(2);
+        ObjectType phone = objectTypeService.findByName("phone");
         List<Object> objects = objectService.findByObjectType(phone);
         if (objects.isEmpty()) {
             return new ResponseEntity<List<Object>>(HttpStatus.NO_CONTENT);

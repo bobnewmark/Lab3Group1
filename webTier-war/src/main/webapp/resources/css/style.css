@@ -712,6 +712,7 @@ ol.slide-indicators li.active {
 input[type="text"], input[type="password"], input[type="email"], textarea {
     border: 1px solid #ddd;
     padding: 10px;
+    width: 250px;
 }
 input[type="submit"], button[type=submit] {
     background: none repeat scroll 0 0 #5a88ca;
@@ -1101,14 +1102,28 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     margin-bottom: 5px;
 }
 #login-form-wrap input[type="text"], #login-form-wrap input[type="password"] {
-    margin-bottom: 10px;
     width: 250px;
 }
 #login-form-wrap input[type="submit"] {
     margin-bottom: 15px;
 }
 
-
+/*----------------------reg form------------------*/
+#registration-form-wrap, #coupon-collapse-wrap {
+    background: none repeat scroll 0 0 #f4f4f4;
+    margin-bottom: 30px;
+    padding: 25px;
+}
+#registration-form-wrap label {
+    display: block;
+    margin-bottom: 5px;
+}
+#registration-form-wrap input[type="text"], #login-form-wrap input[type="password"] {
+    width: 250px;
+}
+#registration-form-wrap input[type="submit"] {
+    margin-bottom: 15px;
+}
 
 .single-shop-product h2 {
     font-size: 20px;

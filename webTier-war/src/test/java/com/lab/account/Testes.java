@@ -1,5 +1,6 @@
 package com.lab.account;
 
+import com.shop.database.entities.Parameter;
 import com.shop.database.repositories.ObjectRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +22,9 @@ public class Testes {
    public Testes(){}
     @Test
     public void test(){
-       /* System.out.println(service.findByIdAttr("name", "phone", "nokia").size());
-       for(Parameter p: service.findByIdAttr("name", "phone", "nokia").get(0).getParameters()){
+       for(Parameter p: service.findByIdAttr("phone", "name", "nokia").get(0).getParameters()){
             System.out.println(p.getAttribute().getName()+" "+p.getValue());
-       }*/
+       }
         assertEquals("1", "1");
     }
 }
