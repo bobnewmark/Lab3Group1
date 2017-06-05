@@ -84,8 +84,15 @@
                     <li class="active"><a href="${contextPath}/">Home</a></li>
                     <li><a href="#">Shop page</a></li>
                     <li><a href="#">Contacts</a></li>
-                    <li><input style="margin-top: 10px" type="text" placeholder="Search products..."></li>
-                    <sec:authorize access="!isAuthenticated()"><li><a href="${contextPath}/registration">login/registration</a></li></sec:authorize>
+                    <li>
+                        <form name="searchForm" action="${contextPath}/search/">
+                        <input style="margin-top: 10px" type="text" name="keyword" placeholder="Search products...">
+                        <%--<input type="submit" style="display:none;"/>--%>
+                        </form>
+                    </li>
+                    <sec:authorize access="!isAuthenticated()">
+                        <li><a href="${contextPath}/registration">login/registration</a></li>
+                    </sec:authorize>
                 </ul>
             </div>
         </div>
