@@ -11,10 +11,13 @@
     <title>Online shop</title>
 
     <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css'>
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <!-- Bootstrap -->
     <link href="<c:url value='/resources/css/bootstrap.min.css' />" rel="stylesheet">
 
@@ -40,7 +43,7 @@
     <script src="<c:url value='/resources/js/item_service.js' />"></script>
 
 </head>
-<body ng-app="myApp" ng-controller="ItemController as ctrl">
+<body>
 
 
 <div class="site-branding-area">
@@ -125,7 +128,7 @@
 
 <!-- Main Script -->
 <script src="${contextPath}/resources/js/main.js" defer></script>
-
+<script src="${contextPath}/resources/js/index.js"></script>
 <!-- Slider -->
 <script type="text/javascript" src="${contextPath}/resources/js/bxslider.min.js" defer></script>
 <script type="text/javascript" src="${contextPath}/resources/js/script.slider.js" defer></script>
