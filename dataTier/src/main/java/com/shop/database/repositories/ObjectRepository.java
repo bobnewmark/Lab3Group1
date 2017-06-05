@@ -17,5 +17,6 @@ public interface ObjectRepository extends JpaRepository<Object, Integer> {
     List<Object> findByName(String name);
     @Query("select o from Parameter p left join p.object o where p.attribute.name = :name and p.value = :value and p.attribute.objectType.name = :otName")
     List<Object> findByIdAttr(@Param("otName") String name, @Param("name") String otName, @Param("value") String value);
+    List<Object>findByObjectType(ObjectType objectType);
 
 }

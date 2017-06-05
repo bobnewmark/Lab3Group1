@@ -45,7 +45,9 @@
         </ul>
     </div>
     <!-- ./Slider -->
-</div> <!-- End slider area -->
+</div>
+
+<!-- End slider area -->
 
 
 <div class="maincontent-area">
@@ -56,50 +58,56 @@
                 <div class="latest-product">
                     <h2 class="section-title">Latest Products</h2>
                     <div class="product-carousel" ng-cloak>
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage">
 
-                        <div class="single-product">
-                        <div class="product-f-image">
-                        <img src="${contextPath}/resources/img/product-1.jpg" alt="">
-                        <div class="product-hover">
-                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                        <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                        </div>
-                        </div>
+                                <%--<div class="single-product">--%>
+                                <%--<div class="product-f-image">--%>
+                                <%--<img src="${contextPath}/resources/img/product-1.jpg" alt="">--%>
+                                <%--<div class="product-hover">--%>
+                                <%--<a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>--%>
+                                <%--<a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>--%>
+                                <%--</div>--%>
+                                <%--</div>--%>
 
-                        <h2><a href="single-product.html">Samsung Galaxy s5- 2015</a></h2>
+                                <%--<h2><a href="single-product.html">Samsung Galaxy s5- 2015</a></h2>--%>
 
-                        <div class="product-carousel-price">
-                        <ins>$700.00</ins> <del>$100.00</del>
-                        </div>
-                        </div>
+                                <%--<div class="product-carousel-price">--%>
+                                <%--<ins>$700.00</ins> <del>$100.00</del>--%>
+                                <%--</div>--%>
+                                <%--</div>--%>
+
+                                <div class="owl-item cloned" ng-repeat="p in ctrl.items">
+                                    <div class="single-product">
+                                        <div class="product-f-image">
+                                            <img src="${contextPath}/resources/img/product-2.jpg" alt="">
+                                            <div class="product-hover">
+                                                <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
+                                                    Add to
+                                                    cart</a>
+                                                <a href="${contextPath}/details/{{p.id}}" class="view-details-link"><i
+                                                        class="fa fa-link"></i> See details</a>
+                                            </div>
+                                        </div>
 
 
-                        <div class="single-product" id="test" ng-repeat="p in ctrl.items">
-                            <div class="product-f-image">
-                                <img src="${contextPath}/resources/img/product-2.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
-                                        cart</a>
-                                    <a href="single-product.html" class="view-details-link"><i
-                                            class="fa fa-link"></i> See details</a>
+                                        <h2 ng-bind="p.name"></h2>
+                                        <div class="product-carousel-price">
+                                            <ins>$899.00</ins>
+                                            <del></del>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-
-                            <h2 ng-bind="p.name"></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins>
-                                <del>$999.00</del>
-                            </div>
                         </div>
-
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> <!-- End main content area -->
+</div>
+<!-- End main content area -->
 
 <div class="brands-area">
     <div class="zigzag-bottom"></div>
@@ -114,11 +122,10 @@
                         <img src="${contextPath}/resources/img/brand4.png" alt="">
                         <img src="${contextPath}/resources/img/brand5.png" alt="">
                         <img src="${contextPath}/resources/img/brand6.png" alt="">
-                        <img src="${contextPath}/resources/img/brand1.png" alt="">
-                        <img src="${contextPath}/resources/img/brand2.png" alt="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> <!-- End brands area -->
+</div>
+<!-- End brands area -->

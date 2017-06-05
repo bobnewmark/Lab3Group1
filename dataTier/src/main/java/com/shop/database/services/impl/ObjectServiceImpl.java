@@ -36,19 +36,6 @@ public class ObjectServiceImpl implements ObjectService {
 
 
     public List<Object> findByObjectType(ObjectType objectType) {
-        List<Object> objects = objectRepository.findByIdAttr("name", "nokia", "phone");
-        /*for(Object o: objects){
-            for(Attribute a: o.getObjectType().getAttributes()){
-                for(Parameter p: o.getParameters()){
-                    if(p.getAttribute().equals(a)) {
-                        o.getMapParameters().put(a.getName(), p);
-                    }
-                }
-                if(o.getMapParameters().containsKey(a.getName())){
-                    o.getMapParameters().put(a.getName(), null);
-                }
-            }
-        }*/
-        return objects;
+        return objectRepository.findByObjectType(objectType);
     }
 }

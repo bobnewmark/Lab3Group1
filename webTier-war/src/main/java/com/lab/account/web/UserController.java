@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -35,12 +37,41 @@ public class UserController {
     private ParameterService parameterService;
     @Autowired
     private AttributeService attributeService;
-
     @Autowired
     private UserValidator userValidator;
 
+    @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
+    public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
+        Object object = objectService.findById(id);
+        Map<String, String> map = new HashMap<>();
+        List<String> icons = new ArrayList<>();
+        for (Parameter p: object.getParameters()) {
+            if (p.getAttribute().getName().equals("name")) {
+                model.addAttribute("name", p.getValue());
+            }
+            else if (p.getAttribute().getName().equals("price")) {
+                model.addAttribute("price", p.getValue());
+            }
+            else if (p.getAttribute().getName().equals("icon")) {
+                model.addAttribute("mainIcon", p.getValue());
+            }
+            else if (p.getAttribute().getName().startsWith("icon") && !p.getAttribute().getName().equals("icon")) {
+                icons.add(p.getValue());
+            }
+            else {
+                map.put(p.getAttribute().getName(), p.getValue());
+            }
+        }
+        model.addAttribute("item", object);
+        model.addAttribute("paramsMap", map);
+        model.addAttribute("icons", icons);
+        model.addAttribute("current", "/WEB-INF/views/details.jsp");
+        return "index";
+    }
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
+        System.out.println("I'm working just fine");
         Object user = new Object();
         user.setObjectType(objectTypeService.findByName("user"));
         user.setParameters(new ArrayList<Parameter>());
@@ -82,17 +113,6 @@ public class UserController {
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String getIndexPage(Model model) {
-
-      /* Object user = new Object();
-       user.setName("user");
-       user.setObjectType(objectTypeService.findByName("user"));
-       user.setParameters(new ArrayList<Parameter>());
-        BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(11);
-       user.getParameters().add(new Parameter(user, attributeService.findById(1),"slava"));
-        user.getParameters().add(new Parameter(user, attributeService.findById(2),encoder.encode("123")));
-        user.getParameters().add(new Parameter(user, attributeService.findById(3),"ADMIN"));
-        objectService.save(user);*/
-        //return "UserManagement"; $2a$11$i8EpUaSZBhEP42ifIFPIEeiposD3rye4yRYrZIr8C3NNEe5vpmH7.
         model.addAttribute("current", "/WEB-INF/views/main.jsp");
         return "index";
     }
@@ -108,33 +128,11 @@ public class UserController {
 
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
-        System.out.println("HELLO123");
-        List<Object> objects = objectService.findByObjectType(objectTypeService.findById(10));
-        System.out.println("LIST OF OBJECTS SIZE " + objects.size());
-        for (Object o : objects) {
-            System.out.println("OBJECT NAME: " + o.getName());
-            for (Parameter p : o.getParameters()) {
-                System.out.println("parameter: " + p.getValue());
-            }
-        }
+        ObjectType phone = objectTypeService.findById(2);
+        List<Object> objects = objectService.findByObjectType(phone);
         if (objects.isEmpty()) {
             return new ResponseEntity<List<Object>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<Object>>(objects, HttpStatus.OK);
     }
-
-    //    @RequestMapping(value={"/phone/{id}"})
-//    public ResponseEntity<Object> details(@PathVariable("id") int id) throws URISyntaxException {
-//        URI location = new URI("/details");
-//        Object object = objectService.findById(id);
-//        return ResponseEntity.created(location).body(object);
-//    }
-    @RequestMapping(value = {"/phone/{id}"})
-    public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
-        System.out.println("IN JAVA METHOD");
-        model.addAttribute("test1", "test2");
-        return "welcome";
-    }
-
-
 }

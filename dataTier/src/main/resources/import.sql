@@ -1,8 +1,8 @@
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (1, 'brand', null);
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (2, 'phone', null);
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (3, 'headphones', 2);
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (4, 'charger',  2);
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (5, 'battery', 2);
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (2, 'Phone', null);
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (3, 'Headphones', 2);
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (4, 'Charger',  2);
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (5, 'Battery', 2);
 --attributes for brand
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (1, 'logo', 1);
 --attributes for phone
@@ -49,12 +49,12 @@ insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (4,
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (5, 'LG', 1, null);
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (6, 'Lenovo', 1, null);
 --adding brands logos
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1, '${contextPath}/resources/img/brand3.png', 1, 1);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (2, '${contextPath}/resources/img/brand5.png', 1, 2);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (3, '${contextPath}/resources/img/brand1.png', 1, 3);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (4, '${contextPath}/resources/img/brand4.png', 1, 4);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (5, '${contextPath}/resources/img/brand6.png', 1, 5);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (6, '${contextPath}/resources/img/brand2.png', 1, 6);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1, '/resources/img/brand3.png', 1, 1);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (2, '/resources/img/brand5.png', 1, 2);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (3, '/resources/img/brand1.png', 1, 3);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (4, '/resources/img/brand4.png', 1, 4);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (5, '/resources/img/brand6.png', 1, 5);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (6, '/resources/img/brand2.png', 1, 6);
 --adding phones
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (7, 'SM-J700H GALAXY J7 DS BLACK', 2, 1);
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (8, 'A510F GALAXY A5', 2, 1);
@@ -77,8 +77,8 @@ insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (23
 --adding parameters for phones
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (7, 'SAMSUNG SM-J700H GALAXY J7 DS BLACK', 2, 7);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (8, '5000', 3,  7);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (9, '${contextPath}/resources/img/SAMSUNG SM-J700H GALAXY J7 DS BLACK.jpg', 4,  7);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (10, '${contextPath}/resources/img/SAMSUNG SM-J700H GALAXY J7 DS BLACK-2.jpg', 5, 7);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (9, '/resources/img/SAMSUNGSM-J700HGALAXYJ7DSBLACK.jpg', 4,  7);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (10, '/resources/img/SAMSUNGSM-J700HGALAXYJ7DSBLACK-2.jpg', 5, 7);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (11, null, 6, 7);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (12, 'Android ', 7, 7);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (13, '5.5', 8, 7);
@@ -87,9 +87,9 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (16, 'SAMSUNG A510F GALAXY A5 BLACK', 2, 8);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (17, '8400', 3,  8);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (18, '${contextPath}/resources/img/SAMSUNG A510F GALAXY A5 (2016) (BLACK).jpg', 4,  8);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (19, '${contextPath}/resources/img/SAMSUNG A510F GALAXY A5 (2016) (BLACK)-2.jpg', 5, 8);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (20, '${contextPath}/resources/img/SAMSUNG A510F GALAXY A5 (2016) (BLACK)-3.jpg', 6, 8);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (18, '/resources/img/SAMSUNGA510FGALAXYA5(2016)(BLACK).jpg', 4,  8);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (19, '/resources/img/SAMSUNGA510FGALAXYA5(2016)(BLACK)-2.jpg', 5, 8);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (20, '/resources/img/SAMSUNGA510FGALAXYA5(2016)(BLACK)-3.jpg', 6, 8);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (21, 'Android ', 7, 8);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (22, '5.2', 8, 8);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (23, '0', 9, 8);
@@ -97,9 +97,9 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (2
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (25, 'SAMSUNG SM-J700H GALAXY J7 DS WHITE', 2, 9);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (26, '4900', 3,  9);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (27, '${contextPath}/resources/img/SAMSUNG SM-J700H GALAXY J7 DS WHITE.jpg', 4,  9);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (28, '${contextPath}/resources/img/SAMSUNG SM-J700H GALAXY J7 DS WHITE-2.jpg', 5, 9);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (29, '${contextPath}/resources/img/SAMSUNG SM-J700H GALAXY J7 DS WHITE-3.jpg', 6, 9);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (27, '/resources/img/SAMSUNGSM-J700HGALAXYJ7DSWHITE.jpg', 4,  9);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (28, '/resources/img/SAMSUNGSM-J700HGALAXYJ7DSWHITE-2.jpg', 5, 9);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (29, '/resources/img/SAMSUNGSM-J700HGALAXYJ7DSWHITE-3.jpg', 6, 9);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (30, 'Android ', 7, 9);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (31, '5.5', 8, 9);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (32, '0', 9, 9);
@@ -107,9 +107,9 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (3
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (34, 'LENOVO K5 (A6020A40) DUAL SIM GREY', 2, 10);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (35, '3800', 3, 10);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (36, '${contextPath}/resources/img/LENOVO K5 (A6020A40) DUAL SIM (GREY).jpg', 4,  10);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (37, '${contextPath}/resources/img/LENOVO K5 (A6020A40) DUAL SIM (GREY)-2.jpg', 5, 10);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (38, '${contextPath}/resources/img/LENOVO K5 (A6020A40) DUAL SIM (GREY)-3.jpg', 6, 10);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (36, '/resources/img/LENOVOK5(A6020A40)DUALSIM(GREY).jpg', 4,  10);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (37, '/resources/img/LENOVOK5(A6020A40)DUALSIM(GREY)-2.jpg', 5, 10);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (38, '/resources/img/LENOVOK5(A6020A40)DUALSIM(GREY)-3.jpg', 6, 10);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (39, 'Android ', 7, 10);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (40, '5', 8, 10);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (41, '0', 9, 10);
@@ -117,8 +117,8 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (4
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (43, 'HTC DESIRE 630 DUAL SIM DARK GREY', 2, 11);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (44, '4999', 3,11);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (45, '${contextPath}/resources/img/HTC DESIRE 630 DUAL SIM DARK GREY.jpg', 4,  11);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (46, '${contextPath}/resources/img/HTC DESIRE 630 DUAL SIM DARK GREY-2.jpg', 5, 11);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (45, '/resources/img/HTCDESIRE630DUALSIMDARKGREY.jpg', 4,  11);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (46, '/resources/img/HTCDESIRE630DUALSIMDARKGREY-2.jpg', 5, 11);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (47, null, 6, 11);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (48, 'Android ', 7, 11);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (49, '5.5', 8,11);
@@ -127,9 +127,9 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (5
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (52, 'IPHONE 7 32GB ROSE GOLD', 2, 12);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (53, '19200', 3,  12);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (54, '${contextPath}/resources/img/IPHONE 7 32GB ROSE GOLD.jpg', 4,  12);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (55, '${contextPath}/resources/img/IPHONE 7 32GB ROSE GOLD-2.jpg', 5, 12);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (56, '${contextPath}/resources/img/IPHONE 7 32GB ROSE GOLD-3.jpg', 6, 12);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (54, '/resources/img/IPHONE732GBROSEGOLD.jpg', 4,  12);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (55, '/resources/img/IPHONE732GBROSEGOLD-2.jpg', 5, 12);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (56, '/resources/img/IPHONE732GBROSEGOLD-3.jpg', 6, 12);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (57, 'iOS ', 7, 12);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (58, '4.7', 8, 12);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (59, '0', 9,12);
@@ -137,9 +137,9 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (6
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (61, 'IPHONE 6S 128GB GOLD', 2, 13);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (62, '21300', 3,  13);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (63, '${contextPath}/resources/img/APPLE IPHONE 6S 128GB GOLD.jpg', 4,  13);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (64, '${contextPath}/resources/img/APPLE IPHONE 6S 128GB GOLD-2.jpg', 5, 13);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (65, '${contextPath}/resources/img/APPLE IPHONE 6S 128GB GOLD-3.jpg', 6, 13);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (63, '/resources/img/APPLEIPHONE6S128GBGOLD.jpg', 4,  13);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (64, '/resources/img/APPLEIPHONE6S128GBGOLD-2.jpg', 5, 13);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (65, '/resources/img/APPLEIPHONE6S128GBGOLD-3.jpg', 6, 13);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (66, 'iOS', 7, 13);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (67, '4.7', 8, 13);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (68, '0', 9, 13);
@@ -147,9 +147,9 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (6
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (70, 'LG K500 X VIEW WHITE', 2, 14);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (71, '5700', 3,  14);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (72, '${contextPath}/resources/img/LG K500 X VIEW WHITE.jpg', 4,  14);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (73, '${contextPath}/resources/img/LG K500 X VIEW WHITE-2.jpg', 5, 14);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (74, '${contextPath}/resources/img/LG K500 X VIEW WHITE-3.jpg', 6, 14);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (72, '/resources/img/LGK500XVIEWWHITE.jpg', 4,  14);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (73, '/resources/img/LGK500XVIEWWHITE-2.jpg', 5, 14);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (74, '/resources/img/LGK500XVIEWWHITE-3.jpg', 6, 14);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (75, 'Android ', 7, 14);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (76, '5', 8, 14);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (77, '0', 9, 14);
@@ -157,9 +157,9 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (7
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (79, 'SONY XPERIA XA ULTRA DUAL F3212 WHITE', 2, 15);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (80, '9200', 3,  15);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (81, '${contextPath}/resources/img/SONY XPERIA XA ULTRA DUAL F3212 (WHITE).jpg', 4,  15);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (82, '${contextPath}/resources/img/SONY XPERIA XA ULTRA DUAL F3212 (WHITE)-2.jpg', 5, 15);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (83, '${contextPath}/resources/img/SONY XPERIA XA ULTRA DUAL F3212 (WHITE)-3.jpg', 6, 15);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (81, '/resources/img/SONYXPERIAXAULTRADUALF3212(WHITE).jpg', 4,  15);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (82, '/resources/img/SONYXPERIAXAULTRADUALF3212(WHITE)-2.jpg', 5, 15);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (83, '/resources/img/SONYXPERIAXAULTRADUALF3212(WHITE)-3.jpg', 6, 15);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (84, 'Android ', 7, 15);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (85, '6', 8, 15);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (86, '0', 9, 15);
@@ -167,9 +167,9 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (8
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (88, 'SONY XPERIA XA ULTRA DL F3212 GRAPH BLACK', 2, 16);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (89, '9200', 3,  16);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (90, '${contextPath}/resources/img/SONY XPERIA XA ULTRA DL F3212 GRAPH BLACK.jpg', 4,  16);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (91, '${contextPath}/resources/img/SONY XPERIA XA ULTRA DL F3212 GRAPH BLACK-2.jpg', 5, 16);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (92, '${contextPath}/resources/img/SONY XPERIA XA ULTRA DL F3212 GRAPH BLACK-3.jpg', 6, 16);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (90, '/resources/img/SONYXPERIAXAULTRADLF3212GRAPHBLACK.jpg', 4,  16);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (91, '/resources/img/SONYXPERIAXAULTRADLF3212GRAPHBLACK-2.jpg', 5, 16);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (92, '/resources/img/SONYXPERIAXAULTRADLF3212GRAPHBLACK-3.jpg', 6, 16);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (93, 'Android ', 7, 16);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (94, '6', 8, 16);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (95, '0', 9, 16);
@@ -180,7 +180,7 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (9
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (99, '0', 29, 17);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (100, '10', 30, 17);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (101, '3100 мАч', 31, 17);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (102, '${contextPath}/resources/img/АК-Р SAMSUNG EB595675LU.jpg', 32, 17);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (102, '/resources/img/АК-РSAMSUNGEB595675LU.jpg', 32, 17);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (103, null, 33, 17);
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (104, 'Аккумулятор для мобильного LENOVO BL192', 27, 18);
@@ -188,7 +188,7 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (106, '0', 29, 18);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (107, '10', 30, 18);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (108, '2000 мАч', 31, 18);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (109, '${contextPath}/resources/img/LENOVO BL192 (2000 MAH).jpg', 32, 18);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (109, '/resources/img/LENOVOBL192(2000 MAH).jpg', 32, 18);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (110, null, 33, 18);
 ---adding parameters for chargers
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (111, 'Зарядное устройство SAMSUNG ACADU10CBECSTD (BLACK) UNIVERSAL CAR CHARGER', 19, 19);
@@ -197,8 +197,8 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (114, '0', 22, 19);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (115, '10', 23, 19);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (116, '0.7 А', 24, 19);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (117, '${contextPath}/resources/img/SAMSUNG ACADU10CBECSTD (BLACK) UNIVERSAL CAR CHARGER.jpg', 25, 19);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (118, '${contextPath}/resources/img/SAMSUNG ACADU10CBECSTD (BLACK) UNIVERSAL CAR CHARGER-2.jpg', 26, 19);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (117, '/resources/img/SAMSUNGACADU10CBECSTD(BLACK)UNIVERSALCARCHARGER.jpg', 25, 19);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (118, '/resources/img/SAMSUNGACADU10CBECSTD(BLACK)UNIVERSALCARCHARGER-2.jpg', 26, 19);
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (119, 'Зарядное устройство SAMSUNG ETAOU10', 19, 20);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (120, '150', 20, 20);
@@ -206,12 +206,12 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (122, '0', 22, 20);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (123, '10', 23, 20);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (124, '0.7 А', 24, 20);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (125, '${contextPath}/resources/img/SAMSUNG ETAOU10.jpg', 25, 20);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (126, '${contextPath}/resources/img/SAMSUNG ETAOU10-2.jpg', 26, 20);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (125, '/resources/img/SAMSUNGETAOU10.jpg', 25, 20);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (126, '/resources/img/SAMSUNGETAOU10-2.jpg', 26, 20);
 ---adding parameters for headphones
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (127, 'Гарнитура проводная SAMSUNG HS1303BEGRU Black', 11, 21);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (128, '300', 12, 21);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (129, '${contextPath}/resources/img/SAMSUNG HS1303BEGRU Black.jpg', 13, 21);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (129, '/resources/img/SAMSUNGHS1303BEGRUBlack.jpg', 13, 21);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (130, null, 14, 21);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (131, null, 15, 21);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (132, '-', 16, 21);
@@ -220,7 +220,7 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (135, 'Гарнитура проводная SAMSUNG HS1303BEGRU Black', 11, 22);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (136, '300', 12, 22);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (137, '${contextPath}/resources/img/SAMSUNG HS1303WEGRU White.jpg', 13, 22);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (137, '/resources/img/SAMSUNGHS1303WEGRUWhite.jpg', 13, 22);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (138, null, 14, 22);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (139, null, 15, 22);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (140, '-', 16, 22);
@@ -229,8 +229,8 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1
 ------------
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (143, 'Гарнитура Samsung In ear Fit EO-EG920LWEGRU White', 11, 23);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (144, '450', 12, 23);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (145, '${contextPath}/resources/img/Samsung In ear Fit EO-EG920LWEGRU White.jpg', 13, 23);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (146, '${contextPath}/resources/img/Samsung In ear Fit EO-EG920LWEGRU White-2.jpg', 14, 23);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (145, '/resources/img/SamsungInearFitEO-EG920LWEGRUWhite.jpg', 13, 23);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (146, '/resources/img/SamsungInearFitEO-EG920LWEGRUWhite-2.jpg', 14, 23);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (147, null, 15, 23);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (148, '+', 16, 23);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (149, '0', 17, 23);
