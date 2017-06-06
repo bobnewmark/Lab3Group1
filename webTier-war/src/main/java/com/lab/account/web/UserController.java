@@ -136,8 +136,9 @@ public class UserController {
     }
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
-        ObjectType phone = objectTypeService.findByName("phone");
+        ObjectType phone = objectTypeService.findByName("Phone");
         List<Object> objects = objectService.findByObjectType(phone);
+        System.out.println("=============LIST OF OBJECTS IS " + objects.size());
         if (objects.isEmpty()) {
             return new ResponseEntity<List<Object>>(HttpStatus.NO_CONTENT);
         }
