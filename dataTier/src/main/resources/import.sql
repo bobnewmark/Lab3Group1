@@ -175,41 +175,41 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (9
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (95, '0', 9, 16);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (96, '10', 10, 16);
 ---adding parameters for batteries
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (97, 'Аккумулятор для мобильного АК-Р SAMSUNG EB595675LU', 27, 17);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (97, 'Phone battery AK-P SAMSUNG EB595675LU', 27, 17);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (98, '300', 28, 17);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (99, '0', 29, 17);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (100, '10', 30, 17);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (101, '3100 мАч', 31, 17);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (102, '/resources/img/АК-РSAMSUNGEB595675LU.jpg', 32, 17);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (101, '3100 mAh', 31, 17);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (102, '/resources/img/AK-PSAMSUNGEB595675LU.jpg', 32, 17);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (103, null, 33, 17);
 ------------
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (104, 'Аккумулятор для мобильного LENOVO BL192', 27, 18);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (104, 'Phone battery LENOVO BL192', 27, 18);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (105, '300', 28, 18);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (106, '0', 29, 18);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (107, '10', 30, 18);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (108, '2000 мАч', 31, 18);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (109, '/resources/img/LENOVOBL192(2000 MAH).jpg', 32, 18);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (108, '2000 mAh', 31, 18);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (109, '/resources/img/LENOVOBL192(2000MAH).jpg', 32, 18);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (110, null, 33, 18);
 ---adding parameters for chargers
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (111, 'Зарядное устройство SAMSUNG ACADU10CBECSTD (BLACK) UNIVERSAL CAR CHARGER', 19, 19);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (111, 'Charger SAMSUNG ACADU10CBECSTD (BLACK) UNIVERSAL CAR CHARGER', 19, 19);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (112, '250', 20, 19);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (113, '1.5 м', 21, 19);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (113, '1.5 m', 21, 19);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (114, '0', 22, 19);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (115, '10', 23, 19);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (116, '0.7 А', 24, 19);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (116, '0.7 A', 24, 19);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (117, '/resources/img/SAMSUNGACADU10CBECSTD(BLACK)UNIVERSALCARCHARGER.jpg', 25, 19);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (118, '/resources/img/SAMSUNGACADU10CBECSTD(BLACK)UNIVERSALCARCHARGER-2.jpg', 26, 19);
 ------------
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (119, 'Зарядное устройство SAMSUNG ETAOU10', 19, 20);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (119, 'Charger SAMSUNG ETAOU10', 19, 20);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (120, '150', 20, 20);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (121, '1.2 м', 21, 20);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (121, '1.2 m', 21, 20);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (122, '0', 22, 20);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (123, '10', 23, 20);
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (124, '0.7 А', 24, 20);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (124, '0.7 A', 24, 20);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (125, '/resources/img/SAMSUNGETAOU10.jpg', 25, 20);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (126, '/resources/img/SAMSUNGETAOU10-2.jpg', 26, 20);
 ---adding parameters for headphones
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (127, 'Гарнитура проводная SAMSUNG HS1303BEGRU Black', 11, 21);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (127, 'Headset SAMSUNG HS1303BEGRU Black', 11, 21);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (128, '300', 12, 21);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (129, '/resources/img/SAMSUNGHS1303BEGRUBlack.jpg', 13, 21);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (130, null, 14, 21);
@@ -218,7 +218,7 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (133, '0', 17, 21);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (134, '10', 18, 21);
 ------------
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (135, 'Гарнитура проводная SAMSUNG HS1303BEGRU Black', 11, 22);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (135, 'Headset SAMSUNG HS1303BEGRU Black', 11, 22);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (136, '300', 12, 22);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (137, '/resources/img/SAMSUNGHS1303WEGRUWhite.jpg', 13, 22);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (138, null, 14, 22);
@@ -227,7 +227,7 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (141, '0', 17, 22);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (142, '10', 18, 22);
 ------------
-insert into lab3_params (parameter_id, value, attribute_id, object_id) values (143, 'Гарнитура Samsung In ear Fit EO-EG920LWEGRU White', 11, 23);
+insert into lab3_params (parameter_id, value, attribute_id, object_id) values (143, 'Headset Samsung In ear Fit EO-EG920LWEGRU White', 11, 23);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (144, '450', 12, 23);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (145, '/resources/img/SamsungInearFitEO-EG920LWEGRUWhite.jpg', 13, 23);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (146, '/resources/img/SamsungInearFitEO-EG920LWEGRUWhite-2.jpg', 14, 23);

@@ -82,8 +82,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="${contextPath}/">Home</a></li>
-                    <li><a href="#">Shop page</a></li>
-                    <li><a href="#">Contacts</a></li>
+                    <li><a href="${contextPath}/shop">Shop page</a></li>
+                    <li><a href="${contextPath}/contacts">Contacts</a></li>
                     <li>
                         <form name="searchForm" action="${contextPath}/search/">
                         <input style="margin-top: 10px" type="text" name="keyword" placeholder="Search products...">

@@ -55,7 +55,9 @@ public class UserController {
             else if (p.getAttribute().getName().equals("icon")) {
                 model.addAttribute("mainIcon", p.getValue());
             }
-            else if (p.getAttribute().getName().startsWith("icon") && !p.getAttribute().getName().equals("icon")) {
+            else if (p.getAttribute().getName().startsWith("icon")
+                    && !p.getAttribute().getName().equals("icon")
+                    && p.getValue() != null) {
                 icons.add(p.getValue());
             }
             else {
@@ -134,34 +136,68 @@ public class UserController {
         }
         return new ResponseEntity<List<Object>>(objects, HttpStatus.OK);
     }
+//    @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
+//    public ResponseEntity<List<Object>> phones() {
+//        ObjectType phone = objectTypeService.findByName("Phone");
+//        List<Object> objects = objectService.findByObjectType(phone);
+//        if (objects.isEmpty()) {
+//            return new ResponseEntity<List<Object>>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<List<Object>>(objects, HttpStatus.OK);
+//    }
+
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
-    public ResponseEntity<List<Object>> phones() {
+    public ResponseEntity<List<Map<String,String>>> phones() {
         ObjectType phone = objectTypeService.findByName("Phone");
         List<Object> objects = objectService.findByObjectType(phone);
-        System.out.println("=============LIST OF OBJECTS IS " + objects.size());
-        if (objects.isEmpty()) {
-            return new ResponseEntity<List<Object>>(HttpStatus.NO_CONTENT);
+
+        List<Map<String,String>> list = new ArrayList<>();
+        for (Object o: objects) {
+            Map<String, String> itemInfo = new HashMap<>();
+            itemInfo.put("id", String.valueOf(o.getId()));
+            List<Parameter> params = o.getParameters();
+            for (Parameter p: params) {
+                switch (p.getAttribute().getName()) {
+                    case "name":
+                        itemInfo.put(p.getAttribute().getName(), p.getValue());
+                        break;
+                    case "icon":
+                        itemInfo.put(p.getAttribute().getName(), p.getValue());
+                        break;
+                    case "price":
+                        itemInfo.put(p.getAttribute().getName(), p.getValue());
+                        break;
+                }
+            }
+            list.add(itemInfo);
         }
-        return new ResponseEntity<List<Object>>(objects, HttpStatus.OK);
+        if (objects.isEmpty()) {
+            return new ResponseEntity<List<Map<String,String>>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Map<String,String>>>(list, HttpStatus.OK);
     }
+
 
     @RequestMapping(value = {"/search"})
     public String search(Model model, HttpServletRequest request) {
         String keyword = request.getParameter("keyword");
         List<Object> result = objectService.findByNameContaining(keyword);
-        List<Map<String,String >> list = new ArrayList<>();
+        List<Map<String,String>> list = new ArrayList<>();
         for (Object o: result) {
             Map<String, String> itemInfo = new HashMap<>();
+            itemInfo.put("id", String.valueOf(o.getId()));
             List<Parameter> params = o.getParameters();
             for (Parameter p: params) {
-                if (p.getAttribute().getName().equals("name")) {
-                    itemInfo.put(p.getAttribute().getName(), p.getValue());
-                }
-                else if (p.getAttribute().getName().equals("icon")) {
-                    itemInfo.put(p.getAttribute().getName(), p.getValue());
-                }
-                else if (p.getAttribute().getName().equals("price")) {
-                    itemInfo.put(p.getAttribute().getName(), p.getValue());
+                switch (p.getAttribute().getName()) {
+                    case "name":
+                        itemInfo.put(p.getAttribute().getName(), p.getValue());
+                        break;
+                    case "icon":
+                        itemInfo.put(p.getAttribute().getName(), p.getValue());
+                        break;
+                    case "price":
+                        itemInfo.put(p.getAttribute().getName(), p.getValue());
+                        break;
                 }
             }
             list.add(itemInfo);
@@ -171,7 +207,41 @@ public class UserController {
         return "index";
     }
 
+    @RequestMapping(value = {"/shop"}, method = RequestMethod.GET)
+    public String allProducts(Model model) throws URISyntaxException {
+        List<Object> result = new ArrayList<>();
+        result.addAll(objectService.findByObjectType(objectTypeService.findByName("Phone")));
+        result.addAll(objectService.findByObjectType(objectTypeService.findByName("Headphones")));
+        result.addAll(objectService.findByObjectType(objectTypeService.findByName("Charger")));
+        result.addAll(objectService.findByObjectType(objectTypeService.findByName("Battery")));
+        List<Map<String,String>> list = new ArrayList<>();
+        for (Object o: result) {
+            Map<String, String> itemInfo = new HashMap<>();
+            itemInfo.put("id", String.valueOf(o.getId()));
+            List<Parameter> params = o.getParameters();
+            for (Parameter p: params) {
+                switch (p.getAttribute().getName()) {
+                    case "name":
+                        itemInfo.put(p.getAttribute().getName(), p.getValue());
+                        break;
+                    case "icon":
+                        itemInfo.put(p.getAttribute().getName(), p.getValue());
+                        break;
+                    case "price":
+                        itemInfo.put(p.getAttribute().getName(), p.getValue());
+                        break;
+                }
+            }
+            list.add(itemInfo);
+        }
+        model.addAttribute("allProducts", list);
+        model.addAttribute("current", "/WEB-INF/views/shop.jsp");
+        return "index";
+    }
 
-
-
+    @RequestMapping(value = {"/contacts"}, method = RequestMethod.GET)
+    public String contacts(Model model) {
+        model.addAttribute("current", "/WEB-INF/views/contacts.jsp");
+        return "index";
+    }
 }

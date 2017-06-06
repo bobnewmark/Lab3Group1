@@ -77,27 +77,27 @@
                                 <%--</div>--%>
                                 <%--</div>--%>
 
-                                <div class="owl-item cloned" ng-repeat="p in ctrl.items">
-                                    <div class="single-product">
-                                        <div class="product-f-image">
-                                            <img src="${contextPath}/resources/img/product-2.jpg" alt="">
-                                            <div class="product-hover">
-                                                <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
-                                                    Add to
-                                                    cart</a>
-                                                <a href="${contextPath}/details/{{p.id}}" class="view-details-link"><i
-                                                        class="fa fa-link"></i> See details</a>
-                                            </div>
-                                        </div>
 
-
-                                        <h2 ng-bind="p.name"></h2>
-                                        <div class="product-carousel-price">
-                                            <ins>$899.00</ins>
-                                            <del></del>
+                                <div class="single-product" ng-repeat="p in ctrl.items">
+                                    <div class="product-f-image">
+                                        <img src="${contextPath}{{p.icon}}" alt="">
+                                        <div class="product-hover">
+                                            <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
+                                                Add to
+                                                cart</a>
+                                            <a href="${contextPath}/details/{{p.id}}" class="view-details-link"><i
+                                                    class="fa fa-link"></i> See details</a>
                                         </div>
                                     </div>
+
+
+                                    <h2 ng-bind="p.name"></h2>
+                                    <div class="product-carousel-price">
+                                        <ins ng-bind="p.price"></ins>
+                                        <del></del>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
 

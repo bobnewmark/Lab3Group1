@@ -34,21 +34,17 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="product-images">
+
                                 <div class="product-main-img">
                                     <img src="${contextPath}${mainIcon}" alt="">
-                                    <%--<img src="${contextPath}/resources/img/product-2.jpg" alt="">--%>
                                 </div>
 
                                 <div class="product-gallery">
-
                                     <c:forEach var="icon" items="${icons}">
                                         <img src="${contextPath}${icon}" alt="">
                                     </c:forEach>
-
-                                    <%--<img src="${contextPath}/resources/img/product-thumb-1.jpg" alt="">--%>
-                                    <%--<img src="${contextPath}/resources/img/product-thumb-2.jpg" alt="">--%>
-                                    <%--<img src="${contextPath}/resources/img/product-thumb-3.jpg" alt="">--%>
                                 </div>
+
                             </div>
                         </div>
 
