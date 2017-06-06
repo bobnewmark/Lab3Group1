@@ -57,9 +57,9 @@
             <div class="col-md-12">
                 <div class="latest-product">
                     <h2 class="section-title">Latest Products</h2>
-                    <div class="product-carousel" ng-cloak>
+                   <%-- <div class="product-carousel" ng-cloak>
                         <div class="owl-stage-outer">
-                            <div class="owl-stage">
+                            <div class="owl-stage">--%>
 
                                 <%--<div class="single-product">--%>
                                 <%--<div class="product-f-image">--%>
@@ -77,31 +77,34 @@
                                 <%--</div>--%>
                                 <%--</div>--%>
 
+                                    <data-owl-carousel class="owl-carousel" data-options="{navigation: true, pagination: false, rewindNav : false}">
+                                        <div owl-carousel-item="" ng-repeat="p in ctrl.items" class="item">
+                                            <div class="product-f-image">
+                                                <img src="${contextPath}{{p.icon}}" alt="">
+                                                <div class="product-hover">
+                                                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
+                                                        Add to
+                                                        cart</a>
+                                                    <a href="${contextPath}/details/{{p.id}}" class="view-details-link"><i
+                                                            class="fa fa-link"></i> See details</a>
+                                                </div>
+                                            </div>
 
-                                <div class="single-product" ng-repeat="p in ctrl.items">
-                                    <div class="product-f-image">
-                                        <img src="${contextPath}{{p.icon}}" alt="">
-                                        <div class="product-hover">
-                                            <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
-                                                Add to
-                                                cart</a>
-                                            <a href="${contextPath}/details/{{p.id}}" class="view-details-link"><i
-                                                    class="fa fa-link"></i> See details</a>
+                                            <h2 ng-bind="p.name"></h2>
+                                            <div class="product-carousel-price">
+                                                <ins ng-bind="p.price"></ins>
+                                                <del></del>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </data-owl-carousel>
 
 
-                                    <h2 ng-bind="p.name"></h2>
-                                    <div class="product-carousel-price">
-                                        <ins ng-bind="p.price"></ins>
-                                        <del></del>
-                                    </div>
-                                </div>
 
-                            </div>
+
+                          <%--  </div>
                         </div>
 
-                    </div>
+                    </div>--%>
                 </div>
             </div>
         </div>
