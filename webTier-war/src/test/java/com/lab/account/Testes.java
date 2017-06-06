@@ -22,7 +22,7 @@ public class Testes {
    public Testes(){}
     @Test
     public void test(){
-       for(Parameter p: service.findByIdAttr("phone", "name", "nokia").get(0).getParameters()){
+       for(Parameter p: service.findByIdAttr("Phone", "name", "IPHONE 7 32GB ROSE GOLD").get(0).getParameters()){
             System.out.println(p.getAttribute().getName()+" "+p.getValue());
        }
         assertEquals("1", "1");
