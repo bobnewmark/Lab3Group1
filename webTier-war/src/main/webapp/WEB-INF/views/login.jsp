@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-
 <div class="product-big-title-area">
     <div class="container">
         <div class="row">
@@ -78,7 +77,7 @@
             </div>
             <div class="col-md-6">
                 <div class="product-content-right">
-                    <div class="woocommerce"  ng-app="validationApp" ng-controller="mainController">
+                    <div class="woocommerce" ng-controller="mainController">
 
 
                         <form id="registration-form-wrap" action="${contextPath}/registration"
@@ -113,7 +112,6 @@
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <input type="password" id="confirmpass" name="confirmpassword" class="input-text" ng-model="user.confirmpassword" data-password-verify="user.password" required>
                             </div>
-                            <p ng-show="userForm.confirmpassword.$invalid && !userForm.confirmpassword.$pristine" class="help-block">You name is required.</p>
                             <p ng-show="userForm.confirmpassword.$error.passwordVerify" class="help-block">Пароли не совпадают</p>
                             </p>
                             <div class="clear"><span>${error}</span></div>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp').factory('ItemService', ['$http', '$q', function($http, $q){
+App.factory('ItemService', ['$http', '$q', function($http, $q){
 
     var REST_SERVICE_URI = 'http://localhost:7001/laba/phone/';
 

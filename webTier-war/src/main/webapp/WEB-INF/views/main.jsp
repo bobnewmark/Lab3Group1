@@ -50,7 +50,7 @@
 <!-- End slider area -->
 
 
-<div class="maincontent-area" ng-app="myApp" ng-controller="ItemController as ctrl">
+<div class="maincontent-area" ng-controller="ItemController as ctrl">
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">

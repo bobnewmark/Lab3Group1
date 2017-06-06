@@ -1,6 +1,6 @@
-// create angular app
-	var validationApp = angular.module('validationApp', []);
-    validationApp.factory('Service', ['$http', '$q', function($http, $q){
+
+var App = angular.module('myApp', []);
+App.factory('Service', ['$http', '$q', function($http, $q){
 
     var SERVICE_URI = 'http://localhost:7001/laba/registration/';
 
@@ -40,7 +40,7 @@
 }]);
 
 	// create angular controller
-	validationApp.controller('mainController',['$scope', 'Service',  function($scope, Service){
+App.controller('mainController',['$scope', 'Service',  function($scope, Service){
         var self = this;
         self.item = {};
         self.items=[];
@@ -64,8 +64,10 @@
 
 		};
 
+
 	}]);
-validationApp.directive("passwordVerify", function() {
+
+App.directive("passwordVerify", function() {
     return {
         require: "ngModel",
         scope: {

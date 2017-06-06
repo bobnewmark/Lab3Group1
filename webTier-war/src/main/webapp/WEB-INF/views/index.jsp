@@ -36,16 +36,15 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-resource.js"></script>
-    <script src="<c:url value='/resources/js/app.js' />"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+   <%-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-resource.js"></script>--%>
+    <%--<script src="<c:url value='/resources/js/app.js' />"></script>--%>
+    <script src="<c:url value='/resources/js/index.js' />"></script>
     <script src="<c:url value='/resources/js/item_controller.js' />"></script>
     <script src="<c:url value='/resources/js/item_service.js' />"></script>
-
+    <script src="<c:url value='/resources/js/MenuCtrl.js' />"></script>
 </head>
-<body>
-
-
+<body ng-app="myApp">
 <div class="site-branding-area">
     <div class="container">
         <div class="row">
@@ -68,7 +67,7 @@
     </div>
 </div> <!-- End site branding area -->
 
-<div class="mainmenu-area">
+<div class="mainmenu-area" ng-controller="MenuCtrl">
     <div class="container">
         <div class="row">
             <div class="navbar-header">
@@ -81,9 +80,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="${contextPath}/">Home</a></li>
-                    <li><a href="${contextPath}/shop">Shop page</a></li>
-                    <li><a href="${contextPath}/contacts">Contacts</a></li>
+                    <li class="{{isActive('/')}}"><a href="${contextPath}/">Home</a></li>
+                    <li class="{{isActive('/phones')}}"><a href="#">Shop page</a></li>
+                    <li class="{{isActive('/contacts')}}"><a href="#">Contacts</a></li>
                     <li>
                         <form name="searchForm" action="${contextPath}/search/">
                         <input style="margin-top: 10px" type="text" name="keyword" placeholder="Search products...">
@@ -91,13 +90,14 @@
                         </form>
                     </li>
                     <sec:authorize access="!isAuthenticated()">
-                        <li><a href="${contextPath}/registration">login/registration</a></li>
+                        <li class="{{isActive('/registration')}}"><a href="${contextPath}/registration">login/registration</a></li>
                     </sec:authorize>
                 </ul>
             </div>
         </div>
     </div>
 </div> <!-- End mainmenu area -->
+<container></container>
 <jsp:include page="${current}"  flush="true"></jsp:include>
 <div class="footer-bottom-area">
     <div class="container">
@@ -135,7 +135,7 @@
 
 <!-- Main Script -->
 <script src="${contextPath}/resources/js/main.js" defer></script>
-<script src="${contextPath}/resources/js/index.js"></script>
+<%--<script src="${contextPath}/resources/js/index.js"></script>--%>
 <!-- Slider -->
 <script type="text/javascript" src="${contextPath}/resources/js/bxslider.min.js" defer></script>
 <script type="text/javascript" src="${contextPath}/resources/js/script.slider.js" defer></script>

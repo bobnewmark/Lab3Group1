@@ -1,6 +1,5 @@
 'use strict';
-
-angular.module('myApp').controller('ItemController', ['$scope', 'ItemService',  function($scope, ItemService) {
+App.controller('ItemController', ['$scope', 'ItemService',  function($scope, ItemService) {
     var self = this;
     self.item = {};
     self.items=[];
