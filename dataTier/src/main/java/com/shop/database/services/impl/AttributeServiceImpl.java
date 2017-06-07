@@ -37,4 +37,9 @@ public class AttributeServiceImpl implements AttributeService {
     public List<Attribute> findByObjectType(ObjectType objectType) {
         return attributeRepository.findByObjectType(objectType);
     }
+
+    @Override
+    public Attribute findByNameAndObjectType(String name, ObjectType objectType) {
+        return attributeRepository.findByNameAndObjectType(name, objectType);
+    }
 }

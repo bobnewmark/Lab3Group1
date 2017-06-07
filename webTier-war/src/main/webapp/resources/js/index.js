@@ -67,6 +67,21 @@ App.controller('mainController',['$scope', 'Service',  function($scope, Service)
 
 	}]);
 
+App.controller('loginController',['$scope', 'Service',  function($scope, Service){
+    // function to submit the form after all validation has occurred
+    $scope.submitForm = function() {
+
+        // check to make sure the form is completely valid
+        if ($scope.userForm.$valid) {
+            alert('our form is amazing');
+        }
+
+    };
+
+
+}]);
+
+
 App.directive("passwordVerify", function() {
     return {
         require: "ngModel",

@@ -110,14 +110,26 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
         $scope.myForm.$setPristine(); //reset Form
     }
 
-}]).directive("owlCarousel", function() {
+}]).directive("owlCarousel", function($window) {
     return {
         restrict: 'E',
         transclude: false,
         link: function (scope) {
             scope.initCarousel = function(element) {
                 // provide any default options you want
-                var defaultOptions = {
+                var defaultOptions = {};
+                var options = {
+                    autoplay: true,
+                    autoplayTimeout: 2500,
+                    loop: false, nav: true,
+                    responsiveClass: true,
+                    margin: 30,
+                    responsive: {
+                        0: {items: 1},
+                        640: {items: 2},
+                        1000: {items: 3},
+                        1180: {items: 4}
+                    }
                 };
                 var customOptions = scope.$eval($(element).attr('data-options'));
                 // combine the two options objects
@@ -125,7 +137,7 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
                     defaultOptions[key] = customOptions[key];
                 }
                 // init carousel
-                $(element).owlCarousel(defaultOptions);
+                $(element).owlCarousel(options);
             };
         }
     };

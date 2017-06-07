@@ -57,9 +57,6 @@
             <div class="col-md-12">
                 <div class="latest-product">
                     <h2 class="section-title">Latest Products</h2>
-                   <%-- <div class="product-carousel" ng-cloak>
-                        <div class="owl-stage-outer">
-                            <div class="owl-stage">--%>
 
                                 <%--<div class="single-product">--%>
                                 <%--<div class="product-f-image">--%>
@@ -77,8 +74,8 @@
                                 <%--</div>--%>
                                 <%--</div>--%>
 
-                                    <data-owl-carousel class="owl-carousel" data-options="{navigation: true, pagination: false, rewindNav : false}">
-                                        <div owl-carousel-item="" ng-repeat="p in ctrl.items" class="item">
+                                    <data-owl-carousel class="owl-carousel" data-options="{navigation: true, pagination: true, rewindNav : true}">
+                                        <div owl-carousel-item="" ng-repeat="p in ctrl.items" class="item single-product" style="padding: 10px">
                                             <div class="product-f-image">
                                                 <img src="${contextPath}{{p.icon}}" alt="">
                                                 <div class="product-hover">
@@ -98,13 +95,6 @@
                                         </div>
                                     </data-owl-carousel>
 
-
-
-
-                          <%--  </div>
-                        </div>
-
-                    </div>--%>
                 </div>
             </div>
         </div>

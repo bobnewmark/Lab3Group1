@@ -14,4 +14,5 @@ public interface AttributeRepository extends JpaRepository<Attribute, Integer > 
     Attribute findById(int id);
     List<Attribute> findByName(String name);
     List<Attribute> findByObjectType(ObjectType objectType);
+    Attribute findByNameAndObjectType (String name, ObjectType objectType);
 }

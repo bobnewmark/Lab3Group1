@@ -69,14 +69,14 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-        System.out.println("I'm working just fine");
         Object user = new Object();
-        user.setObjectType(objectTypeService.findByName("user"));
+        ObjectType ot = objectTypeService.findByName("user");
+        user.setObjectType(ot);
         user.setParameters(new ArrayList<Parameter>());
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
-        user.getParameters().add(new Parameter(user, attributeService.findById(34), null));
-        user.getParameters().add(new Parameter(user, attributeService.findById(35), null));
-        user.getParameters().add(new Parameter(user, attributeService.findById(36), null));
+        BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(11);
+        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("login", ot),null));
+        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("password", ot), null));
+        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("role", ot),null));
         model.addAttribute("userForm", user);
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
         return "index";
@@ -86,13 +86,14 @@ public class UserController {
     public String registration(@RequestParam("email") String login, @RequestParam("password") String password) {
         System.out.println(login + " " + password);
         Object user = new Object();
-        user.setName("user");
-        user.setObjectType(objectTypeService.findByName("user"));
-        user.setParameters(new ArrayList<Parameter>());
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
-        user.getParameters().add(new Parameter(user, attributeService.findById(34), login));
-        user.getParameters().add(new Parameter(user, attributeService.findById(35), encoder.encode(password)));
-        user.getParameters().add(new Parameter(user, attributeService.findById(36), "USER"));
+       user.setName("user");
+        ObjectType ot = objectTypeService.findByName("user");
+        user.setObjectType(ot);
+       user.setParameters(new ArrayList<Parameter>());
+        BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(11);
+       user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("login", ot),login));
+        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("password", ot),encoder.encode(password)));
+        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("role", ot),"USER"));
         objectService.save(user);
         /*userValidator.validate(userForm, bindingResult);*/
 

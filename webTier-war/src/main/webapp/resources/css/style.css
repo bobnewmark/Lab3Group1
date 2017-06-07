@@ -680,7 +680,7 @@ ol.slide-indicators li.active {
     margin: 10px 0 0;
 }
 
-.product-big-title-area {background: url(img/crossword.png) repeat scroll 0 0 #5a88ca}
+.product-big-title-area {background: url(/laba/resources/img/crossword.png) repeat scroll 0 0 #5a88ca}
 
 .product-bit-title h2 {
     font-family: raleway;
@@ -1096,6 +1096,7 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     background: none repeat scroll 0 0 #f4f4f4;
     margin-bottom: 30px;
     padding: 25px;
+    height: 400px;
 }
 #login-form-wrap label {
     display: block;
@@ -1113,6 +1114,7 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     background: none repeat scroll 0 0 #f4f4f4;
     margin-bottom: 30px;
     padding: 25px;
+    height: 400px;
 }
 #registration-form-wrap label {
     display: block;
