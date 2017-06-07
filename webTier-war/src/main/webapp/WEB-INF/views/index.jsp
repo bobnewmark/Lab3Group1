@@ -36,13 +36,21 @@
     <%--//<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" />--%>
  <%--   <script data-require="jquery@2.1.3" data-semver="2.1.3" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>--%>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+
+    <!-- Bootstrap JS form CDN -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <!-- jQuery sticky menu -->
+    <script src="${contextPath}/resources/js/owl.carousel.min.js"></script>
+    <script src="${contextPath}/resources/js/jquery.sticky.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="<c:url value='/resources/js/index.js' />"></script>
     <script src="<c:url value='/resources/js/item_controller.js' />"></script>
     <script src="<c:url value='/resources/js/item_service.js' />"></script>
     <script src="<c:url value='/resources/js/MenuCtrl.js' />"></script>
 </head>
-<body  ng-app="myApp">
+<body  ng-app="myApp" ng-controller="MenuCtrl">
 <div class="header-area">
     <div class="container">
         <div class="row">
@@ -50,7 +58,13 @@
                 <div class="user-menu">
                     <ul>
                         <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                        <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                             <sec:authorize access="!isAuthenticated()">
+                                 <li><a href="${contextPath}/registration"><i class="fa fa-user"></i> SignIn</a></li>
+                             </sec:authorize>
+                        <sec:authorize access="isAuthenticated()">
+                            <li><p><i class="fa fa-user"></i> Login: <sec:authentication property="principal.username"/></p></li>
+                            <li><a href="${contextPath}/logout"> Logout</a></li>
+                        </sec:authorize>
                     </ul>
                 </div>
             </div>
@@ -73,15 +87,11 @@
                         <span class="product-count">5</span></a>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <sec:authorize access="isAuthenticated()"><div class="logout"><a href="${contextPath}/logout">logout</a></div><div class="username">login: <sec:authentication property="principal.username"/></div></sec:authorize>
-            </div>
         </div>
     </div>
 </div> <!-- End site branding area -->
-
-<div class="mainmenu-area">
-    <div class="container"  ng-controller="MenuCtrl">
+<div class="mainmenu-area" set-class-when-at-top="fix-to-top">
+    <div class="container" >
         <div class="row">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -134,14 +144,7 @@
 
 <!-- Latest jQuery form server -->
 
-<script src="https://code.jquery.com/jquery.min.js"></script>
 
-<!-- Bootstrap JS form CDN -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
-<!-- jQuery sticky menu -->
-<script src="${contextPath}/resources/js/owl.carousel.min.js"></script>
-<script src="${contextPath}/resources/js/jquery.sticky.js"></script>
 
 <!-- jQuery easing -->
 <script src="${contextPath}/resources/js/jquery.easing.1.3.min.js"></script>
