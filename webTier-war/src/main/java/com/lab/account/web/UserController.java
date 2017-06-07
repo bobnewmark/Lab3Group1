@@ -45,22 +45,18 @@ public class UserController {
         Object object = objectService.findById(id);
         Map<String, String> map = new HashMap<>();
         List<String> icons = new ArrayList<>();
-        for (Parameter p: object.getParameters()) {
+        for (Parameter p : object.getParameters()) {
             if (p.getAttribute().getName().equals("name")) {
                 model.addAttribute("name", p.getValue());
-            }
-            else if (p.getAttribute().getName().equals("price")) {
+            } else if (p.getAttribute().getName().equals("price")) {
                 model.addAttribute("price", p.getValue());
-            }
-            else if (p.getAttribute().getName().equals("icon")) {
+            } else if (p.getAttribute().getName().equals("icon")) {
                 model.addAttribute("mainIcon", p.getValue());
-            }
-            else if (p.getAttribute().getName().startsWith("icon")
+            } else if (p.getAttribute().getName().startsWith("icon")
                     && !p.getAttribute().getName().equals("icon")
                     && p.getValue() != null) {
                 icons.add(p.getValue());
-            }
-            else {
+            } else {
                 map.put(p.getAttribute().getName(), p.getValue());
             }
         }
@@ -77,26 +73,26 @@ public class UserController {
         Object user = new Object();
         user.setObjectType(objectTypeService.findByName("user"));
         user.setParameters(new ArrayList<Parameter>());
-        BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(11);
-        user.getParameters().add(new Parameter(user, attributeService.findById(1),null));
-        user.getParameters().add(new Parameter(user, attributeService.findById(2), null));
-        user.getParameters().add(new Parameter(user, attributeService.findById(3),null));
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
+        user.getParameters().add(new Parameter(user, attributeService.findById(34), null));
+        user.getParameters().add(new Parameter(user, attributeService.findById(35), null));
+        user.getParameters().add(new Parameter(user, attributeService.findById(36), null));
         model.addAttribute("userForm", user);
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
         return "index";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@RequestParam("email")String login, @RequestParam("password")String password) {
-        System.out.println(login+" "+password);
+    public String registration(@RequestParam("email") String login, @RequestParam("password") String password) {
+        System.out.println(login + " " + password);
         Object user = new Object();
-       user.setName("user");
-       user.setObjectType(objectTypeService.findByName("user"));
-       user.setParameters(new ArrayList<Parameter>());
-        BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(11);
-       user.getParameters().add(new Parameter(user, attributeService.findById(4),login));
-        user.getParameters().add(new Parameter(user, attributeService.findById(5),encoder.encode(password)));
-        user.getParameters().add(new Parameter(user, attributeService.findById(6),"USER"));
+        user.setName("user");
+        user.setObjectType(objectTypeService.findByName("user"));
+        user.setParameters(new ArrayList<Parameter>());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
+        user.getParameters().add(new Parameter(user, attributeService.findById(34), login));
+        user.getParameters().add(new Parameter(user, attributeService.findById(35), encoder.encode(password)));
+        user.getParameters().add(new Parameter(user, attributeService.findById(36), "USER"));
         objectService.save(user);
         /*userValidator.validate(userForm, bindingResult);*/
 
@@ -147,16 +143,16 @@ public class UserController {
 //    }
 
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
-    public ResponseEntity<List<Map<String,String>>> phones() {
+    public ResponseEntity<List<Map<String, String>>> phones() {
         ObjectType phone = objectTypeService.findByName("Phone");
         List<Object> objects = objectService.findByObjectType(phone);
 
-        List<Map<String,String>> list = new ArrayList<>();
-        for (Object o: objects) {
+        List<Map<String, String>> list = new ArrayList<>();
+        for (Object o : objects) {
             Map<String, String> itemInfo = new HashMap<>();
             itemInfo.put("id", String.valueOf(o.getId()));
             List<Parameter> params = o.getParameters();
-            for (Parameter p: params) {
+            for (Parameter p : params) {
                 switch (p.getAttribute().getName()) {
                     case "name":
                         itemInfo.put(p.getAttribute().getName(), p.getValue());
@@ -172,9 +168,9 @@ public class UserController {
             list.add(itemInfo);
         }
         if (objects.isEmpty()) {
-            return new ResponseEntity<List<Map<String,String>>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<List<Map<String, String>>>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<Map<String,String>>>(list, HttpStatus.OK);
+        return new ResponseEntity<List<Map<String, String>>>(list, HttpStatus.OK);
     }
 
 
@@ -182,12 +178,12 @@ public class UserController {
     public String search(Model model, HttpServletRequest request) {
         String keyword = request.getParameter("keyword");
         List<Object> result = objectService.findByNameContaining(keyword);
-        List<Map<String,String>> list = new ArrayList<>();
-        for (Object o: result) {
+        List<Map<String, String>> list = new ArrayList<>();
+        for (Object o : result) {
             Map<String, String> itemInfo = new HashMap<>();
             itemInfo.put("id", String.valueOf(o.getId()));
             List<Parameter> params = o.getParameters();
-            for (Parameter p: params) {
+            for (Parameter p : params) {
                 switch (p.getAttribute().getName()) {
                     case "name":
                         itemInfo.put(p.getAttribute().getName(), p.getValue());
@@ -214,12 +210,12 @@ public class UserController {
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Headphones")));
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Charger")));
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Battery")));
-        List<Map<String,String>> list = new ArrayList<>();
-        for (Object o: result) {
+        List<Map<String, String>> list = new ArrayList<>();
+        for (Object o : result) {
             Map<String, String> itemInfo = new HashMap<>();
             itemInfo.put("id", String.valueOf(o.getId()));
             List<Parameter> params = o.getParameters();
-            for (Parameter p: params) {
+            for (Parameter p : params) {
                 switch (p.getAttribute().getName()) {
                     case "name":
                         itemInfo.put(p.getAttribute().getName(), p.getValue());

@@ -3,6 +3,7 @@ insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (2, 'Phon
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (3, 'Headphones', 2);
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (4, 'Charger',  2);
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (5, 'Battery', 2);
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (6, 'user', null);
 --attributes for brand
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (1, 'logo', 1);
 --attributes for phone
@@ -39,8 +40,13 @@ insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (28, 'pr
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (29, 'rating', 5);
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (30, 'quantity', 5);
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (31, 'capacity', 5);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (32, 'icon', 4);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (33, 'icon2', 4);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (32, 'icon', 5);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (33, 'icon2', 5);
+--attributes for user
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (34, 'login', 6);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (35, 'password', 6);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (36, 'role', 6);
+
 --adding brands
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (1, 'Samsung', 1, null);
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (2, 'HTC', 1, null);
@@ -236,4 +242,11 @@ insert into lab3_params (parameter_id, value, attribute_id, object_id) values (1
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (149, '0', 17, 23);
 insert into lab3_params (parameter_id, value, attribute_id, object_id) values (150, '10', 18, 23);
 ------------
+ALTER SEQUENCE HIBERNATE_SEQUENCE increment by 200;
+select HIBERNATE_SEQUENCE.NEXTVAL from dual;
+ALTER SEQUENCE HIBERNATE_SEQUENCE increment by 1;
+------------
 commit;
+/
+
+
