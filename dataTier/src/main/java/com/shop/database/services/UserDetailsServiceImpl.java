@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
         Object user = null;
         try {
-            user = objectRepository.findByIdAttr("user", "login", username).get(0);
+            user = objectRepository.findByAttrAndObjectType("user", "login", username).get(0);
         }catch(ArrayIndexOutOfBoundsException e){
             user = new Object();
         }

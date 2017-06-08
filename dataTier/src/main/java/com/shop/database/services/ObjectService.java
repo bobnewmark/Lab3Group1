@@ -2,6 +2,7 @@ package com.shop.database.services;
 
 import com.shop.database.entities.Object;
 import com.shop.database.entities.ObjectType;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface ObjectService {
     List<Object> findByName(String name);
     List<Object> findByObjectType(ObjectType objectType);
     List<Object> findByNameContaining(String keyword);
+    List<Object> findByNameAttrAndObjectType(String name, String otName, String value);
 }

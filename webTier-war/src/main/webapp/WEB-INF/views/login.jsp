@@ -24,7 +24,7 @@
                         <form id="login-form-wrap" action="${contextPath}/j_spring_security_check"
                               name="loginForm" class="login collapse in" method="post" ng-controller="loginController">
                             <h2>login</h2>
-                            <span>${message}</span>
+                            <%--<span>${message}</span>--%>
                             <p class="form-row form-row-last">
                                 <label for="email">e-mail<span class="required">*</span>
                                 </label>
@@ -43,9 +43,7 @@
                             </div>
                             <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block">введите пароль</p>
                             </p>
-                            <div class="clear"><span>${error}</span></div>
-
-
+                            <p ng-show="error">Вы ввели неправильный логин либо пароль</p>
                             <p class="form-row">
                                 <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Логин</button>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

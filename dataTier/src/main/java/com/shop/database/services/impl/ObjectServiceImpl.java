@@ -43,4 +43,9 @@ public class ObjectServiceImpl implements ObjectService {
     public List<Object> findByNameContaining(String keyword) {
         return objectRepository.findByNameContaining(keyword);
     }
+
+    @Override
+    public List<Object> findByNameAttrAndObjectType(String name, String otName, String value) {
+        return objectRepository.findByAttrAndObjectType(name, otName, value);
+    }
 }
