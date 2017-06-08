@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
@@ -22,6 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         Object user = null;
         try {
             user = objectRepository.findByIdAttr("user", "login", username).get(0);
@@ -31,9 +33,10 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         for(Parameter p: user.getParameters()){
             user.getMapParameters().put(p.getAttribute().getName(), p);
         }
+        BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(11);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getMapParameters().get("role").getValue()));
-
+        System.out.println("UserDetailsServiceImpl  "+ user.getMapParameters().get("password").getValue());
         return new org.springframework.security.core.userdetails.User(user.getMapParameters().get("login").getValue(), user.getMapParameters().get("password").getValue(), grantedAuthorities);
     }
 }

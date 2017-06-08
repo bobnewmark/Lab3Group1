@@ -57,13 +57,13 @@
             <div class="col-md-8">
                 <div class="user-menu">
                     <ul>
-                        <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                             <sec:authorize access="!isAuthenticated()">
-                                 <li><a href="${contextPath}/registration"><i class="fa fa-user"></i> SignIn</a></li>
-                             </sec:authorize>
+                        <sec:authorize access="!isAuthenticated()">
+                            <li><a href="${contextPath}/registration"><i class="fa fa-sign-in"></i> SignIn</a></li>
+                        </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
-                            <li><p><i class="fa fa-user"></i> Login: <sec:authentication property="principal.username"/></p></li>
-                            <li><a href="${contextPath}/logout"> Logout</a></li>
+                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> My Cart<span class="product-count">5</span></a></li>
+                            <li><p style="color: royalblue">Вы вошли как: <i class="fa fa-user"></i> <sec:authentication property="principal.username"/></p></li>
+                            <li><a href="${contextPath}/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
                         </sec:authorize>
                     </ul>
                 </div>
@@ -80,13 +80,14 @@
                     <h1><a href="${contextPath}/"><img src="${contextPath}/resources/img/logo.png"></a></h1>
                 </div>
             </div>
-
+           <%-- <sec:authorize access="isAuthenticated()">
             <div class="col-sm-6">
                 <div class="shopping-item">
                     <a href="cart.html">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i>
                         <span class="product-count">5</span></a>
                 </div>
             </div>
+            </sec:authorize>--%>
         </div>
     </div>
 </div> <!-- End site branding area -->

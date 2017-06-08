@@ -34,6 +34,10 @@ body { font-family:Arial, Helvetica, sans-serif; }
 
 .header-area {
     background: none repeat scroll 0 0 #f4f4f4;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+
 }
 .header-area a {
     color: #888;
@@ -110,18 +114,18 @@ body { font-family:Arial, Helvetica, sans-serif; }
     font-weight: 700;
 }
 .product-count {
-    background: none repeat scroll 0 0 #5a88ca;
+    background: none repeat scroll 0 0 #ff0000;
     border-radius: 50%;
     color: #fff;
     display: inline-block;
     font-size: 10px;
-    height: 20px;
-    padding-top: 2px;
+    height: 15px;
+    padding-top: 1px;
     position: absolute;
-    right: -10px;
+    left: 90px;
     text-align: center;
-    top: -10px;
-    width: 20px;
+    top: 0px;
+    width: 15px;
 }
 .shopping-item i.fa {
     margin-left: 15px;
@@ -1143,5 +1147,5 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 
 .fix-to-top {
     position: fixed;
-    top: 0;
+    top: 38px;
 }

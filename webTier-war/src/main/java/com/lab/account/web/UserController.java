@@ -69,15 +69,6 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-        Object user = new Object();
-        ObjectType ot = objectTypeService.findByName("user");
-        user.setObjectType(ot);
-        user.setParameters(new ArrayList<Parameter>());
-        BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(11);
-        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("login", ot),null));
-        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("password", ot), null));
-        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("role", ot),null));
-        model.addAttribute("userForm", user);
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
         return "index";
     }

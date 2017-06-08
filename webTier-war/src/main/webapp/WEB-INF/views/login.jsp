@@ -30,7 +30,7 @@
                                 </label>
                             <div class="input-group" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input id="email" type="text" name="email" class="input-text" ng-model="user.email" required>
+                                <input id="email" type="text" name="j_username" class="input-text" ng-model="user.email" required>
                             </div>
                             <p ng-show="loginForm.email.$invalid && !loginForm.email.$pristine" class="help-block">введите логин</p>
                             </p>
@@ -39,7 +39,7 @@
                                 </label>
                             <div class="input-group" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input id="password" type="password" name="password" class="input-text" ng-model="user.password" required>
+                                <input id="password" type="password" name="j_password" class="input-text" ng-model="user.password" required>
                             </div>
                             <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block">введите пароль</p>
                             </p>
