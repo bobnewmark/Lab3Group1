@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 
-/**
- * Created by said on 06.05.2017.
- */
+
 @Entity
 @Table(name = "LAB3_REFERENCES")
 public class Reference {
@@ -25,6 +23,10 @@ public class Reference {
     private Object refObject;
     @Column(name = "NAME")
     private String name;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ATTRIBUTE_ID")
+    private Attribute attribute;
 //    @Embedded
 //    @Id
 //    private Key id;
@@ -32,10 +34,11 @@ public class Reference {
     public Reference() {
     }
 
-    public Reference(Object object, Object refObject, String name) {
+    public Reference(Object object, Object refObject, String name, Attribute attribute) {
         this.object = object;
         this.refObject = refObject;
         this.name = name;
+        this.attribute = attribute;
     }
 
     public int getId() {
@@ -69,7 +72,16 @@ public class Reference {
     public void setName(String name) {
         this.name = name;
     }
-//
+
+    public Attribute getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
+    }
+
+    //
 //    public Key getId() {
 //        return id;
 //    }

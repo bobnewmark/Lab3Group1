@@ -28,6 +28,10 @@ public class Attribute {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL)
     private List<Parameter> parameters;
+    @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL)
+    private List<Reference> references;
 
 
     public Attribute() {
@@ -68,5 +72,13 @@ public class Attribute {
 
     public void setParameters(List<Parameter> parameters) {
         this.parameters = parameters;
+    }
+
+    public List<Reference> getReferences() {
+        return references;
+    }
+
+    public void setReferences(List<Reference> references) {
+        this.references = references;
     }
 }

@@ -1,5 +1,6 @@
 package com.shop.database.services.impl;
 
+import com.shop.database.entities.Attribute;
 import com.shop.database.entities.Object;
 import com.shop.database.entities.Reference;
 import com.shop.database.repositories.ReferenceRepository;
@@ -32,6 +33,11 @@ public class ReferenceServiceImpl implements ReferenceService{
 
     public List<Reference> findByRefObject(Object refObject) {
         return referenceRepository.findByRefObject(refObject);
+    }
+
+    @Override
+    public List<Reference> findByAttribute(Attribute attribute) {
+        return referenceRepository.findByAttribute(attribute);
     }
 
 
