@@ -4,6 +4,7 @@ insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (3, 'Head
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (4, 'Charger',  2);
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (5, 'Battery', 2);
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (6, 'user', null);
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (7, 'cart', 6);
 --attributes for brand
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (1, 'logo', 1);
 --attributes for phone
@@ -46,7 +47,8 @@ insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (33, 'ic
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (34, 'login', 6);
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (35, 'password', 6);
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (36, 'role', 6);
-
+--attribute for cart
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (37, 'item', 7);
 --adding brands
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (1, 'Samsung', 1, null);
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (2, 'HTC', 1, null);

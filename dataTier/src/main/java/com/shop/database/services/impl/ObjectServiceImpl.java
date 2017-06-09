@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by said on 10.05.2017.
- */
+
 @Service
 public class ObjectServiceImpl implements ObjectService {
 
@@ -47,5 +45,10 @@ public class ObjectServiceImpl implements ObjectService {
     @Override
     public List<Object> findByNameAttrAndObjectType(String name, String otName, String value) {
         return objectRepository.findByAttrAndObjectType(name, otName, value);
+    }
+
+    @Override
+    public List<Object> findByParent(Object object) {
+        return objectRepository.findByParent(object);
     }
 }

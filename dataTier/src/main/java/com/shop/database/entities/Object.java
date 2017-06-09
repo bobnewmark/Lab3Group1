@@ -33,6 +33,9 @@ public class Object {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "object", cascade = CascadeType.ALL)
     private List<Parameter> parameters;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "object", cascade = CascadeType.ALL)
+    private List<Reference> references;
     @Transient
     private Map<String, Parameter> mapParameters = new HashMap<>();
 
@@ -91,5 +94,13 @@ public class Object {
 
     public void setParameters(List<Parameter> parameters) {
         this.parameters = parameters;
+    }
+
+    public List<Reference> getReferences() {
+        return references;
+    }
+
+    public void setReferences(List<Reference> references) {
+        this.references = references;
     }
 }

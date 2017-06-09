@@ -16,4 +16,5 @@ public interface ObjectService {
     List<Object> findByObjectType(ObjectType objectType);
     List<Object> findByNameContaining(String keyword);
     List<Object> findByNameAttrAndObjectType(String name, String otName, String value);
+    List<Object> findByParent(Object object);
 }
