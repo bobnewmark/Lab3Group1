@@ -6,49 +6,49 @@ insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (5, 'Batt
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (6, 'user', null);
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (7, 'cart', 6);
 --attributes for brand
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (1, 'logo', 1);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (1, 'logo', 1, 0);
 --attributes for phone
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (2, 'name', 2);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (3, 'price', 2);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (4, 'icon', 2);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (5, 'icon2', 2);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (6, 'icon3', 2);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (7, 'OS', 2);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (8, 'diagonal', 2);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (9, 'rating', 2);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (10, 'quantity', 2);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (2, 'name', 2, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (3, 'price', 2, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (4, 'icon', 2, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (5, 'icon2', 2, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (6, 'icon3', 2, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (7, 'OS', 2, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (8, 'diagonal', 2, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (9, 'rating', 2, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (10, 'quantity', 2, 0);
 --attributes for headphones
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (11, 'name', 3);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (12, 'price', 3);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (13, 'icon', 3);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (14, 'icon2', 3);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (15, 'icon3', 3);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (16, 'microphone', 3);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (17, 'rating', 3);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (18, 'quantity', 3);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (11, 'name', 3, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (12, 'price', 3, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (13, 'icon', 3, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (14, 'icon2', 3, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (15, 'icon3', 3, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (16, 'microphone', 3, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (17, 'rating', 3, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (18, 'quantity', 3, 0);
 --attributes for charger
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (19,  'name', 4);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (20, 'price', 4);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (21, 'cable length', 4);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (22, 'rating', 4);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (23, 'quantity', 4);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (24, 'power', 4);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (25, 'icon', 4);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (26, 'icon2', 4);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (19,  'name', 4, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (20, 'price', 4, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (21, 'cable length', 4, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (22, 'rating', 4, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (23, 'quantity', 4, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (24, 'power', 4, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (25, 'icon', 4, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (26, 'icon2', 4, 0);
 --attributes for battery
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (27, 'name', 5);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (28, 'price', 5);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (29, 'rating', 5);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (30, 'quantity', 5);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (31, 'capacity', 5);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (32, 'icon', 5);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (33, 'icon2', 5);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (27, 'name', 5, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (28, 'price', 5, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (29, 'rating', 5, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (30, 'quantity', 5, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (31, 'capacity', 5, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (32, 'icon', 5, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (33, 'icon2', 5, 0);
 --attributes for user
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (34, 'login', 6);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (35, 'password', 6);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (36, 'role', 6);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (34, 'login', 6, 1);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (35, 'password', 6, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (36, 'role', 6, 0);
 --attribute for cart
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID) values (37, 'item', 7);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ) values (37, 'item', 7, 0);
 --adding brands
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (1, 'Samsung', 1, null);
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (2, 'HTC', 1, null);

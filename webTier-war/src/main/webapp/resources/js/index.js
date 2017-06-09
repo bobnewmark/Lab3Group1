@@ -40,7 +40,7 @@ App.factory('Service', ['$http', '$q', function($http, $q){
 }]);
 
 	// create angular controller
-App.controller('mainController',['$scope', 'Service',  function($scope, Service){
+App.controller('mainController',['$scope', 'Service', '$location',  function($scope, Service, $location){
         var self = this;
         self.item = {};
         self.items=[];
@@ -54,12 +54,18 @@ App.controller('mainController',['$scope', 'Service',  function($scope, Service)
                 console.log('User updated with id ', self.item.id);
             }
         }
+
+    if($location.absUrl().indexOf("reg-err")!=-1){
+        $scope.statusreg = 1;
+    }else{
+        $scope.statusreg = 0;
+    }
 		// function to submit the form after all validation has occurred			
 		$scope.submitForm = function() {
 
 			// check to make sure the form is completely valid
 			if ($scope.userForm.$valid) {
-				alert('our form is amazing');
+
 			}
 
 		};
@@ -67,16 +73,21 @@ App.controller('mainController',['$scope', 'Service',  function($scope, Service)
 
 	}]);
 
-App.controller('loginController',['$scope', 'Service',  function($scope, Service){
+App.controller('loginController',['$scope', '$location',  function($scope, $location){
     // function to submit the form after all validation has occurred
     $scope.submitForm = function() {
 
         // check to make sure the form is completely valid
         if ($scope.userForm.$valid) {
-            alert('our form is amazing');
+
         }
 
     };
+    if($location.absUrl().indexOf("error")!=-1){
+        $scope.status = 1;
+    }else{
+        $scope.status = 0;
+    }
 
 
 }]);

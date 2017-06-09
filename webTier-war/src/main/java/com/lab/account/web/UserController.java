@@ -5,8 +5,8 @@ import com.shop.database.entities.Object;
 import com.shop.database.entities.ObjectType;
 import com.shop.database.entities.Parameter;
 import com.shop.database.entities.Reference;
+import com.shop.database.exceptions.RegistrationException;
 import com.shop.database.services.*;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,13 +82,17 @@ public class UserController {
         ObjectType ot = objectTypeService.findByName("user");
         user.setObjectType(ot);
         user.setParameters(new ArrayList<Parameter>());
+
+        /*userValidator.validate(userForm, bindingResult);*/
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
         user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("login", ot), login));
         user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("password", ot), encoder.encode(password)));
         user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("role", ot), "USER"));
-        objectService.save(user);
-        /*userValidator.validate(userForm, bindingResult);*/
-
+        try {
+            objectService.save(user);
+        } catch (RegistrationException e) {
+            return "redirect:/registration?reg-err";
+        }
         /*if (bindingResult.hasErrors()) {
             return "registration";
         }*/
@@ -104,7 +108,11 @@ public class UserController {
 //        cart.getReferences().add(new Reference(user, objectService.findById(8), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart"))));
 //        cart.getReferences().add(new Reference(user, objectService.findById(9), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart"))));
 //        cart.getReferences().add(new Reference(user, objectService.findById(9), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart"))));
-        objectService.save(cart);
+        try {
+            objectService.save(cart);
+        } catch (RegistrationException e) {
+            return "redirect:/registration?reg-err";
+        }
         securityService.autologin(login, password);
         return "redirect:/";
     }

@@ -64,9 +64,9 @@ public class ObjectController {
         attributeService.save(new Attribute("info", objectTypeService.findByName("Smartphone")));
         attributeService.save(new Attribute("icon", objectTypeService.findByName("Smartphone")));
 
-        objectService.save(new Object("Apple Iphone 6S Gold", objectTypeService.findByName("Smartphone"), null));
+        /*objectService.save(new Object("Apple Iphone 6S Gold", objectTypeService.findByName("Smartphone"), null));
         objectService.save(new Object("LG K500 X VIEW", objectTypeService.findByName("Smartphone"), null));
-
+*/
         parameterService.save(new Parameter(objectService.findByName("Apple Iphone 6S Gold").get(0), attributeService.findByName("icon").get(0), "${contextPath}/resources/images/phones/APPLE IPHONE 6S 128GB GOLD.jpg"));
         parameterService.save(new Parameter(objectService.findByName("Apple Iphone 6S Gold").get(0), attributeService.findByName("price").get(0), "950$"));
         parameterService.save(new Parameter(objectService.findByName("Apple Iphone 6S Gold").get(0), attributeService.findByName("info").get(0), "Nice phone for those who don't like android"));

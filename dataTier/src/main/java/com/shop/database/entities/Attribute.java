@@ -32,7 +32,8 @@ public class Attribute {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL)
     private List<Reference> references;
-
+    @Column(name="uniq")
+    private boolean unique;
 
     public Attribute() {
     }
@@ -80,5 +81,13 @@ public class Attribute {
 
     public void setReferences(List<Reference> references) {
         this.references = references;
+    }
+
+    public boolean isUnique() {
+        return unique;
+    }
+
+    public void setUnique(boolean unique) {
+        this.unique = unique;
     }
 }

@@ -43,7 +43,7 @@
                             </div>
                             <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block">введите пароль</p>
                             </p>
-                            <p ng-show="error">Вы ввели неправильный логин либо пароль</p>
+                            <p ng-show="{{status==1}}" style="color: red">Вы ввели неправильный логин либо пароль</p>
                             <p class="form-row">
                                 <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Логин</button>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -94,7 +94,7 @@
                             </div>
                             <p ng-show="userForm.confirmpassword.$error.passwordVerify" class="help-block">Пароли не совпадают</p>
                             </p>
-                            <div class="clear"><span>${error}</span></div>
+                            <p ng-show="{{statusreg==1}}" style="color: red">Пользователь с таким логином уже существует</p>
                             <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Регистрация</button>
                             <input type="hidden"  class="btn btn-primary" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <div class="clear"></div>

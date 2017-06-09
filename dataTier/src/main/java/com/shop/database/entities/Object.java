@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class Object {
     private Object parent;
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "object", cascade = CascadeType.ALL)
-    private List<Parameter> parameters;
+    private List<Parameter> parameters = new ArrayList<>();
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "object", cascade = CascadeType.ALL)
     private List<Reference> references;

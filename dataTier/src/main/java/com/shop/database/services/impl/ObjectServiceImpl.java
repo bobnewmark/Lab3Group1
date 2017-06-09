@@ -2,7 +2,10 @@ package com.shop.database.services.impl;
 
 import com.shop.database.entities.Object;
 import com.shop.database.entities.ObjectType;
+import com.shop.database.entities.Parameter;
+import com.shop.database.exceptions.RegistrationException;
 import com.shop.database.repositories.ObjectRepository;
+import com.shop.database.repositories.ParameterRepository;
 import com.shop.database.services.ObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +18,20 @@ public class ObjectServiceImpl implements ObjectService {
 
     @Autowired
     private ObjectRepository objectRepository;
+    @Autowired
+    private ParameterRepository parameterRepository;
 
 
-    public void save(Object object) {
+    public void save(Object object) throws RegistrationException {
+        for(Parameter p: object.getParameters()){
+            if(p.getAttribute().isUnique()){
+                for(Parameter par: parameterRepository.findByAttribute(p.getAttribute())){
+                    if(p.getValue().equals(par.getValue())){
+                        throw new RegistrationException();
+                    }
+                }
+            }
+        }
         objectRepository.saveAndFlush(object);
     }
 
