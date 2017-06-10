@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="ear" name="packear:ear">
-    <output-path>$PROJECT_DIR$/packear/target</output-path>
-    <root id="archive" name="packear-1.0.ear">
-      <element id="artifact" artifact-name="packear:ear exploded" />
-    </root>
-  </artifact>
-</component>
