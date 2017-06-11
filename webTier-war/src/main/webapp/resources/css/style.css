@@ -1149,3 +1149,11 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     position: fixed;
     top: 38px;
 }
+.admin-del{
+    color: red; cursor: pointer; font-size: 14px
+}
+.admin-edit{
+    color: green; cursor: pointer; font-size: 14px
+}
+.admin{color: grey}
+.admin-del:hover, .admin-edit:hover{color: darkgrey}

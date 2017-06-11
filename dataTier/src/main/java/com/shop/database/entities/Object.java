@@ -23,7 +23,6 @@ public class Object {
     private int id;
     @Column(name = "NAME")
     private String name;
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "OBJECT_TYPE_ID", referencedColumnName = "OBJECT_TYPE_ID")
     private ObjectType objectType;

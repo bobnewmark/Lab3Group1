@@ -1,6 +1,5 @@
 package com.lab.account.web;
 
-import com.lab.account.validator.UserValidator;
 import com.shop.database.entities.Object;
 import com.shop.database.entities.ObjectType;
 import com.shop.database.entities.Parameter;
@@ -13,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URISyntaxException;
@@ -38,8 +34,6 @@ public class UserController {
     private ParameterService parameterService;
     @Autowired
     private AttributeService attributeService;
-    @Autowired
-    private UserValidator userValidator;
 
     @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
     public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
@@ -145,13 +139,38 @@ public class UserController {
 
 
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
-    public ResponseEntity<List<Map<String, String>>> phones() {
+    public ResponseEntity<List<Object>> phones() {
         ObjectType phone = objectTypeService.findByName("Phone");
         List<Object> objects = objectService.findByObjectType(phone);
         if (objects.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(prepareForLayout(objects), HttpStatus.OK);
+        return new ResponseEntity<>(objects, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/phone/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody Object object) {
+        for(Parameter p: object.getParameters()){
+            p.setObject(object);
+        }
+        try {
+            objectService.save(object);
+        } catch (RegistrationException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<Object>(object, HttpStatus.OK);
+    }
+
+
+
+    //------------------- Delete a User --------------------------------------------------------
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteUser(@PathVariable("id") long id) {
+        System.out.println("Fetching & Deleting User with id " + id);
+
+
+        //objectService.de(id);
+        return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
     }
 
 

@@ -19,7 +19,6 @@ public class Parameter {
     @ManyToOne
     @JoinColumn(name = "OBJECT_ID", referencedColumnName = "OBJECT_ID")
     private Object object;
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ATTRIBUTE_ID")
     private Attribute attribute;

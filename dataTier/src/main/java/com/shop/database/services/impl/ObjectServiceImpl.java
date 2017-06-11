@@ -37,32 +37,65 @@ public class ObjectServiceImpl implements ObjectService {
 
 
     public Object findById(int id) {
-        return objectRepository.findById(id);
+        Object o = objectRepository.findById(id);
+        for(Parameter p: o.getParameters()){
+            o.getMapParameters().put(p.getAttribute().getName(), p);
+        }
+        return o;
     }
 
 
     public List<Object> findByName(String name) {
-
-        return objectRepository.findByName(name);
+        List<Object> objects = objectRepository.findByName(name);
+        for(Object o: objects){
+            for(Parameter p: o.getParameters()){
+                o.getMapParameters().put(p.getAttribute().getName(), p);
+            }
+        }
+        return objects;
     }
 
 
     public List<Object> findByObjectType(ObjectType objectType) {
-        return objectRepository.findByObjectType(objectType);
+        List<Object> objects = objectRepository.findByObjectType(objectType);
+        for(Object o: objects){
+            for(Parameter p: o.getParameters()){
+                o.getMapParameters().put(p.getAttribute().getName(), p);
+            }
+        }
+        return objects;
     }
 
     @Override
     public List<Object> findByNameContaining(String keyword) {
-        return objectRepository.findByNameContaining(keyword);
+        List<Object> objects = objectRepository.findByNameContaining(keyword);
+        for(Object o: objects){
+            for(Parameter p: o.getParameters()){
+                o.getMapParameters().put(p.getAttribute().getName(), p);
+            }
+        }
+        return objects;
     }
 
     @Override
     public List<Object> findByNameAttrAndObjectType(String name, String otName, String value) {
-        return objectRepository.findByAttrAndObjectType(name, otName, value);
+        List<Object> objects = objectRepository.findByAttrAndObjectType(name, otName, value);
+        for(Object o: objects){
+            for(Parameter p: o.getParameters()){
+                o.getMapParameters().put(p.getAttribute().getName(), p);
+            }
+        }
+        return objects;
     }
 
     @Override
     public List<Object> findByParent(Object object) {
-        return objectRepository.findByParent(object);
+        List<Object> objects = objectRepository.findByParent(object);
+        for(Object o: objects){
+            for(Parameter p: o.getParameters()){
+                o.getMapParameters().put(p.getAttribute().getName(), p);
+            }
+        }
+        return objects;
     }
 }

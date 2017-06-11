@@ -1,20 +1,22 @@
 'use strict';
-App.controller('ItemController', ['$scope', 'ItemService',  function($scope, ItemService) {
+App.controller('ItemController', ['$scope', 'ItemService',  function($scope, ItemService, $modalInstance) {
     var self = this;
-    self.item = {};
-    self.items=[];
-
+    self.item = {id:null, name:'', objectType:{id: null}, parameters:[
+                                               {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
+                                               {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
+                                               {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
+                                               {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
+                                               {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
+                                               {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
+                                               {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
+                                               {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
+                                               {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}}]};
+    self.items = [];
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
     self.show = show;
-    function getClass() {
-        $scope.getClass = function (path) {
-            return ($location.path().substr(0, path.length) === path) ? 'active' : '';
-        }
-    }
-    getClass();
     fetchAllItems();
 
     function fetchAllItems(){
@@ -22,6 +24,7 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
             .then(
                 function(d) {
                     self.items = d;
+                    closeModal();
                 },
                 function(errResponse){
                     console.error('Error while fetching Users');
@@ -41,30 +44,30 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
             );
     }
 
-    function createUser(user){
-        UserService.createItem(user)
+    function createItem(item){
+        ItemService.createItem(item)
             .then(
-                fetchAllUsers,
+                fetchAllItems,
                 function(errResponse){
-                    console.error('Error while creating User');
+                    console.error('Error while creating Item');
                 }
             );
     }
 
-    function updateUser(user, id){
-        UserService.updateUser(user, id)
+    function updateItem(item, id){
+        ItemService.updateItem(item, id)
             .then(
-                fetchAllUsers,
+                fetchAllItems,
                 function(errResponse){
                     console.error('Error while updating User');
                 }
             );
     }
 
-    function deleteUser(id){
-        UserService.deleteUser(id)
+    function deleteItem(id){
+        ItemService.deleteItem(id)
             .then(
-                fetchAllUsers,
+                fetchAllItems,
                 function(errResponse){
                     console.error('Error while deleting User');
                 }
@@ -76,21 +79,21 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
     }
 
     function submit() {
-        if(self.user.id===null){
-            console.log('Saving New User', self.user);
-            createUser(self.user);
+        if(self.item.id===null){
+            console.log('Saving New Item', self.item);
+            createItem(self.item);
         }else{
-            updateUser(self.user, self.user.id);
-            console.log('User updated with id ', self.user.id);
+            updateItem(self.item, self.item.id);
+            console.log('Item updated with id ', self.item.id);
         }
         reset();
     }
 
     function edit(id){
         console.log('id to be edited', id);
-        for(var i = 0; i < self.users.length; i++){
-            if(self.users[i].id === id) {
-                self.user = angular.copy(self.users[i]);
+        for(var i = 0; i < self.items.length; i++){
+            if(self.items[i].id === id) {
+                self.item = angular.copy(self.items[i]);
                 break;
             }
         }
@@ -98,16 +101,19 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
 
     function remove(id){
         console.log('id to be deleted', id);
-        if(self.user.id === id) {//clean form if the user to be deleted is shown there.
+        if(self.item.id === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
-        deleteUser(id);
+        deleteItem(id);
     }
 
 
     function reset(){
-        self.user={id:null,username:'',address:'',email:''};
+        self.item={id:null,username:'',address:'',email:''};
         $scope.myForm.$setPristine(); //reset Form
+    }
+    function closeModal(){
+        $modalInstance.dismiss('cancel');
     }
 
 }]).directive("owlCarousel", function($window) {
@@ -116,10 +122,9 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
         transclude: false,
         link: function (scope) {
             scope.initCarousel = function(element) {
-                // provide any default options you want
                 var defaultOptions = {};
                 var options = {
-                    autoplay: true,
+                    autoplay: false,
                     autoplayTimeout: 2500,
                     loop: false, nav: true,
                     responsiveClass: true,
@@ -136,9 +141,12 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
                 for(var key in customOptions) {
                     defaultOptions[key] = customOptions[key];
                 }
-                // init carousel
                 $(element).owlCarousel(options);
             };
+            scope.destroy = function(element){
+                $(element).data('owlCarousel').destroy();
+            };
+
         }
     };
 })
@@ -148,9 +156,22 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
             transclude: false,
             link: function(scope, element) {
                 // wait for the last item in the ng-repeat then call init
-                if(scope.$last) {
-                    scope.initCarousel(element.parent());
-                }
+                scope.$watch("item", function() {
+                    if($(element.parent()).data('owlCarousel') === undefined){
+                        if(scope.$last) {
+                            scope.initCarousel(element.parent());
+                        }
+                    }else{
+                        scope.destroy(element.parent());
+                        /*scope.initCarousel(element.parent());*/
+                        var queryResult = element[0].querySelector('.owl-stage:last-child');
+                        console.log("2");
+                        var stage = angular.element(queryResult);
+                        //stage.addClass('aaaaaaaaaaaaaaaaaaaaa');
+                        console.log(stage.hasClass('active'));
+                        //stage.remove(stage);
+                    }
+                });
             }
         };
     }]);

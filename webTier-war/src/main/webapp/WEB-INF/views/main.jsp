@@ -73,11 +73,11 @@
                                 <%--<ins>$700.00</ins> <del>$100.00</del>--%>
                                 <%--</div>--%>
                                 <%--</div>--%>
-
                                     <data-owl-carousel class="owl-carousel" data-options="{navigation: true, pagination: true, rewindNav : true}">
-                                        <div owl-carousel-item="" ng-repeat="p in ctrl.items" class="item single-product" style="padding: 10px">
+                                        <div owl-carousel-item="" ng-repeat="p in ctrl.items" id="items" class="item single-product" style="padding: 10px">
                                             <div class="product-f-image">
-                                                <img src="${contextPath}{{p.icon}}" alt="">
+
+                                                <img src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
                                                 <div class="product-hover">
                                                     <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
                                                         Add to
@@ -87,14 +87,52 @@
                                                 </div>
                                             </div>
 
-                                            <h2 ng-bind="p.name"></h2>
+                                            <h2 ng-bind="p.mapParameters.name.value"></h2>
                                             <div class="product-carousel-price">
-                                                <ins ng-bind="p.price"></ins>
-                                                <del></del>
+                                                <ins ng-bind="p.mapParameters.price.value"></ins>
+                                                <div class="admin" data-toggle="modal" data-target="#editModal" ng-click="ctrl.edit(p.id)"><i class="fa fa-pencil-square-o admin-edit"></i> edit</div>
+                                                <div class="admin" ng-click="ctrl.remove(p.id)"><i class="fa fa-times admin-del"></i> delete</div>
                                             </div>
                                         </div>
                                     </data-owl-carousel>
-
+                    <div id="editModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
+                                <!-- Заголовок модального окна -->
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">Изменение товара</h4>
+                                </div>
+                                <!-- Основное содержимое модального окна -->
+                                <div class="modal-body">
+                                    <div class="formcontainer">
+                                            <input type="hidden" ng-model="ctrl.item.id" />
+                                            <div class="row" ng-repeat="p in ctrl.item.parameters">
+                                                <div class="form-group col-md-12">
+                                                    <label class="col-md-2 control-lable" for="{{p.attribute.name}}">{{p.attribute.name}}</label>
+                                                    <div class="col-md-7">
+                                                        <input type="text" ng-model="p.value" id="{{p.attribute.name}}" class="{{p.attribute.name}} form-control input-sm" placeholder="Enter {{p.attribute.name}}" required/>
+                                                        <input type="hidden" ng-model="p.object.id" value="{{ctrl.item.id}}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                <!-- Футер модального окна -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                                    <input type="submit" value="{{!ctrl.item.id ? 'Добавить' : 'Редактировать'}}"class="btn btn-primary" ng-disabled="myForm.$invalid" />
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            $("#myModalBox").modal('show');
+                        });
+                    </script>
                 </div>
             </div>
         </div>
@@ -122,3 +160,6 @@
     </div>
 </div>
 <!-- End brands area -->
+
+
+

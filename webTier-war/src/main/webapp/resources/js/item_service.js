@@ -7,9 +7,9 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
     var factory = {
         fetchAllItems: fetchAllItems,
         createItem: createItem,
-        updateItem:updateItem,
-        deleteItem:deleteItem,
-        showItem:showItem
+        updateItem: updateItem,
+        deleteItem: deleteItem,
+        showItem: showItem
     };
 
     return factory;
@@ -61,9 +61,9 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
     }
 
 
-    function updateItem(user, id) {
+    function updateItem(item, id) {
         var deferred = $q.defer();
-        $http.put(REST_SERVICE_URI+id, user)
+        $http.put(REST_SERVICE_URI+id, item)
             .then(
                 function (response) {
                     deferred.resolve(response.data);
