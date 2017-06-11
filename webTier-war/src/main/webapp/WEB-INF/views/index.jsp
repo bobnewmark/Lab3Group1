@@ -61,7 +61,7 @@
                             <li><a href="${contextPath}/registration"><i class="fa fa-sign-in"></i> SignIn</a></li>
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> My Cart<span class="product-count">5</span></a></li>
+                            <li><a href="${contextPath}/cart"><i class="fa fa-shopping-cart"></i> My Cart<span id="cartNum" class="product-count">${cartSize == null ? 0 : cartSize}</span></a></li>
                             <li><p style="color: royalblue">Вы вошли как: <i class="fa fa-user"></i> <sec:authentication property="principal.username"/></p></li>
                             <li><a href="${contextPath}/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
                         </sec:authorize>

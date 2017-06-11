@@ -34,6 +34,11 @@ public class UserController {
     private ParameterService parameterService;
     @Autowired
     private AttributeService attributeService;
+    @Autowired
+    private ReferenceService referenceService;
+
+    private Object thisUser;
+    private Object thisCart;
 
     @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
     public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
@@ -55,6 +60,8 @@ public class UserController {
                 map.put(p.getAttribute().getName(), p.getValue());
             }
         }
+        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        model.addAttribute("cartSize", cartSize);
         model.addAttribute("item", object);
         model.addAttribute("paramsMap", map);
         model.addAttribute("icons", icons);
@@ -98,16 +105,15 @@ public class UserController {
         } else {
             cart.setReferences(new ArrayList<Reference>());
         }
-//        cart.getReferences().add(new Reference(user, objectService.findById(7), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart"))));
-//        cart.getReferences().add(new Reference(user, objectService.findById(8), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart"))));
-//        cart.getReferences().add(new Reference(user, objectService.findById(9), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart"))));
-//        cart.getReferences().add(new Reference(user, objectService.findById(9), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart"))));
+
         try {
             objectService.save(cart);
         } catch (RegistrationException e) {
             return "redirect:/registration?reg-err";
         }
         securityService.autologin(login, password);
+        thisUser = user;
+        thisCart = cart;
         return "redirect:/";
     }
 
@@ -124,6 +130,8 @@ public class UserController {
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String getIndexPage(Model model) {
+        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        model.addAttribute("cartSize", cartSize);
         model.addAttribute("current", "/WEB-INF/views/main.jsp");
         return "index";
     }
@@ -178,6 +186,8 @@ public class UserController {
     public String search(Model model, HttpServletRequest request) {
         String keyword = request.getParameter("keyword");
         List<Object> result = objectService.findByNameContaining(keyword);
+        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        model.addAttribute("cartSize", cartSize);
         model.addAttribute("searchResult", prepareForLayout(result));
         model.addAttribute("current", "/WEB-INF/views/search.jsp");
         return "index";
@@ -190,6 +200,8 @@ public class UserController {
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Headphones")));
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Charger")));
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Battery")));
+        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        model.addAttribute("cartSize", cartSize);
         model.addAttribute("allProducts", prepareForLayout(result));
         model.addAttribute("current", "/WEB-INF/views/shop.jsp");
         return "index";
@@ -197,6 +209,8 @@ public class UserController {
 
     @RequestMapping(value = {"/contacts"}, method = RequestMethod.GET)
     public String contacts(Model model) {
+        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        model.addAttribute("cartSize", cartSize);
         model.addAttribute("current", "/WEB-INF/views/contacts.jsp");
         return "index";
     }
@@ -225,13 +239,39 @@ public class UserController {
         return list;
     }
 
-    @RequestMapping(value = {"/addToCart/{id}"})
-    public String addToCart(@PathVariable("id") int id, Model model, @RequestParam("quantity") int quantity) throws URISyntaxException {
-        return "index";
+    @RequestMapping(value = "/addToCart", method = RequestMethod.GET)
+    public @ResponseBody
+    String addToCart(@RequestParam int itemId) {
+        Reference item = new Reference(thisCart, objectService.findById(itemId), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart")));
+        thisCart.getReferences().add(item);
+        referenceService.save(item);
+        String size = String.valueOf(thisCart.getReferences().size());
+        return size;
     }
 
+    @RequestMapping(value = "/removeFromCart", method = RequestMethod.GET)
+    public @ResponseBody
+    String removeFromCart(@RequestParam int itemId) {
+        List<Reference> references = referenceService.findByObjectAndRefObject(thisCart, objectService.findById(itemId));
+        for (Reference r: references) {
+            System.out.println("================DELETING " + r.getRefObject().getName() + " =================");
+            referenceService.removeByObjectAndRefObject(thisCart, objectService.findById(itemId));
+        }
+        String size = String.valueOf(thisCart.getReferences().size());
+        return size;
+    }
+
+
     @RequestMapping(value = {"/cart"})
-    public String cart() {
-        return "cart";
+    public String cart(Model model) {
+        List<Object> itemsToBuy = new ArrayList<>();
+        for (Reference ref: thisCart.getReferences()) {
+            itemsToBuy.add(ref.getRefObject());
+        }
+        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        model.addAttribute("cartSize", cartSize);
+        model.addAttribute("itemsToBuy", prepareForLayout(itemsToBuy));
+        model.addAttribute("current", "/WEB-INF/views/cart.jsp");
+        return "index";
     }
 }

@@ -15,4 +15,8 @@ public interface ReferenceService {
     List<Reference> findByRefObject(Object refObject);
     List<Reference> findByAttribute(Attribute attribute);
     List<Reference> findByName(String name);
+    Reference findById(int id);
+    List<Reference> findByObjectAndRefObject(Object object, Object refObject);
+    void removeByObjectAndRefObject(Object object, Object refObject);
+
 }

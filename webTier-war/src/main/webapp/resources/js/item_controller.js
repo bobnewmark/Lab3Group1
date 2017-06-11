@@ -17,6 +17,8 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
     self.remove = remove;
     self.reset = reset;
     self.show = show;
+    self.buy = buy;
+
     fetchAllItems();
 
     function fetchAllItems(){
@@ -30,6 +32,19 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
                     console.error('Error while fetching Users');
                 }
             );
+    }
+
+    function buy(id) {
+        $.ajax({
+            contentType: "application/json; charset=utf-8",
+            url: 'addToCart',
+            data: ({itemId : id}),
+            success: function(data) {
+                var elem = document.getElementById('#cartNum');
+                console.log(data);
+                $('#cartNum').html(data);
+            }
+        });
     }
 
     function showItem(id) {

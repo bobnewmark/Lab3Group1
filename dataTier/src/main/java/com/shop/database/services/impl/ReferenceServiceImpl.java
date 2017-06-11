@@ -10,15 +10,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by said on 10.05.2017.
- */
+
 @Service
 public class ReferenceServiceImpl implements ReferenceService{
 
     @Autowired
     private ReferenceRepository referenceRepository;
-
 
 
     public void save(Reference attribute) {
@@ -48,4 +45,16 @@ public class ReferenceServiceImpl implements ReferenceService{
     public Reference findById(int id) {
         return referenceRepository.findById(id);
     }
+
+    @Override
+    public List<Reference> findByObjectAndRefObject(Object object, Object refObject) {
+        return referenceRepository.findByObjectAndRefObject(object, refObject);
+    }
+
+    @Override
+    public void removeByObjectAndRefObject(Object object, Object refObject) {
+        referenceRepository.removeByObjectAndRefObject(object, refObject);
+    }
+
+
 }

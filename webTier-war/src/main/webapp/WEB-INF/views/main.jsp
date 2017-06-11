@@ -9,37 +9,37 @@
                 <img src="${contextPath}/resources/img/h4-slide.png" alt="Slide">
                 <div class="caption-group">
                     <h2 class="caption title">
-                        iPhone <span class="primary">6 <strong>Plus</strong></span>
+                        iPhone <span class="primary">6 Plus<strong> Soon!</strong></span>
                     </h2>
                     <h4 class="caption subtitle">Dual SIM</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="${contextPath}/shop"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
             <li><img src="${contextPath}/resources/img/h4-slide2.png" alt="Slide">
                 <div class="caption-group">
                     <h2 class="caption title">
-                        by one, get one <span class="primary">50% <strong>off</strong></span>
+                        <span class="primary"><strong>New items soon!</strong></span>
                     </h2>
                     <h4 class="caption subtitle">school supplies & backpacks.*</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="${contextPath}/shop"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
             <li><img src="${contextPath}/resources/img/h4-slide3.png" alt="Slide">
                 <div class="caption-group">
                     <h2 class="caption title">
-                        Apple <span class="primary">Store <strong>Ipod</strong></span>
+                        Apple <span class="primary">Store Ipod<strong> Coming soon!</strong></span>
                     </h2>
-                    <h4 class="caption subtitle">Select Item</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+                    <h4 class="caption subtitle"></h4>
+                    <a class="caption button-radius" href="${contextPath}/shop"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
             <li><img src="${contextPath}/resources/img/h4-slide4.png" alt="Slide">
                 <div class="caption-group">
                     <h2 class="caption title">
-                        Apple <span class="primary">Store <strong>Ipod</strong></span>
+                        Apple <span class="primary">Store Ipod<strong> Next week!</strong></span>
                     </h2>
                     <h4 class="caption subtitle">& Phone</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="${contextPath}/shop"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
         </ul>
@@ -56,30 +56,15 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="latest-product">
-                    <h2 class="section-title">Latest Products</h2>
+                    <h2 class="section-title">Most popular</h2>
 
-                                <%--<div class="single-product">--%>
-                                <%--<div class="product-f-image">--%>
-                                <%--<img src="${contextPath}/resources/img/product-1.jpg" alt="">--%>
-                                <%--<div class="product-hover">--%>
-                                <%--<a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>--%>
-                                <%--<a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>--%>
-                                <%--</div>--%>
-                                <%--</div>--%>
-
-                                <%--<h2><a href="single-product.html">Samsung Galaxy s5- 2015</a></h2>--%>
-
-                                <%--<div class="product-carousel-price">--%>
-                                <%--<ins>$700.00</ins> <del>$100.00</del>--%>
-                                <%--</div>--%>
-                                <%--</div>--%>
                                     <data-owl-carousel class="owl-carousel" data-options="{navigation: true, pagination: true, rewindNav : true}">
                                         <div owl-carousel-item="" ng-repeat="p in ctrl.items" id="items" class="item single-product" style="padding: 10px">
                                             <div class="product-f-image">
 
                                                 <img src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
                                                 <div class="product-hover">
-                                                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
+                                                    <a href="#" class="add-to-cart-link" ng-click="ctrl.buy(p.id)"><i class="fa fa-shopping-cart"></i>
                                                         Add to
                                                         cart</a>
                                                     <a href="${contextPath}/details/{{p.id}}" class="view-details-link"><i

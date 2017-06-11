@@ -28,7 +28,7 @@ public class Object {
     private ObjectType objectType;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "PARENT_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "PARENT_ID", updatable = false)
     private Object parent;
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "object", cascade = CascadeType.ALL)

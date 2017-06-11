@@ -4,6 +4,7 @@ import com.shop.database.entities.Attribute;
 import com.shop.database.entities.Object;
 import com.shop.database.entities.Reference;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,4 +18,8 @@ public interface ReferenceRepository extends JpaRepository<Reference, Integer> {
     List<Reference> findByAttribute(Attribute attribute);
     List<Reference> findByName(String name);
     Reference findById(int id);
+    List<Reference> findByObjectAndRefObject(Object object, Object refObject);
+    @Transactional
+    void removeByObjectAndRefObject(Object object, Object refObject);
+
 }
