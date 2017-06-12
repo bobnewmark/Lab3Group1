@@ -254,8 +254,7 @@ public class UserController {
     String removeFromCart(@RequestParam int itemId) {
         List<Reference> references = referenceService.findByObjectAndRefObject(thisCart, objectService.findById(itemId));
         for (Reference r: references) {
-            System.out.println("================DELETING " + r.getRefObject().getName() + " =================");
-            referenceService.removeByObjectAndRefObject(thisCart, objectService.findById(itemId));
+            referenceService.delete(r);
         }
         String size = String.valueOf(thisCart.getReferences().size());
         return size;
@@ -264,14 +263,24 @@ public class UserController {
 
     @RequestMapping(value = {"/cart"})
     public String cart(Model model) {
-        List<Object> itemsToBuy = new ArrayList<>();
-        for (Reference ref: thisCart.getReferences()) {
-            itemsToBuy.add(ref.getRefObject());
-        }
+
+
         int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
         model.addAttribute("cartSize", cartSize);
-        model.addAttribute("itemsToBuy", prepareForLayout(itemsToBuy));
         model.addAttribute("current", "/WEB-INF/views/cart.jsp");
         return "index";
+    }
+
+    @RequestMapping(value = {"/showCart"}, method = RequestMethod.GET)
+    public ResponseEntity<List<Object>> cartContent() {
+        List<Object> itemsToBuy = new ArrayList<>();
+        List<Reference> refs = referenceService.findByObject(thisCart);
+        for (Reference ref: refs) {
+            itemsToBuy.add(ref.getRefObject());
+        }
+        if (itemsToBuy.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(itemsToBuy, HttpStatus.OK);
     }
 }

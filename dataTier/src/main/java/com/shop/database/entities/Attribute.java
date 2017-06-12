@@ -30,7 +30,7 @@ public class Attribute {
     private List<Parameter> parameters;
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "attribute", cascade = CascadeType.REMOVE)
     private List<Reference> references;
     @Column(name="uniq")
     private boolean unique;

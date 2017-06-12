@@ -16,7 +16,7 @@
 <!-- End Page title area -->
 
 
-<div class="single-product-area">
+<div class="single-product-area" ng-controller="ItemController as ctrl" data-ng-init="fetchCart()">
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
@@ -38,25 +38,25 @@
                                 <tbody>
 
 
-                                <c:forEach var="entity" items="${itemsToBuy}">
-                                    <tr class="cart_item">
+
+                                    <tr class="cart_item" ng-repeat="p in ctrl.items">
                                         <td class="product-remove">
-                                            <a title="Remove this item" class="remove" href="#" onclick="removeFromCart(${entity.id})">×</a>
+                                            <a title="Remove this item" class="remove" href="#">×</a>
                                         </td>
 
                                         <td class="product-thumbnail">
-                                            <a href="${contextPath}/details/${entity.id}"><img width="145" height="145"
+                                            <a href="${contextPath}/details/{{p.id}}"><img width="145" height="145"
                                                                                                alt="poster_1_up"
                                                                                                class="shop_thumbnail"
-                                                                                               src="${contextPath}${entity.icon}"></a>
+                                                                                           src="${contextPath}{{p.mapParameters.icon.value}}"></a>
                                         </td>
 
                                         <td class="product-name">
-                                            <a href="${contextPath}/details/${entity.id}">${entity.name}</a>
+                                            <a href="${contextPath}/details/{{p.id}}" ng-bind="p.mapParameters.name.value"></a>
                                         </td>
 
                                         <td class="product-price">
-                                            <span class="amount">${entity.price}</span>
+                                            <span class="amount" ng-bind="p.mapParameters.price.value"></span>
                                         </td>
 
                                         <td class="product-quantity">
@@ -72,7 +72,7 @@
                                             <span class="amount">£15.00</span>
                                         </td>
                                     </tr>
-                                </c:forEach>
+
 
                                 <tr class="cart_item">
                                     <td class="product-remove">

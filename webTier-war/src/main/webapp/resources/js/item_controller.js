@@ -1,6 +1,8 @@
 'use strict';
-App.controller('ItemController', ['$scope', 'ItemService',  function($scope, ItemService, $modalInstance) {
+App.controller('ItemController', ['$scope', 'ItemService', '$location', function($scope, ItemService, $location) {
     var self = this;
+    var REST_SERVICE_URI = 'http://localhost:7001/laba/phone/';
+    var REST_SERVICE_URI_CART = 'http://localhost:7001/laba/showCart';
     self.item = {id:null, name:'', objectType:{id: null}, parameters:[
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
@@ -18,11 +20,29 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
     self.reset = reset;
     self.show = show;
     self.buy = buy;
+   console.log($location.absUrl());
+if($location.absUrl()=== 'http://localhost:7001/laba/') {
 
     fetchAllItems();
+}else{
+    fetchCart();
+}
 
     function fetchAllItems(){
-        ItemService.fetchAllItems()
+        ItemService.fetchAllItems(REST_SERVICE_URI)
+            .then(
+                function(d) {
+                    self.items = d;
+                    closeModal();
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                }
+            );
+    }
+
+    function fetchCart(){
+        ItemService.fetchAllItems(REST_SERVICE_URI_CART)
             .then(
                 function(d) {
                     self.items = d;
@@ -127,9 +147,7 @@ App.controller('ItemController', ['$scope', 'ItemService',  function($scope, Ite
         self.item={id:null,username:'',address:'',email:''};
         $scope.myForm.$setPristine(); //reset Form
     }
-    function closeModal(){
-        $modalInstance.dismiss('cancel');
-    }
+
 
 }]).directive("owlCarousel", function($window) {
     return {

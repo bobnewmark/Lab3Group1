@@ -14,10 +14,10 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
 
     return factory;
 
-    function fetchAllItems() {
+    function fetchAllItems(url) {
        /* alert('IN SERVICE');*/
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI)
+        $http.get(url)
             .then(
                 function (response) {
                     deferred.resolve(response.data);

@@ -19,7 +19,7 @@ public interface ReferenceRepository extends JpaRepository<Reference, Integer> {
     List<Reference> findByName(String name);
     Reference findById(int id);
     List<Reference> findByObjectAndRefObject(Object object, Object refObject);
-    @Transactional
-    void removeByObjectAndRefObject(Object object, Object refObject);
+
+
 
 }

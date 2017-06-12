@@ -2,6 +2,7 @@ package com.shop.database.services.impl;
 
 import com.shop.database.entities.Attribute;
 import com.shop.database.entities.Object;
+import com.shop.database.entities.Parameter;
 import com.shop.database.entities.Reference;
 import com.shop.database.repositories.ReferenceRepository;
 import com.shop.database.services.ReferenceService;
@@ -24,7 +25,14 @@ public class ReferenceServiceImpl implements ReferenceService{
 
 
     public List<Reference> findByObject(Object object) {
-        return referenceRepository.findByObject(object);
+        List<Reference> refs = referenceRepository.findByObject(object);
+        for(Reference r: refs){
+            Object refObject = r.getRefObject();
+            for(Parameter p: refObject.getParameters()){
+                refObject.getMapParameters().put(p.getAttribute().getName(), p);
+            }
+        }
+        return refs;
     }
 
 
@@ -52,9 +60,8 @@ public class ReferenceServiceImpl implements ReferenceService{
     }
 
     @Override
-    public void removeByObjectAndRefObject(Object object, Object refObject) {
-        referenceRepository.removeByObjectAndRefObject(object, refObject);
+    public void delete(Reference reference) {
+        referenceRepository.delete(reference);
     }
-
 
 }

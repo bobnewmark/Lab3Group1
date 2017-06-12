@@ -19,7 +19,7 @@ import java.util.Map;
 public class Object {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "OBJECT_ID", length = 10, insertable = false, updatable = false, nullable = false)
+    @Column(name = "OBJECT_ID", length = 10, updatable = false, nullable = false)
     private int id;
     @Column(name = "NAME")
     private String name;
@@ -34,7 +34,7 @@ public class Object {
     @OneToMany(mappedBy = "object", cascade = CascadeType.ALL)
     private List<Parameter> parameters = new ArrayList<>();
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "object", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "object", cascade = CascadeType.REMOVE)
     private List<Reference> references;
     @Transient
     private Map<String, Parameter> mapParameters = new HashMap<>();
