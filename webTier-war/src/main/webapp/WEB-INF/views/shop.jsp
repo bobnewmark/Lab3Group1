@@ -14,21 +14,18 @@
     </div>
 </div>
 
-<div class="single-product-area">
+<div class="single-product-area"  ng-controller="ItemController as ctrl">
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-6">
-
-
-                <c:forEach var="entity" items="${allProducts}">
+            <div class="col-md-3 col-sm-6" ng-repeat="p in ctrl.items">
                     <div class="single-shop-product">
                         <div class="product-upper">
-                            <img src="${contextPath}${entity.icon}" alt="">
+                            <img src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
                         </div>
-                        <h2><a href="${contextPath}/details/${entity.id}">${entity.name}</a></h2>
+                        <h2><a href="${contextPath}/details/{{p.id}}">{{p.mapParameters.name.value}}</a></h2>
                         <div class="product-carousel-price">
-                            <ins>Price: ${entity.price}</ins>
+                            <ins>Price: {{p.mapParameters.price.value}}</ins>
                             <del></del>
                         </div>
 
@@ -37,9 +34,6 @@
                                rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
                         </div>
                     </div>
-                </c:forEach>
-
-
             </div>
         </div>
 

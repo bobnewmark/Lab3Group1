@@ -2,7 +2,12 @@
 App.controller('ItemController', ['$scope', 'ItemService', '$location', function($scope, ItemService, $location) {
     var self = this;
     var REST_SERVICE_URI = 'http://localhost:7001/laba/phone/';
-    var REST_SERVICE_URI_CART = 'http://localhost:7001/laba/showCart';
+    if($location.absUrl()=== 'http://localhost:7001/laba/shop'){
+        REST_SERVICE_URI = 'http://localhost:7001/laba/products';
+    }else if($location.absUrl()=== 'http://localhost:7001/laba/showCart'){
+        REST_SERVICE_URI = 'http://localhost:7001/laba/showCart';
+    }
+    console.log('REST_SERVICE_URI '+REST_SERVICE_URI);
     self.item = {id:null, name:'', objectType:{id: null}, parameters:[
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
@@ -20,20 +25,12 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
     self.reset = reset;
     self.show = show;
     self.buy = buy;
-   console.log($location.absUrl());
-if($location.absUrl()=== 'http://localhost:7001/laba/') {
-
-    fetchAllItems();
-}else{
-    fetchCart();
-}
 
     function fetchAllItems(){
         ItemService.fetchAllItems(REST_SERVICE_URI)
             .then(
                 function(d) {
                     self.items = d;
-                    closeModal();
                 },
                 function(errResponse){
                     console.error('Error while fetching Users');
@@ -41,18 +38,7 @@ if($location.absUrl()=== 'http://localhost:7001/laba/') {
             );
     }
 
-    function fetchCart(){
-        ItemService.fetchAllItems(REST_SERVICE_URI_CART)
-            .then(
-                function(d) {
-                    self.items = d;
-                },
-                function(errResponse){
-                    console.error('Error while fetching Users');
-                }
-            );
-    }
-
+    fetchAllItems();
     function buy(id) {
         $.ajax({
             contentType: "application/json; charset=utf-8",
@@ -67,7 +53,7 @@ if($location.absUrl()=== 'http://localhost:7001/laba/') {
     }
 
     function showItem(id) {
-        ItemService.showItem(id)
+        ItemService.showItem(id, REST_SERVICE_URI)
             .then(
                 function(d) {
                     self.items = d;
@@ -79,7 +65,7 @@ if($location.absUrl()=== 'http://localhost:7001/laba/') {
     }
 
     function createItem(item){
-        ItemService.createItem(item)
+        ItemService.createItem(item, REST_SERVICE_URI)
             .then(
                 fetchAllItems,
                 function(errResponse){
@@ -89,7 +75,7 @@ if($location.absUrl()=== 'http://localhost:7001/laba/') {
     }
 
     function updateItem(item, id){
-        ItemService.updateItem(item, id)
+        ItemService.updateItem(item, id, REST_SERVICE_URI)
             .then(
                 fetchAllItems,
                 function(errResponse){
@@ -99,7 +85,7 @@ if($location.absUrl()=== 'http://localhost:7001/laba/') {
     }
 
     function deleteItem(id){
-        ItemService.deleteItem(id)
+        ItemService.deleteItem(id, REST_SERVICE_URI)
             .then(
                 fetchAllItems,
                 function(errResponse){
@@ -144,7 +130,16 @@ if($location.absUrl()=== 'http://localhost:7001/laba/') {
 
 
     function reset(){
-        self.item={id:null,username:'',address:'',email:''};
+        self.item={id:null, name:'', objectType:{id: null}, parameters:[
+            {id:null, value:'', attribute:{id:null, name:'name'}, object:{id:null}},
+            {id:null, value:'', attribute:{id:null, name:'price'}, object:{id:null}},
+            {id:null, value:'', attribute:{id:null, name:'icon'}, object:{id:null}},
+            {id:null, value:'', attribute:{id:null, name:'icon2'}, object:{id:null}},
+            {id:null, value:'', attribute:{id:null, name:'icon3'}, object:{id:null}},
+            {id:null, value:'', attribute:{id:null, name:'OS'}, object:{id:null}},
+            {id:null, value:'', attribute:{id:null, name:'diagonal'}, object:{id:null}},
+            {id:null, value:'', attribute:{id:null, name:'rating'}, object:{id:null}},
+            {id:null, value:'', attribute:{id:null, name:'quantity'}, object:{id:null}}]};
         $scope.myForm.$setPristine(); //reset Form
     }
 

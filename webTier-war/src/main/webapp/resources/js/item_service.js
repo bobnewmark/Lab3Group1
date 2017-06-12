@@ -1,9 +1,6 @@
 'use strict';
 
 App.factory('ItemService', ['$http', '$q', function($http, $q){
-
-    var REST_SERVICE_URI = 'http://localhost:7001/laba/phone/';
-
     var factory = {
         fetchAllItems: fetchAllItems,
         createItem: createItem,
@@ -15,7 +12,6 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
     return factory;
 
     function fetchAllItems(url) {
-       /* alert('IN SERVICE');*/
         var deferred = $q.defer();
         $http.get(url)
             .then(
@@ -30,9 +26,9 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
         return deferred.promise;
     }
 
-    function showItem(id) {
+    function showItem(id, url) {
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI+id)
+        $http.get(url+id)
             .then(
                 function (response) {
                     deferred.resolve(response.data);
@@ -45,9 +41,9 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
         return deferred.promise;
     }
 
-    function createItem(user) {
+    function createItem(user, url) {
         var deferred = $q.defer();
-        $http.post(REST_SERVICE_URI, user)
+        $http.post(url, user)
             .then(
                 function (response) {
                     deferred.resolve(response.data);
@@ -61,9 +57,9 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
     }
 
 
-    function updateItem(item, id) {
+    function updateItem(item, id, url) {
         var deferred = $q.defer();
-        $http.put(REST_SERVICE_URI+id, item)
+        $http.put(url+id, item)
             .then(
                 function (response) {
                     deferred.resolve(response.data);
@@ -76,9 +72,9 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
         return deferred.promise;
     }
 
-    function deleteItem(id) {
+    function deleteItem(id, url) {
         var deferred = $q.defer();
-        $http.delete(REST_SERVICE_URI+id)
+        $http.delete(url+id)
             .then(
                 function (response) {
                     deferred.resolve(response.data);

@@ -105,7 +105,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="{{isActive('/')}}"><a href="${contextPath}/">Home</a></li>
-                    <li class="{{isActive('/phones')}}"><a href="${contextPath}/shop">Shop page</a></li>
+                    <li class="{{isActive('/shop')}}"><a href="${contextPath}/shop">Shop page</a></li>
                     <li class="{{isActive('/contacts')}}"><a href="${contextPath}/contacts">Contacts</a></li>
                     <li>
                         <form name="searchForm" action="${contextPath}/search/">

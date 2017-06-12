@@ -189,17 +189,24 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/shop"}, method = RequestMethod.GET)
-    public String allProducts(Model model) throws URISyntaxException {
+    public String shop(Model model) throws URISyntaxException {
+        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        model.addAttribute("cartSize", cartSize);
+        model.addAttribute("current", "/WEB-INF/views/shop.jsp");
+        return "index";
+    }
+
+    @RequestMapping(value = {"/products"}, method = RequestMethod.GET)
+    public ResponseEntity<List<Object>> allProducts(Model model) throws URISyntaxException {
         List<Object> result = new ArrayList<>();
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Phone")));
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Headphones")));
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Charger")));
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Battery")));
-        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
-        model.addAttribute("cartSize", cartSize);
-        model.addAttribute("allProducts", prepareForLayout(result));
-        model.addAttribute("current", "/WEB-INF/views/shop.jsp");
-        return "index";
+        if (result.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = {"/contacts"}, method = RequestMethod.GET)
