@@ -265,8 +265,6 @@ public class UserController {
 
     @RequestMapping(value = {"/cart"})
     public String cart(Model model) {
-
-
         int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("current", "/WEB-INF/views/cart.jsp");

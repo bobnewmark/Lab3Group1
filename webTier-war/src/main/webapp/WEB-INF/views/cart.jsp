@@ -16,7 +16,7 @@
 <!-- End Page title area -->
 
 
-<div class="single-product-area" ng-controller="ItemController as ctrl" data-ng-init="fetchCart()">
+<div class="single-product-area" ng-controller="CartController as ctrl" >
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
@@ -56,20 +56,22 @@
                                         </td>
 
                                         <td class="product-price">
-                                            <span class="amount" ng-bind="p.mapParameters.price.value"></span>
+                                            <input type="number" ng-model="item.cost" ng-init="item.cost=(p.mapParameters.price.value + 0)" class="amount" >
+                                            <%--<span class="amount" ng-bind="p.mapParameters.price.value"></span>--%>
                                         </td>
 
                                         <td class="product-quantity">
                                             <div class="quantity buttons_added">
-                                                <input type="button" class="minus" value="-">
-                                                <input type="number" size="4" class="input-text qty text" title="Qty"
-                                                       value="1" min="0" step="1">
-                                                <input type="button" class="plus" value="+">
+                                                <input type="number" ng-model="item.qty" ng-init="item.qty=1" size="4" class="input-text qty text" min="1">
+                                                <%--<input type="button" class="minus" value="-">--%>
+                                                <%--<input type="number" size="4" class="input-text qty text" title="Qty"--%>
+                                                       <%--value="1" min="0" step="1">--%>
+                                                <%--<input type="button" class="plus" value="+">--%>
                                             </div>
                                         </td>
 
                                         <td class="product-subtotal">
-                                            <span class="amount">£15.00</span>
+                                            <span class="amount">{{item.cost * item.qty}}</span>
                                         </td>
                                     </tr>
 

@@ -26,6 +26,8 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
     self.show = show;
     self.buy = buy;
 
+    fetchAllItems();
+
     function fetchAllItems(){
         ItemService.fetchAllItems(REST_SERVICE_URI)
             .then(
@@ -38,15 +40,12 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
             );
     }
 
-    fetchAllItems();
     function buy(id) {
         $.ajax({
             contentType: "application/json; charset=utf-8",
             url: 'addToCart',
             data: ({itemId : id}),
             success: function(data) {
-                var elem = document.getElementById('#cartNum');
-                console.log(data);
                 $('#cartNum').html(data);
             }
         });

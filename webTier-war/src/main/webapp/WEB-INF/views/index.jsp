@@ -47,6 +47,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="<c:url value='/resources/js/index.js' />"></script>
     <script src="<c:url value='/resources/js/item_controller.js' />"></script>
+    <script src="<c:url value='/resources/js/cart_controller.js' />"></script>
     <script src="<c:url value='/resources/js/item_service.js' />"></script>
     <script src="<c:url value='/resources/js/MenuCtrl.js' />"></script>
 </head>
