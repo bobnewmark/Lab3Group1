@@ -46,7 +46,6 @@ if($location.absUrl()=== 'http://localhost:7001/laba/') {
             .then(
                 function(d) {
                     self.items = d;
-                    closeModal();
                 },
                 function(errResponse){
                     console.error('Error while fetching Users');
@@ -121,6 +120,7 @@ if($location.absUrl()=== 'http://localhost:7001/laba/') {
             updateItem(self.item, self.item.id);
             console.log('Item updated with id ', self.item.id);
         }
+        angular.element(document.querySelector('#editModal')).modal('hide');
         reset();
     }
 

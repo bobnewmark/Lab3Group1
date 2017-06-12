@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         Object user = null;
         try {
             user = objectRepository.findByAttrAndObjectType("user", "login", username).get(0);
-        }catch(ArrayIndexOutOfBoundsException e){
+        }catch(IndexOutOfBoundsException e){
             user = new Object();
         }
         for(Parameter p: user.getParameters()){

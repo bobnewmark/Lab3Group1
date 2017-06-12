@@ -1,6 +1,8 @@
 package com.shop.database.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -9,7 +11,7 @@ import javax.persistence.*;
  * Created by said on 06.05.2017.
  */
 @Entity
-@Table(name = "LAB3_PARAMS")
+@Table(name = "LAB3_PARAMETERS")
 public class Parameter {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -18,6 +20,7 @@ public class Parameter {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "OBJECT_ID", referencedColumnName = "OBJECT_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Object object;
     @ManyToOne
     @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ATTRIBUTE_ID")

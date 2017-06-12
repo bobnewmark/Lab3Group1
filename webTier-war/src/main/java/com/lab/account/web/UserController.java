@@ -77,13 +77,12 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@RequestParam("email") String login, @RequestParam("password") String password, Model model) {
-        System.out.println(login + " " + password);
+        System.out.println(login + " login--password" + password);
         Object user = new Object();
         user.setName("user");
         ObjectType ot = objectTypeService.findByName("user");
         user.setObjectType(ot);
         user.setParameters(new ArrayList<Parameter>());
-
         /*userValidator.validate(userForm, bindingResult);*/
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
         user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("login", ot), login));
@@ -168,16 +167,12 @@ public class UserController {
         return new ResponseEntity<Object>(object, HttpStatus.OK);
     }
 
-
-
-    //------------------- Delete a User --------------------------------------------------------
-
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteUser(@PathVariable("id") long id) {
+    @RequestMapping(value = "/phone/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteUser(@PathVariable("id") int id) {
         System.out.println("Fetching & Deleting User with id " + id);
 
 
-        //objectService.de(id);
+        objectService.delete(id);
         return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
     }
 

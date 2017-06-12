@@ -80,7 +80,7 @@
                                             </div>
                                         </div>
                                     </data-owl-carousel>
-                    <div id="editModal" class="modal fade">
+                    <div id="editModal" class="modal fade" phoneModal >
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">

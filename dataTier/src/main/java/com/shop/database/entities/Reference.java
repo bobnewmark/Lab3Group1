@@ -14,11 +14,11 @@ public class Reference {
     @Column(name = "REFERENCE_ID", length = 10, insertable = false, updatable = false, nullable = false)
     private int id;
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "OBJECT_ID", referencedColumnName = "OBJECT_ID")
     private Object object;
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "REF_OBJECT_ID", referencedColumnName = "OBJECT_ID")
     private Object refObject;
     @Column(name = "NAME")

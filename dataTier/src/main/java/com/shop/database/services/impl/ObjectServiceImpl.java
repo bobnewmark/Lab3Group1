@@ -98,4 +98,9 @@ public class ObjectServiceImpl implements ObjectService {
         }
         return objects;
     }
+
+    @Override
+    public void delete(int id) {
+        objectRepository.delete(id);
+    }
 }
