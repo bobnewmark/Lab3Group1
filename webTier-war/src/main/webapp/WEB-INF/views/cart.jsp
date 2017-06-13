@@ -38,7 +38,7 @@
                                 <tbody>
 
 
-                                <tr class="cart_item" ng-repeat="p in ctrl.items.references | unique: 'refObject'" ng-init="total = 0">
+                                <tr class="cart_item" ng-repeat="p in ctrl.items.references | unique: 'name'" ng-init="total = 0">
                                     <td class="product-remove">
                                         <a title="Remove this item" ng-click="ctrl.remove(p.refObject.id)" class="remove" href="#">×</a>
                                     </td>
