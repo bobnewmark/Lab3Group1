@@ -1,18 +1,13 @@
 'use strict';
 App.controller('CartController', ['$scope', 'ItemService', function($scope, ItemService) {
     var self = this;
-    var REST_SERVICE_URI = 'http://localhost:7001/laba/showCart';
+    var REST_SERVICE_URI = 'http://localhost:7001/laba/showCart/';
 
-    self.item = {id:null, name:'', objectType:{id: null}, parameters:[
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}}]};
+    self.item = {id:null, name:'', objectType:{id: null}, mapParameters:[
+        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}}],
+        references:[{id:null, name:'', objectType:{id: null}, parameters:[
+        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}
+        }]}]};
     self.items = [];
     self.submit = submit;
     self.edit = edit;
@@ -29,13 +24,51 @@ App.controller('CartController', ['$scope', 'ItemService', function($scope, Item
             .then(
                 function(d) {
                     self.items = d;
-                    closeModal();
                 },
                 function(errResponse){
                     console.error('Error while fetching Users');
                 }
             );
     }
+
+
+    $scope.getCount = function(i) {
+        var iCount = iCount || 0;
+        for(var item in $scope.items) {
+            if (item.name == i) {
+                iCount++;
+            }
+        }
+        return iCount;
+    }
+
+
+
+    function total() {
+        var total = 0;
+        angular.forEach(self.items, function(item) {
+            //total += item.qty * (item.cost + 0)/10;
+            total += parseInt(item.mapParameters.price.value) * $scope.item.qty;
+        })
+
+        return total;
+    }
+
+
+    function getBrandCount(brand) {
+        var count = 0;
+        if (brand !== undefined && brand !== null && brand.length > 0) {
+            for (var i = 0; i < vm.items.length; i++) {
+                if (vm.items[i].brand === brand) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+
+
 
     function fetchCart(){
         ItemService.fetchAllItems(REST_SERVICE_URI_CART)
@@ -94,8 +127,8 @@ App.controller('CartController', ['$scope', 'ItemService', function($scope, Item
             );
     }
 
-    function deleteItem(id){
-        ItemService.deleteItem(id)
+    function deleteItem(id, cartId){
+        ItemService.deleteItem(id, REST_SERVICE_URI)
             .then(
                 fetchAllItems,
                 function(errResponse){
@@ -146,3 +179,32 @@ App.controller('CartController', ['$scope', 'ItemService', function($scope, Item
 
 
 }])
+
+.filter('unique', function() {
+
+    return function (arr, field) {
+
+        var o = {},
+            i,
+            r = [];
+
+
+        // for(var a in arr) {
+        //     o[a[field]] = a;
+        // }
+
+        for(i=0; i<arr.length; i+=1) {
+            o[arr[i][field]] = arr[i];
+        }
+
+        for(i in o) {
+            r.push(o[i]);
+        }
+
+
+        return r;
+
+
+
+    };
+});

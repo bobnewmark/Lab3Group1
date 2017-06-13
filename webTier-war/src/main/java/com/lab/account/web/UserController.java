@@ -9,6 +9,9 @@ import com.shop.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +39,7 @@ public class UserController {
     private AttributeService attributeService;
     @Autowired
     private ReferenceService referenceService;
+
 
     private Object thisUser;
     private Object thisCart;
@@ -251,18 +255,6 @@ public class UserController {
         return size;
     }
 
-    @RequestMapping(value = "/removeFromCart", method = RequestMethod.GET)
-    public @ResponseBody
-    String removeFromCart(@RequestParam int itemId) {
-        List<Reference> references = referenceService.findByObjectAndRefObject(thisCart, objectService.findById(itemId));
-        for (Reference r: references) {
-            referenceService.delete(r);
-        }
-        String size = String.valueOf(thisCart.getReferences().size());
-        return size;
-    }
-
-
     @RequestMapping(value = {"/cart"})
     public String cart(Model model) {
         int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
@@ -272,15 +264,32 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/showCart"}, method = RequestMethod.GET)
-    public ResponseEntity<List<Object>> cartContent() {
-        List<Object> itemsToBuy = new ArrayList<>();
-        List<Reference> refs = referenceService.findByObject(thisCart);
-        for (Reference ref: refs) {
-            itemsToBuy.add(ref.getRefObject());
-        }
-        if (itemsToBuy.isEmpty()) {
+    public ResponseEntity<Object> cartContent() {
+        Object user = securityService.getUser();
+        Object cart = objectService.findByParent(user).get(0);
+
+        if (cart.getReferences().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(itemsToBuy, HttpStatus.OK);
+        return new ResponseEntity<>(cart, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/showCart/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> removeFromCart(@PathVariable("id") int id) {
+        System.out.println("Fetching & Deleting item with id " + id + " from cart");
+        Object user = securityService.getUser();
+        Object cart = objectService.findByParent(user).get(0);
+        List<Reference> refToDelete = referenceService.findByObjectAndRefObject(cart, objectService.findById(id));
+        for (Reference r: refToDelete) {
+            referenceService.delete(r);
+        }
+        return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+    }
+
+
+
+
+
+
+
 }

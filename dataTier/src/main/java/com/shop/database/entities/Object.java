@@ -38,7 +38,7 @@ public class Object {
     private List<Parameter> parameters = new ArrayList<>();
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "object")
-    private List<Reference> references;
+    private List<Reference> references = new ArrayList<>();
     @Transient
     private Map<String, Parameter> mapParameters = new HashMap<>();
 

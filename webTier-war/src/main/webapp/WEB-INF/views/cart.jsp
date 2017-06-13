@@ -16,7 +16,7 @@
 <!-- End Page title area -->
 
 
-<div class="single-product-area" ng-controller="CartController as ctrl" >
+<div class="single-product-area" ng-controller="CartController as ctrl">
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
@@ -38,42 +38,43 @@
                                 <tbody>
 
 
+                                <tr class="cart_item" ng-repeat="p in ctrl.items.references | unique: 'refObject'" ng-init="total = 0">
+                                    <td class="product-remove">
+                                        <a title="Remove this item" ng-click="ctrl.remove(p.refObject.id)" class="remove" href="#">×</a>
+                                    </td>
 
-                                    <tr class="cart_item" ng-repeat="p in ctrl.items">
-                                        <td class="product-remove">
-                                            <a title="Remove this item" class="remove" href="#">×</a>
-                                        </td>
+                                    <td class="product-thumbnail">
+                                        <a href="${contextPath}/details/{{p.refObject.id}}"><img width="145" height="145"
+                                                                                       alt="poster_1_up"
+                                                                                       class="shop_thumbnail"
+                                                                                       src="${contextPath}{{p.refObject.mapParameters.icon.value}}"></a>
+                                    </td>
 
-                                        <td class="product-thumbnail">
-                                            <a href="${contextPath}/details/{{p.id}}"><img width="145" height="145"
-                                                                                               alt="poster_1_up"
-                                                                                               class="shop_thumbnail"
-                                                                                           src="${contextPath}{{p.mapParameters.icon.value}}"></a>
-                                        </td>
+                                    <td class="product-name">
+                                        <a href="${contextPath}/details/{{p.refObject.id}}"
+                                           ng-bind="p.refObject.mapParameters.name.value"></a>
+                                    </td>
 
-                                        <td class="product-name">
-                                            <a href="${contextPath}/details/{{p.id}}" ng-bind="p.mapParameters.name.value"></a>
-                                        </td>
+                                    <td class="product-price">
+                                        <input type="number" align="middle" readonly="true" ng-model="item.cost"
+                                               ng-init="item.cost=((p.refObject.mapParameters.price.value + 0) / 10)"
+                                               value="{{p.refObject.mapParameters.price.value}}" size="4"
+                                               class="input-text qty text">
 
-                                        <td class="product-price">
-                                            <input type="number" ng-model="item.cost" ng-init="item.cost=(p.mapParameters.price.value + 0)" class="amount" >
-                                            <%--<span class="amount" ng-bind="p.mapParameters.price.value"></span>--%>
-                                        </td>
+                                    </td>
 
-                                        <td class="product-quantity">
-                                            <div class="quantity buttons_added">
-                                                <input type="number" ng-model="item.qty" ng-init="item.qty=1" size="4" class="input-text qty text" min="1">
-                                                <%--<input type="button" class="minus" value="-">--%>
-                                                <%--<input type="number" size="4" class="input-text qty text" title="Qty"--%>
-                                                       <%--value="1" min="0" step="1">--%>
-                                                <%--<input type="button" class="plus" value="+">--%>
-                                            </div>
-                                        </td>
+                                    <td class="product-quantity">
+                                        <div class="quantity buttons_added">
+                                            <input type="number" ng-model="item.qty" ng-init="item.qty=1" size="4"
+                                                   class="input-text qty text" min="1">
 
-                                        <td class="product-subtotal">
-                                            <span class="amount">{{item.cost * item.qty}}</span>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </td>
+
+                                    <td class="product-subtotal">
+                                        <span class="amount" ng-init="$parent.total = $parent.total + (item.cost * item.qty)">{{item.cost * item.qty}}</span>
+                                    </td>
+                                </tr>
 
 
                                 <tr class="cart_item">
@@ -96,7 +97,7 @@
                                     </td>
 
                                     <td class="product-subtotal">
-                                        <span class="amount">total price</span>
+                                        <span class="amount">{{ total }}</span>
                                     </td>
                                 </tr>
 

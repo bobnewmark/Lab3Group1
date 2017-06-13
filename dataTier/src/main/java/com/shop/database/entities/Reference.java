@@ -1,6 +1,8 @@
 package com.shop.database.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -14,22 +16,19 @@ public class Reference {
     @Column(name = "REFERENCE_ID", length = 10, insertable = false, updatable = false, nullable = false)
     private int id;
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     @JoinColumn(name = "OBJECT_ID", referencedColumnName = "OBJECT_ID")
     private Object object;
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     @JoinColumn(name = "REF_OBJECT_ID", referencedColumnName = "OBJECT_ID")
     private Object refObject;
     @Column(name = "NAME")
     private String name;
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ATTRIBUTE_ID")
     private Attribute attribute;
-//    @Embedded
-//    @Id
-//    private Key id;
 
     public Reference() {
     }
@@ -80,70 +79,5 @@ public class Reference {
     public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
-
-    //
-//    public Key getId() {
-//        return id;
-//    }
-//
-//    public void setId(Key id) {
-//        this.id = id;
-//    }
-
-//    @Embeddable
-//    public static class Key implements Serializable {
-//        private int object_id;
-//        private int ref_object_id;
-//        private String name;
-//
-//        public Key() {
-//        }
-//
-//        public Key(Object object, Object refObject, String name) {
-//            this.object_id = object.getId();
-//            this.ref_object_id = refObject.getId();
-//            this.name = name;
-//        }
-//
-//        public int getObject_id() {
-//            return object_id;
-//        }
-//
-//        public void setObject_id(int object_id) {
-//            this.object_id = object_id;
-//        }
-//
-//        public int getRef_object_id() {
-//            return ref_object_id;
-//        }
-//
-//        public void setRef_object_id(int ref_object_id) {
-//            this.ref_object_id = ref_object_id;
-//        }
-//
-//        public String getName() {
-//            return name;
-//        }
-//
-//        public void setName(String name) {
-//            this.name = name;
-//        }
-//
-//        @Override
-//        public boolean equals(java.lang.Object o) {
-//            if (this == o) return true;
-//            if (o == null || getClass() != o.getClass()) return false;
-//            Key key = (Key) o;
-//            return object_id == key.object_id &&
-//                    ref_object_id == key.ref_object_id &&
-//                    Objects.equals(name, key.name);
-//        }
-//
-//        @Override
-//        public int hashCode() {
-//            return Objects.hash(object_id, ref_object_id, name);
-//        }
-//    }
-
 
 }
