@@ -21,7 +21,7 @@ directive('setClassWhenAtTop', function ($window) {
     $scope.scrollTo = function (target){
     };
     $scope.isActive = function(url)  {
-        if ($location.absUrl()===($location.protocol()+"://"+$location.host()+":"+$location.port()+"/laba"+url)) {
+        if ($location.absUrl().split('?')[0]===($location.protocol()+"://"+$location.host()+":"+$location.port()+"/laba"+url)) {
             return "active";
         }else {
             return "not-active"

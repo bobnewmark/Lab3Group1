@@ -1,13 +1,8 @@
 'use strict';
 App.controller('ItemController', ['$scope', 'ItemService', '$location', function($scope, ItemService, $location) {
     var self = this;
-    var REST_SERVICE_URI = 'http://localhost:7001/laba/phone/';
-    if($location.absUrl()=== 'http://localhost:7001/laba/shop'){
-        REST_SERVICE_URI = 'http://localhost:7001/laba/products';
-    }else if($location.absUrl()=== 'http://localhost:7001/laba/showCart'){
-        REST_SERVICE_URI = 'http://localhost:7001/laba/showCart';
-    }
-    console.log('REST_SERVICE_URI '+REST_SERVICE_URI);
+    var REST_SERVICE_URI = map[$location.absUrl()];
+    console.log('path '+$location.path());
     self.item = {id:null, name:'', objectType:{id: null}, parameters:[
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
