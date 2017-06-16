@@ -17,7 +17,11 @@ directive('setClassWhenAtTop', function ($window) {
             });
         }
     };
-}).controller('MenuCtrl', function($scope, $location){
+}).controller('MenuCtrl', ['$scope', 'ItemService', '$location', function($scope, ItemService, $location){
+    var REST_SERVICE_URI = 'http://localhost:7001/laba/cartIndex';
+    var indexCart = 0;
+    this.fetchCartIndex = fetchCartIndex;
+
     $scope.scrollTo = function (target){
     };
     $scope.isActive = function(url)  {
@@ -26,5 +30,23 @@ directive('setClassWhenAtTop', function ($window) {
         }else {
             return "not-active"
         }
+    };
+    $scope.updateIndex = function() {
+        fetchCartIndex();
     }
-});
+    fetchCartIndex();
+    function fetchCartIndex(){
+        ItemService.fetchAllItems(REST_SERVICE_URI)
+            .then(
+                function(d) {
+                    console.log("CART INDEX: " + d);
+                    $('#cartNum').html(d);
+                },
+                function(errResponse){
+                    console.error('Error while fetching cart index');
+                }
+            );
+    }
+
+
+}]);

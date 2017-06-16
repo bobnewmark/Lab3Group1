@@ -40,8 +40,8 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
             contentType: "application/json; charset=utf-8",
             url: 'addToCart',
             data: ({itemId : id}),
-            success: function(data) {
-                $('#cartNum').html(data);
+            success: function() {
+                $scope.updateIndex();
             }
         });
     }

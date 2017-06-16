@@ -281,4 +281,11 @@ public class UserController {
         }
         return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
     }
+
+    @RequestMapping(value = {"/cartIndex"}, method = RequestMethod.GET)
+    public ResponseEntity<String> cartIndex() {
+        Object cart = securityService.getCart();
+        String result = String.valueOf(cart == null ? 0 : cart.getReferences().size());
+        return new ResponseEntity<String>(result, HttpStatus.OK);
+    }
 }
