@@ -1,7 +1,12 @@
-var map = ({'http://localhost:7001/laba/': 'http://localhost:7001/laba/phone/',
-    'http://localhost:7001/laba/shop': 'http://localhost:7001/laba/products',
-    'http://localhost:7001/laba/showCart': 'http://localhost:7001/laba/showCart'});
-var App = angular.module('myApp', []);
+var map = ({'/laba/': '/laba/phone/',
+    '/laba/shop': '/laba/products',
+    '/laba/showCart': '/laba/showCart'});
+var App = angular.module('myApp', [],function($locationProvider){
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+});
 App.factory('Service', ['$http', '$q', function($http, $q){
 
     var SERVICE_URI = 'http://localhost:7001/laba/registration/';

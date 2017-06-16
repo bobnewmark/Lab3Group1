@@ -1,8 +1,9 @@
 'use strict';
 App.controller('ItemController', ['$scope', 'ItemService', '$location', function($scope, ItemService, $location) {
     var self = this;
-    var REST_SERVICE_URI = map[$location.absUrl()];
-    console.log('path '+$location.path());
+    var url = $location.protocol()+"://"+$location.host()+":"+$location.port();
+    var REST_SERVICE_URI = map[$location.path()];
+   console.log('url '+REST_SERVICE_URI);
     self.item = {id:null, name:'', objectType:{id: null}, parameters:[
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},

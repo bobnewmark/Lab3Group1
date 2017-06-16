@@ -39,6 +39,7 @@
     <script src="<c:url value='/resources/js/cart_controller.js' />"></script>
     <script src="<c:url value='/resources/js/item_service.js' />"></script>
     <script src="<c:url value='/resources/js/MenuCtrl.js' />"></script>
+
 </head>
 <body  ng-app="myApp" ng-controller="MenuCtrl">
 <div class="header-area">
@@ -88,16 +89,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="{{isActive('/')}}"><a href="${contextPath}/">Home</a></li>
-                    <li class="{{isActive('/shop')}}"><a href="${contextPath}/shop">Shop page</a></li>
-                    <li class="{{isActive('/contacts')}}"><a href="${contextPath}/contacts">Contacts</a></li>
+                    <li class="{{isActive('/')}}"><a href="${contextPath}/"  target="_self">Home</a></li>
+                    <li class="{{isActive('/shop')}}"><a href="${contextPath}/shop" target="_self">Shop page</a></li>
+                    <li class="{{isActive('/contacts')}}"><a href="${contextPath}/contacts" target="_self">Contacts</a></li>
                     <li>
                         <form name="searchForm" action="${contextPath}/search/">
                         <input style="margin-top: 10px" type="text" name="keyword" placeholder="Search products...">
                         </form>
                     </li>
                     <sec:authorize access="!isAuthenticated()">
-                        <li class="{{isActive('/registration')}}"><a href="${contextPath}/registration">login/registration</a></li>
+                        <li class="{{isActive('/registration')}}"><a href="${contextPath}/registration" target="_self">login/registration</a></li>
                     </sec:authorize>
                 </ul>
             </div>
