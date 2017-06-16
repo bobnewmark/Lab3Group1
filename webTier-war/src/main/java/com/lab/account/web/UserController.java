@@ -9,9 +9,6 @@ import com.shop.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,9 +38,6 @@ public class UserController {
     private ReferenceService referenceService;
 
 
-    private Object thisUser;
-    private Object thisCart;
-
     @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
     public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
         Object object = objectService.findById(id);
@@ -64,7 +58,8 @@ public class UserController {
                 map.put(p.getAttribute().getName(), p.getValue());
             }
         }
-        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        Object cart = securityService.getCart();
+        int cartSize = cart == null ? 0 : cart.getReferences().size();
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("item", object);
         model.addAttribute("paramsMap", map);
@@ -87,7 +82,6 @@ public class UserController {
         ObjectType ot = objectTypeService.findByName("user");
         user.setObjectType(ot);
         user.setParameters(new ArrayList<Parameter>());
-        /*userValidator.validate(userForm, bindingResult);*/
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
         user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("login", ot), login));
         user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("password", ot), encoder.encode(password)));
@@ -97,11 +91,6 @@ public class UserController {
         } catch (RegistrationException e) {
             return "redirect:/registration?reg-err";
         }
-        /*if (bindingResult.hasErrors()) {
-            return "registration";
-        }*/
-
-       /* userService.save(userForm);*/
         Object cart = new Object("cart", objectTypeService.findByName("cart"), user);
         if (objectService.findByParent(user).size() > 0) {
             cart = objectService.findByParent(user).get(0);
@@ -115,8 +104,6 @@ public class UserController {
             return "redirect:/registration?reg-err";
         }
         securityService.autologin(login, password);
-        thisUser = user;
-        thisCart = cart;
         return "redirect:/";
     }
 
@@ -133,7 +120,8 @@ public class UserController {
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String getIndexPage(Model model) {
-        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        Object cart = securityService.getCart();
+        int cartSize = cart == null ? 0 : cart.getReferences().size();
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("current", "/WEB-INF/views/main.jsp");
         return "index";
@@ -185,7 +173,8 @@ public class UserController {
     public String search(Model model, HttpServletRequest request) {
         String keyword = request.getParameter("keyword");
         List<Object> result = objectService.findByNameContaining(keyword);
-        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        Object cart = securityService.getCart();
+        int cartSize = cart == null ? 0 : cart.getReferences().size();
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("searchResult", prepareForLayout(result));
         model.addAttribute("current", "/WEB-INF/views/search.jsp");
@@ -194,7 +183,8 @@ public class UserController {
 
     @RequestMapping(value = {"/shop"}, method = RequestMethod.GET)
     public String shop(Model model) throws URISyntaxException {
-        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        Object cart = securityService.getCart();
+        int cartSize = cart == null ? 0 : cart.getReferences().size();
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("current", "/WEB-INF/views/shop.jsp");
         return "index";
@@ -215,7 +205,8 @@ public class UserController {
 
     @RequestMapping(value = {"/contacts"}, method = RequestMethod.GET)
     public String contacts(Model model) {
-        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        Object cart = securityService.getCart();
+        int cartSize = cart == null ? 0 : cart.getReferences().size();
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("current", "/WEB-INF/views/contacts.jsp");
         return "index";
@@ -245,19 +236,26 @@ public class UserController {
         return list;
     }
 
+
+// WORKING WITH CART ---------------------------------------------------------------------------------------------------
+
     @RequestMapping(value = "/addToCart", method = RequestMethod.GET)
     public @ResponseBody
     String addToCart(@RequestParam int itemId) {
-        Reference item = new Reference(thisCart, objectService.findById(itemId), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart")));
-        thisCart.getReferences().add(item);
+        Object cart = securityService.getCart();
+        if (cart == null) {
+            return "0";
+        }
+        Reference item = new Reference(cart, objectService.findById(itemId), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart")));
+        cart.getReferences().add(item);
         referenceService.save(item);
-        String size = String.valueOf(thisCart.getReferences().size());
-        return size;
+        return String.valueOf(cart.getReferences().size());
     }
 
     @RequestMapping(value = {"/cart"})
     public String cart(Model model) {
-        int cartSize = thisCart == null ? 0 : thisCart.getReferences().size();
+        Object cart = securityService.getCart();
+        int cartSize = cart == null ? 0 : cart.getReferences().size();
         model.addAttribute("cartSize", cartSize);
         model.addAttribute("current", "/WEB-INF/views/cart.jsp");
         return "index";
@@ -265,9 +263,8 @@ public class UserController {
 
     @RequestMapping(value = {"/showCart"}, method = RequestMethod.GET)
     public ResponseEntity<Object> cartContent() {
-        Object user = securityService.getUser();
-        Object cart = objectService.findByParent(user).get(0);
-
+        Object cart = securityService.getCart();
+        if (cart == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         if (cart.getReferences().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -277,19 +274,11 @@ public class UserController {
     @RequestMapping(value = "/showCart/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> removeFromCart(@PathVariable("id") int id) {
         System.out.println("Fetching & Deleting item with id " + id + " from cart");
-        Object user = securityService.getUser();
-        Object cart = objectService.findByParent(user).get(0);
+        Object cart = securityService.getCart();
         List<Reference> refToDelete = referenceService.findByObjectAndRefObject(cart, objectService.findById(id));
         for (Reference r: refToDelete) {
             referenceService.delete(r);
         }
         return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
     }
-
-
-
-
-
-
-
 }

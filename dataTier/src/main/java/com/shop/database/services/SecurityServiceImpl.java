@@ -42,6 +42,16 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
+    public Object getCart() {
+        Object cart = null;
+        try {
+            cart = objectService.findByParent(getUser()).get(0);
+        } catch (Exception ignored) {
+        }
+        return cart;
+    }
+
+    @Override
     public void autologin(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());

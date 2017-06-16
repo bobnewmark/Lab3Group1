@@ -3,26 +3,24 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
     var self = this;
     var REST_SERVICE_URI = 'http://localhost:7001/laba/showCart/';
 
-    self.item = {
-        id: null, name: '',
-        objectType: {id: null},
-        mapParameters: [
-            {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}}],
-        references: [{
-            id: null, name: '',
-            objectType: {id: null},
-            parameters: [
-                {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}}]
-        }]
-    };
-    self.items = [];
+    self.item = {id:null, name:'', objectType:{id: null},
+        references:[
+            {id:null, name:'', object:{id:null},
+             refObject:{id:null, name:'',
+             mapParameters: {price: {id: null, attribute: {id: null, name: '', unique: null},
+                                     value: ''}}} }
+            ],
+        parameters:[]};
+
+    self.items =[];
     self.submit = submit;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
     self.show = show;
     self.buy = buy;
-
+    self.getCount = getCount;
+    self.total = total;
 
     fetchAllItems();
 
@@ -38,39 +36,33 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
             );
     }
 
-
-    $scope.getCount = function (i) {
+    function getCount(i) {
         var iCount = iCount || 0;
-        for (var item in $scope.items) {
-            if (item.name == i) {
-                iCount++;
+        for (var item in this.items) {
+            for (var level1 in this.items[item]) {
+                for (var level2 in this.items[item][level1]) {
+                    for (var level3 in this.items[item][level1][level2]) {
+                        if (this.items[item][level1][level2][level3] == i) {
+                            iCount++;
+                        }
+                    }
+                }
             }
         }
         return iCount;
     }
 
-
     function total() {
-        var total = 0;
-        angular.forEach(self.items, function (item) {
-            //total += item.qty * (item.cost + 0)/10;
-            total += parseInt(item.mapParameters.price.value) * $scope.item.qty;
-        })
-
-        return total;
-    }
-
-
-    function getBrandCount(brand) {
-        var count = 0;
-        if (brand !== undefined && brand !== null && brand.length > 0) {
-            for (var i = 0; i < vm.items.length; i++) {
-                if (vm.items[i].brand === brand) {
-                    count++;
+        try {
+            return self.items.references.reduce(function (acc, item) {
+                if ((!item.cost) || (!item.qty)) {
+                    return acc;
                 }
-            }
+                return acc + (item.cost * item.qty);
+            }, 0);
+        } catch (err) {
+            return 0;
         }
-        return count;
     }
 
 

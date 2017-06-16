@@ -38,41 +38,41 @@
                                 <tbody>
 
 
-                                <tr class="cart_item" ng-repeat="p in ctrl.items.references | unique: 'name'" ng-init="total = 0">
+                                <tr class="cart_item" ng-repeat="item in ctrl.items.references | unique: 'name'" >
                                     <td class="product-remove">
-                                        <a title="Remove this item" ng-click="ctrl.remove(p.refObject.id)" class="remove" href="#">×</a>
+                                        <a title="Remove this item" ng-click="ctrl.remove(item.refObject.id)" class="remove" href="#">×</a>
                                     </td>
 
                                     <td class="product-thumbnail">
-                                        <a href="${contextPath}/details/{{p.refObject.id}}"><img width="145" height="145"
+                                        <a href="${contextPath}/details/{{item.refObject.id}}"><img width="145" height="145"
                                                                                        alt="poster_1_up"
                                                                                        class="shop_thumbnail"
-                                                                                       src="${contextPath}{{p.refObject.mapParameters.icon.value}}"></a>
+                                                                                       src="${contextPath}{{item.refObject.mapParameters.icon.value}}"></a>
                                     </td>
 
                                     <td class="product-name">
                                         <a href="${contextPath}/details/{{p.refObject.id}}"
-                                           ng-bind="p.refObject.mapParameters.name.value"></a>
+                                           ng-bind="item.refObject.mapParameters.name.value"></a>
                                     </td>
 
                                     <td class="product-price">
                                         <input type="number" align="middle" readonly="true" ng-model="item.cost"
-                                               ng-init="item.cost=((p.refObject.mapParameters.price.value + 0) / 10)"
-                                               value="{{p.refObject.mapParameters.price.value}}" size="4"
+                                               ng-init="item.cost=((item.refObject.mapParameters.price.value + 0) / 10)"
+                                               value="{{item.refObject.mapParameters.price.value}}" size="4"
                                                class="input-text qty text">
 
                                     </td>
 
                                     <td class="product-quantity">
                                         <div class="quantity buttons_added">
-                                            <input type="number" ng-model="item.qty" ng-init="item.qty=1" size="4"
+                                            <input type="number" ng-model="item.qty" ng-init="item.qty=(ctrl.getCount(item.refObject.id))" size="4"
                                                    class="input-text qty text" min="1">
-
                                         </div>
+
                                     </td>
 
                                     <td class="product-subtotal">
-                                        <span class="amount" ng-init="$parent.total = $parent.total + (item.cost * item.qty)">{{item.cost * item.qty}}</span>
+                                        <span class="amount" >{{item.cost * item.qty}} </span>
                                     </td>
                                 </tr>
 
@@ -97,7 +97,7 @@
                                     </td>
 
                                     <td class="product-subtotal">
-                                        <span class="amount">{{ total }}</span>
+                                        <span class="amount" >{{ctrl.total()}}</span>
                                     </td>
                                 </tr>
 
