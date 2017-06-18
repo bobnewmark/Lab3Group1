@@ -37,37 +37,6 @@ public class UserController {
     @Autowired
     private ReferenceService referenceService;
 
-
-    @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
-    public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
-        Object object = objectService.findById(id);
-        Map<String, String> map = new HashMap<>();
-        List<String> icons = new ArrayList<>();
-        for (Parameter p : object.getParameters()) {
-            if (p.getAttribute().getName().equals("name")) {
-                model.addAttribute("name", p.getValue());
-            } else if (p.getAttribute().getName().equals("price")) {
-                model.addAttribute("price", p.getValue());
-            } else if (p.getAttribute().getName().equals("icon")) {
-                model.addAttribute("mainIcon", p.getValue());
-            } else if (p.getAttribute().getName().startsWith("icon")
-                    && !p.getAttribute().getName().equals("icon")
-                    && p.getValue() != null) {
-                icons.add(p.getValue());
-            } else {
-                map.put(p.getAttribute().getName(), p.getValue());
-            }
-        }
-        Object cart = securityService.getCart();
-        int cartSize = cart == null ? 0 : cart.getReferences().size();
-        model.addAttribute("cartSize", cartSize);
-        model.addAttribute("item", object);
-        model.addAttribute("paramsMap", map);
-        model.addAttribute("icons", icons);
-        model.addAttribute("current", "/WEB-INF/views/details.jsp");
-        return "index";
-    }
-
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
@@ -288,4 +257,28 @@ public class UserController {
         String result = String.valueOf(cart == null ? 0 : cart.getReferences().size());
         return new ResponseEntity<String>(result, HttpStatus.OK);
     }
+
+    // WORKING WITH DETAILS ---------------------------------------------------------------------------------------------------
+
+    @RequestMapping(value = {"/details/info"}, method = RequestMethod.GET)
+    public ResponseEntity<Object> itemDetails(@RequestParam int itemId) throws URISyntaxException {
+        System.out.println("IN DETAILED");
+        Object object = objectService.findById(itemId);
+        return new ResponseEntity<>(object, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = {"/detailed/{id}"}, method = RequestMethod.GET)
+    public ResponseEntity<Object> itemDetails2(@PathVariable("id") int id) throws URISyntaxException {
+        System.out.println("IN DETAILED2");
+        Object object = objectService.findById(id);
+        return new ResponseEntity<>(object, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
+    public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
+        System.out.println("IN DETAILS ID");
+        model.addAttribute("current", "/WEB-INF/views/details.jsp");
+        return "index";
+    }
+
 }
