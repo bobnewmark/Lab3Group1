@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-<div class="product-big-title-area">
+<div class="product-big-title-area" >
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -15,32 +15,32 @@
 </div>
 
 
-<div class="single-product-area">
+<div class="single-product-area" ng-controller="SearchController as ctrl" ng-cloak>
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
 
-            <c:forEach var="entity" items="${searchResult}">
 
-                <div class="col-md-3 col-sm-6">
+            <div class="col-md-3 col-sm-6" ng-repeat="p in ctrl.items">
+                <div class="single-shop-product">
+                    <div class="product-upper">
+                        <img src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
+                    </div>
+                    <h2><a href="${contextPath}/details/{{p.id}}" target="_self">{{p.mapParameters.name.value}}</a></h2>
+                    <div class="product-carousel-price">
+                        <ins>Price: {{p.mapParameters.price.value}}</ins>
+                        <del></del>
+                    </div>
 
-                    <div class="single-shop-product">
-                        <div class="product-upper">
-                            <img src="${contextPath}${entity.icon}" alt="">
-                        </div>
-                        <h2><a href="${contextPath}/details/${entity.id}">${entity.name}</a></h2>
-                        <div class="product-carousel-price">
-                            <ins>Price: ${entity.price}</ins> <del></del>
-                        </div>
-
-                        <div class="product-option-shop">
-                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
-                        </div>
+                    <div class="product-option-shop">
+                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70"
+                           rel="nofollow" href="/canvas/shop/?add-to-cart=70" target="_self">Add to cart</a>
                     </div>
                 </div>
+            </div>
 
 
-            </c:forEach>
+
 
 
 

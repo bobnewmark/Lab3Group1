@@ -37,6 +37,7 @@
     <script src="<c:url value='/resources/js/index.js' />"></script>
     <script src="<c:url value='/resources/js/item_controller.js' />"></script>
     <script src="<c:url value='/resources/js/details_controller.js' />"></script>
+    <script src="<c:url value='/resources/js/search_controller.js' />"></script>
     <script src="<c:url value='/resources/js/cart_controller.js' />"></script>
     <script src="<c:url value='/resources/js/item_service.js' />"></script>
     <script src="<c:url value='/resources/js/MenuCtrl.js' />"></script>

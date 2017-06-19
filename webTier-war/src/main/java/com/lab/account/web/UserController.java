@@ -140,14 +140,27 @@ public class UserController {
 
     @RequestMapping(value = {"/search"})
     public String search(Model model, HttpServletRequest request) {
-        String keyword = request.getParameter("keyword");
-        List<Object> result = objectService.findByNameContaining(keyword);
-        Object cart = securityService.getCart();
-        int cartSize = cart == null ? 0 : cart.getReferences().size();
-        model.addAttribute("cartSize", cartSize);
-        model.addAttribute("searchResult", prepareForLayout(result));
+//        String keyword = request.getParameter("keyword");
+//        List<Object> result = objectService.findByNameContaining(keyword);
+//        Object cart = securityService.getCart();
+//        int cartSize = cart == null ? 0 : cart.getReferences().size();
+//        model.addAttribute("cartSize", cartSize);
+//        model.addAttribute("searchResult", prepareForLayout(result));
         model.addAttribute("current", "/WEB-INF/views/search.jsp");
         return "index";
+    }
+
+    @RequestMapping(value = {"/request/{keyword}"}, method = RequestMethod.GET)
+    public ResponseEntity<List<Object>> searchRequest(@PathVariable("keyword") String keyword) throws URISyntaxException {
+        System.out.println("in search");
+        List<Object> result = objectService.findByNameContaining(keyword);
+        System.out.println("search result size BEFORE: " + result.size());
+        for (int i = 0; i < result.size(); i++) {
+            if (result.get(i).getParent() == null) result.remove(result.get(i));
+        }
+
+        System.out.println("search result size AFTER: " + result.size());
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = {"/shop"}, method = RequestMethod.GET)
