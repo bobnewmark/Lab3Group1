@@ -1,2 +1,2 @@
-'use strict';
+"use strict";
 var App = angular.module('myApp',['ngResource']);

@@ -30,8 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         }catch(IndexOutOfBoundsException e){
             user = new Object();
         }
-        for(Parameter p: user.getParameters()){
-            user.getMapParameters().put(p.getAttribute().getName(), p);
+        for(Parameter par: user.getParameters()){
+            user.getMapParameters().put(par.getAttribute().getName(), par);
         }
         BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(11);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();

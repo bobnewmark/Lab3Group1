@@ -7,11 +7,9 @@ import com.shop.database.entities.Reference;
 import com.shop.database.exceptions.RegistrationException;
 import com.shop.database.repositories.ObjectRepository;
 import com.shop.database.repositories.ParameterRepository;
-import com.shop.database.repositories.ReferenceRepository;
 import com.shop.database.services.ObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 
@@ -22,15 +20,12 @@ public class ObjectServiceImpl implements ObjectService {
     private ObjectRepository objectRepository;
     @Autowired
     private ParameterRepository parameterRepository;
-    @Autowired
-    private ReferenceRepository referenceRepository;
-
 
     public void save(Object object) throws RegistrationException {
-        for (Parameter p : object.getParameters()) {
-            if (p.getAttribute().isUnique()) {
-                for (Parameter par : parameterRepository.findByAttribute(p.getAttribute())) {
-                    if (p.getValue().equals(par.getValue())) {
+        for (Parameter param : object.getParameters()) {
+            if (param.getAttribute().isUnique()) {
+                for (Parameter par : parameterRepository.findByAttribute(param.getAttribute())) {
+                    if (param.getValue().equals(par.getValue())) {
                         throw new RegistrationException();
                     }
                 }
@@ -38,7 +33,6 @@ public class ObjectServiceImpl implements ObjectService {
         }
         objectRepository.saveAndFlush(object);
     }
-
 
     public Object findById(int id) {
         Object o = objectRepository.findById(id);
@@ -48,17 +42,15 @@ public class ObjectServiceImpl implements ObjectService {
         return o;
     }
 
-
     public List<Object> findByName(String name) {
         List<Object> objects = objectRepository.findByName(name);
-        for (Object o : objects) {
-            for (Parameter p : o.getParameters()) {
-                o.getMapParameters().put(p.getAttribute().getName(), p);
+        for (Object obj : objects) {
+            for (Parameter par : obj.getParameters()) {
+                obj.getMapParameters().put(par.getAttribute().getName(), par);
             }
         }
         return objects;
     }
-
 
     public List<Object> findByObjectType(ObjectType objectType) {
         List<Object> objects = objectRepository.findByObjectType(objectType);

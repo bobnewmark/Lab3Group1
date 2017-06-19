@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 App.controller('CartController', ['$scope', 'ItemService', function ($scope, ItemService) {
     var self = this;
     var REST_SERVICE_URI = 'http://localhost:7001/laba/showCart/';
 
-    self.item = {id:null, name:'', objectType:{id: null},
+    self.item = {id:null, name:"", objectType:{id: null},
         references:[
-            {id:null, name:'', object:{id:null},
-             refObject:{id:null, name:'',
-             mapParameters: {price: {id: null, attribute: {id: null, name: '', unique: null},
-                                     value: ''}}} }
+            {id:null, name:"", object:{id:null},
+             refObject:{id:null, name:"",
+             mapParameters: {price: {id: null, attribute: {id: null, name: "", unique: null},
+                                     value: ""}}} }
             ],
         parameters:[]};
 
@@ -60,15 +60,6 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
         }
     }
 
-    function remove(id) {
-        console.log('id to be deleted', id);
-        if (self.item.id === id) {//clean form if the user to be deleted is shown there.
-            reset();
-        }
-        deleteItem(id);
-
-    }
-
     function deleteItem(id, cartId) {
         ItemService.deleteItem(id, REST_SERVICE_URI)
             .then(
@@ -78,6 +69,15 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
                     console.error('Error while deleting User');
                 }
             );
+    }
+
+    function remove(id) {
+        console.log('id to be deleted', id);
+        if (self.item.id === id) {//clean form if the user to be deleted is shown there.
+            reset();
+        }
+        deleteItem(id);
+
     }
 
 
