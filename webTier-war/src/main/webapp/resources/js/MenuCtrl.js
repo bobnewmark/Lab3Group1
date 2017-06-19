@@ -39,7 +39,6 @@ directive('setClassWhenAtTop', function ($window) {
         ItemService.fetchAllItems(REST_SERVICE_URI)
             .then(
                 function(d) {
-                    console.log("CART INDEX: " + d);
                     $('#cartNum').html(d);
                 },
                 function(errResponse){
@@ -47,6 +46,5 @@ directive('setClassWhenAtTop', function ($window) {
                 }
             );
     }
-
 
 }]);

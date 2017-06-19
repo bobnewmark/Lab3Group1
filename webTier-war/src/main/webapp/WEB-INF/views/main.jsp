@@ -12,7 +12,7 @@
                         iPhone <span class="primary">6 Plus<strong> Soon!</strong></span>
                     </h2>
                     <h4 class="caption subtitle">Dual SIM</h4>
-                    <a class="caption button-radius" href="${contextPath}/shop"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="${contextPath}/shop" target="_self"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
             <li><img src="${contextPath}/resources/img/h4-slide2.png" alt="Slide">
@@ -21,7 +21,7 @@
                         <span class="primary"><strong>New items soon!</strong></span>
                     </h2>
                     <h4 class="caption subtitle">school supplies & backpacks.*</h4>
-                    <a class="caption button-radius" href="${contextPath}/shop"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="${contextPath}/shop" target="_self"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
             <li><img src="${contextPath}/resources/img/h4-slide3.png" alt="Slide">
@@ -30,7 +30,7 @@
                         Apple <span class="primary">Store Ipod<strong> Coming soon!</strong></span>
                     </h2>
                     <h4 class="caption subtitle"></h4>
-                    <a class="caption button-radius" href="${contextPath}/shop"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="${contextPath}/shop" target="_self"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
             <li><img src="${contextPath}/resources/img/h4-slide4.png" alt="Slide">
@@ -39,7 +39,7 @@
                         Apple <span class="primary">Store Ipod<strong> Next week!</strong></span>
                     </h2>
                     <h4 class="caption subtitle">& Phone</h4>
-                    <a class="caption button-radius" href="${contextPath}/shop"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="${contextPath}/shop" target="_self"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
         </ul>
@@ -67,7 +67,7 @@
                                                     <a href="#" class="add-to-cart-link" ng-click="ctrl.buy(p.id)"><i class="fa fa-shopping-cart"></i>
                                                         Add to
                                                         cart</a>
-                                                    <a href="${contextPath}/details/{{p.id}}" class="view-details-link"><i
+                                                    <a href="${contextPath}/details/{{p.id}}" class="view-details-link" target="_self"><i
                                                             class="fa fa-link"></i> See details</a>
                                                 </div>
                                             </div>

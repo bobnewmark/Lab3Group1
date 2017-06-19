@@ -242,7 +242,6 @@ public class UserController {
 
     @RequestMapping(value = "/showCart/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> removeFromCart(@PathVariable("id") int id) {
-        System.out.println("Fetching & Deleting item with id " + id + " from cart");
         Object cart = securityService.getCart();
         List<Reference> refToDelete = referenceService.findByObjectAndRefObject(cart, objectService.findById(id));
         for (Reference r: refToDelete) {
@@ -258,27 +257,50 @@ public class UserController {
         return new ResponseEntity<String>(result, HttpStatus.OK);
     }
 
-    // WORKING WITH DETAILS ---------------------------------------------------------------------------------------------------
 
-    @RequestMapping(value = {"/details/info"}, method = RequestMethod.GET)
-    public ResponseEntity<Object> itemDetails(@RequestParam int itemId) throws URISyntaxException {
-        System.out.println("IN DETAILED");
-        Object object = objectService.findById(itemId);
-        return new ResponseEntity<>(object, HttpStatus.OK);
-    }
+    // WORKING WITH DETAILS ---------------------------------------------------------------------------------------------------
 
     @RequestMapping(value = {"/detailed/{id}"}, method = RequestMethod.GET)
     public ResponseEntity<Object> itemDetails2(@PathVariable("id") int id) throws URISyntaxException {
-        System.out.println("IN DETAILED2");
         Object object = objectService.findById(id);
         return new ResponseEntity<>(object, HttpStatus.OK);
     }
 
     @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
     public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
-        System.out.println("IN DETAILS ID");
         model.addAttribute("current", "/WEB-INF/views/details.jsp");
         return "index";
+    }
+
+    @RequestMapping(value = "/details/buy", method = RequestMethod.GET)
+    public ResponseEntity<Object> buy(@RequestParam int itemId, @RequestParam int quantity) {
+        Object cart = securityService.getCart();
+        if (cart == null) new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+        Object toBuy = objectService.findById(itemId);
+        for (int i = 0; i < quantity; i++) {
+            Reference inCartItem = new Reference(cart, toBuy, "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart")));
+            cart.getReferences().add(inCartItem);
+            referenceService.save(inCartItem);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = {"/related/{id}"}, method = RequestMethod.GET)
+    public ResponseEntity<List<Object>> related(@PathVariable("id") int id) throws URISyntaxException {
+        List<Object> sameBrand = objectService.findByParent(objectService.findById(id).getParent());
+        List<Object> result = new ArrayList<>();
+        int number = 5;
+        for (Object aSameBrand : sameBrand) {
+            if (aSameBrand != null) {
+                if (aSameBrand.getId() == id) continue;
+                result.add(aSameBrand);
+                number--;
+            }
+            if (number == 0) {
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

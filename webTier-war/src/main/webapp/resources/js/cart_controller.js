@@ -66,12 +66,14 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
             reset();
         }
         deleteItem(id);
+
     }
 
     function deleteItem(id, cartId) {
         ItemService.deleteItem(id, REST_SERVICE_URI)
             .then(
                 fetchAllItems,
+                $scope.updateIndex(),
                 function (errResponse) {
                     console.error('Error while deleting User');
                 }

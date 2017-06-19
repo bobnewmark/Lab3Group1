@@ -1,12 +1,9 @@
 'use strict';
 App.controller('DetailsController', ['$scope', 'ItemService', '$location', function($scope, ItemService, $location) {
     var self = this;
-    //var url = $location.protocol()+"://"+$location.host()+":"+$location.port();
-    var REST_SERVICE_URI = 'http://localhost:7001/laba/detailed';//map[$location.path()];
-    //var detailId = this.href.substr(this.href.lastIndexOf('/') + 1);
-    console.log("1: " + $location.path() );
     var detailId = $location.path().substr($location.path().lastIndexOf('/') + 1 );
-    var TEST_URI = 'http://localhost:7001/laba/detailed/' + detailId;
+    var URI = 'http://localhost:7001/laba/detailed/' + detailId;
+    var URI_R = 'http://localhost:7001/laba/related/' + detailId;
 
     self.items = {id:null, name:'', objectType:{id: null, name:''}, parameters:[
         {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
@@ -18,182 +15,59 @@ App.controller('DetailsController', ['$scope', 'ItemService', '$location', funct
         {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
         {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
         {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}}]};
-    self.item = [];
-    self.submit = submit;
-    self.edit = edit;
-    self.remove = remove;
-    self.reset = reset;
-    self.show = show;
+    self.related = [];
     self.buy = buy;
-    self.fetchAllItems = fetchAllItems;
+    self.buyR = buyR;
 
-    fetchAllItems();
-    //buy(detailId);
+    fetchInfo();
 
-    function fetchAllItems(){
-        ItemService.fetchAllItems(TEST_URI)
+    function fetchInfo(){
+        ItemService.fetchAllItems(URI)
             .then(
                 function(d) {
                     self.items = d;
-console.log("!!!!!!!!! " + self.items.objectType.name);
-                    // for (var item in self.items) {
-                    //     console.log("========= level1 name: " + item);
-                    //     console.log("level1: " + self.items[item]);
-                    //     for (var level1 in self.items[item]) {
-                    //         console.log("========= level2 name: " + level1);
-                    //         console.log("level2: " + self.items[item][level1]);
-                    //         for (var level2 in self.items[item][level1]) {
-                    //             console.log("========= level3 name: " + level2);
-                    //             console.log("level3: " + self.items[item][level1][level2]);
-                    //         }
-                    //     }
-                    // }
-
-                    for (var item in self.items.mapParameters) {
-                        console.log("++++++++ " + self.items.mapParameters.quantity.value);
-                        console.log("KEY: " + item);
-                        console.log("VALUE: " + self.items.mapParameters[item]);
-                        for (var level1 in self.items.mapParameters[item]) {
-                            console.log("==== KEY: " + level1);
-                            console.log("==== VALUE: " + self.items.mapParameters[item][level1]);
-
-                        }
-                    }
-
-
+                    fetchRelated();
                 },
                 function(errResponse){
-                    console.error('Error while fetching Users');
+                    console.error('Error while fetching detailed info');
                 }
             );
     }
 
-    function buy(id) {
-        console.log("IN BUY DETAILS");
+    function buy(id, quantity) {
         $.ajax({
             contentType: "application/json; charset=utf-8",
-            url: 'info',
-            data: ({itemId : id}),
-            success: function(data) {
-                console.log("succsess!");
-                self.items = data;
-
-
-                for (var item in self.items) {
-                    console.log("========= level1 name: " + item);
-                    console.log("level1: " + self.items[item]);
-                    for (var level1 in self.items[item]) {
-                        console.log("========= level2 name: " + level1);
-                        console.log("level2: " + self.items[item][level1]);
-                        for (var level2 in self.items[item][level1]) {
-                            console.log("========= level3 name: " + level2);
-                            console.log("level3: " + self.items[item][level1][level2]);
-                        }
-                    }
-                }
-                // for (var item in self.items.mapParameters) {
-                //     console.log("++++++++ " + self.items.mapParameters.quantity.value);
-                //     console.log("KEY: " + item);
-                //     console.log("VALUE: " + self.items.mapParameters[item]);
-                //     for (var level1 in self.items.mapParameters[item]) {
-                //         console.log("==== KEY: " + level1);
-                //         console.log("==== VALUE: " + self.items.mapParameters[item][level1]);
-                //
-                //     }
-                // }
+            url: 'buy',
+            data: ({itemId : id, quantity : quantity}),
+            success: function() {
+                $scope.updateIndex();
+                $location.path('/laba/shop');
             }
         });
     }
 
-    function showItem(id) {
-        ItemService.showItem(id, REST_SERVICE_URI)
+    function buyR(id) {
+        console.log('buying related: ' + id);
+        $.ajax({
+            contentType: "application/json; charset=utf-8",
+            url: 'http://localhost:7001/laba/addToCart',
+            data: ({itemId : id}),
+            success: function() {
+                $scope.updateIndex();
+            }
+        });
+    }
+
+    function fetchRelated(){
+        ItemService.fetchAllItems(URI_R)
             .then(
                 function(d) {
-                    self.items = d;
+                    self.related = d;
                 },
                 function(errResponse){
                     console.error('Error while fetching Users');
                 }
             );
-    }
-
-    function createItem(item){
-        ItemService.createItem(item, REST_SERVICE_URI)
-            .then(
-                fetchAllItems,
-                function(errResponse){
-                    console.error('Error while creating Item');
-                }
-            );
-    }
-
-    function updateItem(item, id){
-        ItemService.updateItem(item, id, REST_SERVICE_URI)
-            .then(
-                fetchAllItems,
-                function(errResponse){
-                    console.error('Error while updating User');
-                }
-            );
-    }
-
-    function deleteItem(id){
-        ItemService.deleteItem(id, REST_SERVICE_URI)
-            .then(
-                fetchAllItems,
-                function(errResponse){
-                    console.error('Error while deleting User');
-                }
-            );
-    }
-
-    function show(id) {
-        showItem(id);
-    }
-
-    function submit() {
-        if(self.item.id===null){
-            console.log('Saving New Item', self.item);
-            createItem(self.item);
-        }else{
-            updateItem(self.item, self.item.id);
-            console.log('Item updated with id ', self.item.id);
-        }
-        angular.element(document.querySelector('#editModal')).modal('hide');
-        reset();
-    }
-
-    function edit(id){
-        console.log('id to be edited', id);
-        for(var i = 0; i < self.items.length; i++){
-            if(self.items[i].id === id) {
-                self.item = angular.copy(self.items[i]);
-                break;
-            }
-        }
-    }
-
-    function remove(id){
-        console.log('id to be deleted', id);
-        if(self.item.id === id) {//clean form if the user to be deleted is shown there.
-            reset();
-        }
-        deleteItem(id);
-    }
-
-
-    function reset(){
-        self.item={id:null, name:'', objectType:{id: null}, parameters:[
-            {id:null, value:'', attribute:{id:null, name:'name'}, object:{id:null}},
-            {id:null, value:'', attribute:{id:null, name:'price'}, object:{id:null}},
-            {id:null, value:'', attribute:{id:null, name:'icon'}, object:{id:null}},
-            {id:null, value:'', attribute:{id:null, name:'icon2'}, object:{id:null}},
-            {id:null, value:'', attribute:{id:null, name:'icon3'}, object:{id:null}},
-            {id:null, value:'', attribute:{id:null, name:'OS'}, object:{id:null}},
-            {id:null, value:'', attribute:{id:null, name:'diagonal'}, object:{id:null}},
-            {id:null, value:'', attribute:{id:null, name:'rating'}, object:{id:null}},
-            {id:null, value:'', attribute:{id:null, name:'quantity'}, object:{id:null}}]};
-        $scope.myForm.$setPristine(); //reset Form
     }
 
 

@@ -50,13 +50,13 @@
                 <div class="user-menu">
                     <ul>
                         <sec:authorize access="!isAuthenticated()">
-                            <li><a href="${contextPath}/registration"><i class="fa fa-sign-in"></i> SignIn</a></li>
+                            <li><a href="${contextPath}/registration" target="_self"><i class="fa fa-sign-in"></i> SignIn</a></li>
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
-                            <li><a href="${contextPath}/cart"><i class="fa fa-shopping-cart"></i> My Cart<span id="cartNum" class="product-count">
+                            <li><a href="${contextPath}/cart" target="_self"><i class="fa fa-shopping-cart"></i> My Cart<span id="cartNum" class="product-count">
                                     </span></a></li>
                             <li><p style="color: royalblue">Вы вошли как: <i class="fa fa-user"></i> <sec:authentication property="principal.username"/></p></li>
-                            <li><a href="${contextPath}/logout"><i class="fa fa-sign-out"></i> Logout </a></li>
+                            <li><a href="${contextPath}/logout" target="_self"><i class="fa fa-sign-out"></i> Logout </a></li>
                         </sec:authorize>
                     </ul>
                 </div>
@@ -70,7 +70,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="logo">
-                    <h1><a href="${contextPath}/"><img src="${contextPath}/resources/img/logo.png"></a></h1>
+                    <h1><a href="${contextPath}/" target="_self"><img src="${contextPath}/resources/img/logo.png"></a></h1>
                 </div>
             </div>
 
