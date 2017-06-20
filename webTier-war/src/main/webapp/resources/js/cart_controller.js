@@ -24,6 +24,7 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
             .then(
                 function (d) {
                     self.items = d;
+                    $scope.updateIndex();
                 },
                 function (errResponse) {
                     console.error('Error while fetching Users');
@@ -64,7 +65,6 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
         ItemService.deleteItem(id, REST_SERVICE_URI)
             .then(
                 fetchAllItems,
-                $scope.updateIndex(),
                 function (errResponse) {
                     console.error('Error while deleting User');
                 }
@@ -72,15 +72,11 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
     }
 
     function remove(id) {
-        console.log('id to be deleted', id);
         if (self.item.id === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
         deleteItem(id);
-
     }
-
-
 }])
 
     .filter('unique', function () {

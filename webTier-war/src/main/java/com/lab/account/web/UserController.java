@@ -1,9 +1,7 @@
 package com.lab.account.web;
 
+import com.shop.database.entities.*;
 import com.shop.database.entities.Object;
-import com.shop.database.entities.ObjectType;
-import com.shop.database.entities.Parameter;
-import com.shop.database.entities.Reference;
 import com.shop.database.exceptions.RegistrationException;
 import com.shop.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -227,6 +225,14 @@ public class UserController {
     @RequestMapping(value = {"/detailed/{id}"}, method = RequestMethod.GET)
     public ResponseEntity<Object> itemDetails2(@PathVariable("id") int id) throws URISyntaxException {
         Object object = objectService.findById(id);
+        for (Parameter param: object.getParameters()) {
+            if ("rating".equals(param.getAttribute().getName())) {
+                int num = Integer.parseInt(param.getValue());
+                num++;
+                param.setValue(String.valueOf(num));
+                parameterService.save(param);
+            }
+        }
         return new ResponseEntity<>(object, HttpStatus.OK);
     }
 
@@ -237,9 +243,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/details/buy", method = RequestMethod.GET)
-    public ResponseEntity<Object> buy(@RequestParam int itemId, @RequestParam int quantity) {
+    public ResponseEntity<Object> buy(@RequestParam int itemId, @RequestParam int quantity, Model model) {
         Object cart = securityService.getCart();
-        if (cart == null) new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+        if (cart == null) return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
         Object toBuy = objectService.findById(itemId);
         for (int i = 0; i < quantity; i++) {
             Reference inCartItem = new Reference(cart, toBuy, "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart")));

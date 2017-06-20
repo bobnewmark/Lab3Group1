@@ -1,11 +1,12 @@
 'use strict';
-App.controller('DetailsController', ['$scope', 'ItemService', '$location', function($scope, ItemService, $location) {
+App.controller('SearchController', ['$scope', 'ItemService', '$location', function($scope, ItemService, $location) {
     var self = this;
-    var detailId = $location.path().substr($location.path().lastIndexOf('/') + 1 );
-    var URI = 'http://localhost:7001/laba/detailed/' + detailId;
-    var URI_R = 'http://localhost:7001/laba/related/' + detailId;
+    //var detailId = $location.path().substr($location.path().lastIndexOf('/') + 1 );
+    var keyword = $location.search()['keyword'];
+    console.log("keyword to search for: " + keyword);
+    var URI = 'http://localhost:7001/laba/request/' + keyword;
 
-    self.items = {id:null, name:'', objectType:{id: null, name:''}, parameters:[
+    self.item = {id:null, name:'', objectType:{id: null}, parameters:[
         {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
         {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
         {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
@@ -15,18 +16,17 @@ App.controller('DetailsController', ['$scope', 'ItemService', '$location', funct
         {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
         {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
         {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}}]};
-    self.related = [];
+    self.items = [];
     self.buy = buy;
-    self.buyR = buyR;
+    //self.buyR = buyR;
 
-    fetchInfo();
+    fetchResult();
 
-    function fetchInfo(){
+    function fetchResult(){
         ItemService.fetchAllItems(URI)
             .then(
                 function(d) {
                     self.items = d;
-                    fetchRelated();
                 },
                 function(errResponse){
                     console.error('Error while fetching detailed info');
@@ -34,20 +34,20 @@ App.controller('DetailsController', ['$scope', 'ItemService', '$location', funct
             );
     }
 
-    function buy(id, quantity) {
-        $.ajax({
-            contentType: "application/json; charset=utf-8",
-            url: 'buy',
-            data: ({itemId : id, quantity : quantity}),
-            success: function() {
-                $scope.updateIndex();
-                //$location.path('/laba/shop');
-            }
-        });
-    }
+    // function buy(id, quantity) {
+    //     $.ajax({
+    //         contentType: "application/json; charset=utf-8",
+    //         url: 'buy',
+    //         data: ({itemId : id, quantity : quantity}),
+    //         success: function() {
+    //             $scope.updateIndex();
+    //             $location.path('/laba/shop');
+    //         }
+    //     });
+    // }
 
-    function buyR(id) {
-        console.log('buying related: ' + id);
+    function buy(id) {
+        console.log('buying from search: ' + id);
         $.ajax({
             contentType: "application/json; charset=utf-8",
             url: 'http://localhost:7001/laba/addToCart',

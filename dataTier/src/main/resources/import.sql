@@ -64,16 +64,16 @@ insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) value
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (5, '/resources/img/brand6.png', 1, 5);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (6, '/resources/img/brand2.png', 1, 6);
 --adding phones
-insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (7, 'SM-J700H GALAXY J7 DS BLACK', 2, 1);
-insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (8, 'A510F GALAXY A5', 2, 1);
-insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (9, 'SM-J700H GALAXY J7 DS WHITE', 2, 1);
-insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (10, 'K5 (A6020A40) DUAL SIM GREY', 2, 6);
-insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (11, 'DESIRE 630 DUAL SIM DARK GREY', 2, 2);
-insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (12, 'IPHONE 7 32GB ROSE', 2, 4);
-insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (13, 'IPHONE 6S 128GB GOLD', 2, 4);
-insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (14, 'K500 X VIEW WHITE', 2, 5);
-insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (15, 'XPERIA XA ULTRA DUAL F3212 WHITE', 2, 3);
-insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (16, 'XPERIA XA ULTRA DL F3212 GRAPH BLACK', 2, 3);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (7, 'SAMSUNG SM-J700H GALAXY J7 DS BLACK', 2, 1);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (8, 'SAMSUNG A510F GALAXY A5', 2, 1);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (9, 'SAMSUNG SM-J700H GALAXY J7 DS WHITE', 2, 1);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (10, 'LENOVO K5 (A6020A40) DUAL SIM GREY', 2, 6);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (11, 'HTC DESIRE 630 DUAL SIM DARK GREY', 2, 2);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (12, 'APPLE IPHONE 7 32GB ROSE', 2, 4);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (13, 'APPLE IPHONE 6S 128GB GOLD', 2, 4);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (14, 'LG K500 X VIEW WHITE', 2, 5);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (15, 'SONY XPERIA XA ULTRA DUAL F3212 WHITE', 2, 3);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (16, 'SONY XPERIA XA ULTRA DL F3212 GRAPH BLACK', 2, 3);
 --adding rest items
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (17, 'АК-Р SAMSUNG EB595675LU', 5, 1);
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (18, 'LENOVO BL192', 5, 6);
@@ -133,7 +133,7 @@ insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) value
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (50, '0', 9, 11);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (51, '10', 10, 11);
 ------------
-insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (52, 'IPHONE 7 32GB ROSE GOLD', 2, 12);
+insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (52, 'APPLE IPHONE 7 32GB ROSE GOLD', 2, 12);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (53, '19200', 3,  12);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (54, '/resources/img/IPHONE732GBROSEGOLD.jpg', 4,  12);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (55, '/resources/img/IPHONE732GBROSEGOLD-2.jpg', 5, 12);
@@ -143,7 +143,7 @@ insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) value
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (59, '0', 9,12);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (60, '10', 10, 12);
 ------------
-insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (61, 'IPHONE 6S 128GB GOLD', 2, 13);
+insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (61, 'APPLE IPHONE 6S 128GB GOLD', 2, 13);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (62, '21300', 3,  13);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (63, '/resources/img/APPLEIPHONE6S128GBGOLD.jpg', 4,  13);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (64, '/resources/img/APPLEIPHONE6S128GBGOLD-2.jpg', 5, 13);
@@ -183,7 +183,7 @@ insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) value
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (95, '0', 9, 16);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (96, '10', 10, 16);
 ---adding parameters for batteries
-insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (97, 'Phone battery AK-P SAMSUNG EB595675LU', 27, 17);
+insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (97, 'Battery AK-P SAMSUNG EB595675LU', 27, 17);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (98, '300', 28, 17);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (99, '0', 29, 17);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (100, '10', 30, 17);
@@ -199,7 +199,7 @@ insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) value
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (109, '/resources/img/LENOVOBL192(2000MAH).jpg', 32, 18);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (110, null, 33, 18);
 ---adding parameters for chargers
-insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (111, 'Charger SAMSUNG ACADU10CBECSTD (BLACK) UNIVERSAL CAR CHARGER', 19, 19);
+insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (111, 'SAMSUNG ACADU10CBECSTD (BLACK) CAR CHARGER', 19, 19);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (112, '250', 20, 19);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (113, '1.5 m', 21, 19);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (114, '0', 22, 19);
