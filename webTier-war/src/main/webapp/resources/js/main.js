@@ -43,7 +43,7 @@ jQuery(document).ready(function($){
     $('body').scrollspy({ 
         target: '.navbar-collapse',
         offset: 95
-    });
+    })
 });
 
 // function removeFromCart(id, currentRow) {

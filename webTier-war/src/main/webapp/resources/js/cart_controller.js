@@ -1,21 +1,34 @@
-"use strict";
+'use strict';
 App.controller('CartController', ['$scope', 'ItemService', function ($scope, ItemService) {
     var self = this;
     var REST_SERVICE_URI = 'http://localhost:7001/laba/showCart/';
 
-    self.item = {id:null, name:"", objectType:{id: null},
-        references:[
-            {id:null, name:"", object:{id:null},
-             refObject:{id:null, name:"",
-             mapParameters: {price: {id: null, attribute: {id: null, name: "", unique: null},
-                                     value: ""}}} }
-            ],
-        parameters:[]};
+    self.item = {
+        id: null, name: '', objectType: {id: null},
+        references: [
+            {
+                id: null, name: '', object: {id: null},
+                refObject: {
+                    id: null, name: '',
+                    mapParameters: {
+                        price: {
+                            id: null, attribute: {id: null, name: '', unique: null},
+                            value: ''
+                        }
+                    }
+                }
+            }
+        ],
+        parameters: []
+    };
 
-    self.items =[];
+    self.items = [];
+    self.checkoutMap = {};
     self.remove = remove;
     self.getCount = getCount;
     self.total = total;
+    self.checkout = checkout;
+
 
     fetchAllItems();
 
@@ -59,6 +72,42 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
         } catch (err) {
             return 0;
         }
+    }
+
+    function checkout() {
+        try {
+            self.items.references.reduce(function (acc, item) {
+                if ((!item.cost) || (!item.qty)) {
+                    return acc;
+                }
+                console.log("itemID: " + item.num + ", itemQUANTITY: " + item.qty);
+
+                self.checkoutMap[item.num] = item.qty;
+
+            }, 0);
+        } catch (err) {
+            console.log("something's wrong");
+        }
+        console.log("self.checkoutMap: " + self.checkoutMap);
+
+        ItemService.createItem({id: 10, value: 'testData'}, 'checkout')
+            .then(
+                fetchAllItems,
+                function(errResponse){
+                    console.error('Error while checkout');
+                }
+            )
+
+        // $http.post('checkout', checkoutMap)
+        //     .success(function (data) {
+        //         console.log("sent checkoutMap succsessfully")
+        //         console.log(data);
+        //     })
+        //     .error(function () {
+        //         console.log("error getting response while checkout");
+        //     });
+
+
     }
 
     function deleteItem(id, cartId) {

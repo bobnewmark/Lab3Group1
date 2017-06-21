@@ -23,7 +23,7 @@
             <div class="col-md-12">
                 <div class="product-content-right">
                     <div class="woocommerce">
-                        <form method="post" action="#">
+                        <form method="post" ng-submit="ctrl.checkout()">
                             <table cellspacing="0" id="cartTable" class="shop_table cart">
                                 <thead>
                                 <tr>
@@ -50,7 +50,7 @@
                                                                                        src="${contextPath}{{item.refObject.mapParameters.icon.value}}"></a>
                                     </td>
 
-                                    <td class="product-name">
+                                    <td class="product-name" ng-model="item.num" ng-init="item.num=item.refObject.id">
                                         <a href="${contextPath}/details/{{p.refObject.id}}"
                                            ng-bind="item.refObject.mapParameters.name.value"></a>
                                     </td>
@@ -107,6 +107,7 @@
 
                                         <input type="submit" value="Checkout" name="proceed"
                                                class="checkout-button button alt wc-forward">
+
                                     </td>
                                 </tr>
                                 </tbody>

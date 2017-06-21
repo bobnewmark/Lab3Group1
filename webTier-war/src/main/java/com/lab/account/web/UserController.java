@@ -1,5 +1,6 @@
 package com.lab.account.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.database.entities.*;
 import com.shop.database.entities.Object;
 import com.shop.database.exceptions.RegistrationException;
@@ -12,9 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -217,6 +221,22 @@ public class UserController {
         Object cart = securityService.getCart();
         String result = String.valueOf(cart == null ? 0 : cart.getReferences().size());
         return new ResponseEntity<String>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = {"/checkout"}, method = RequestMethod.POST)
+    public String checkout(Model model, @RequestParam("checkoutMap") Object checkoutMap) {
+        System.out.println("in checkout");
+        try {
+            HashMap<String,String> result = new ObjectMapper().readValue(String.valueOf(checkoutMap), HashMap.class);
+            for (Map.Entry<String, String> entry: result.entrySet()) {
+                System.out.println("key:" + entry.getKey() + ", value: " + entry.getValue());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("current", "/WEB-INF/views/cart.jsp");
+        return "index";
     }
 
 
