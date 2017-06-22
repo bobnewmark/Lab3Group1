@@ -13,4 +13,5 @@ public interface ParameterService {
     List<Parameter> findByObject(Object object);
     List<Parameter> findByAttribute(Attribute attribute);
     List<Parameter> findByValue(String value);
+    Parameter findByObjectAndAttribute(int ob_id, int attr_id);
 }

@@ -51,7 +51,7 @@
                                     </td>
 
                                     <td class="product-name" ng-model="item.num" ng-init="item.num=item.refObject.id">
-                                        <a href="${contextPath}/details/{{p.refObject.id}}"
+                                        <a href="${contextPath}/details/{{item.refObject.id}}"
                                            ng-bind="item.refObject.mapParameters.name.value"></a>
                                     </td>
 
@@ -66,7 +66,10 @@
                                     <td class="product-quantity">
                                         <div class="quantity buttons_added">
                                             <input type="number" ng-model="item.qty" ng-init="item.qty=(ctrl.getCount(item.refObject.id))" size="4"
-                                                   class="input-text qty text" min="1">
+                                                   class="input-text qty text"  min="1"
+                                                   max="{{item.refObject.mapParameters.quantity.value}}">
+
+
                                         </div>
 
                                     </td>

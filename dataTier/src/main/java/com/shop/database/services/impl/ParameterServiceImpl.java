@@ -41,4 +41,9 @@ public class ParameterServiceImpl implements ParameterService{
     public List<Parameter> findByValue(String value) {
         return parameterRepository.findByValue(value);
     }
+
+    @Override
+    public Parameter findByObjectAndAttribute(int ob_id, int attr_id) {
+        return parameterRepository.findByObjectAndAttribute(ob_id, attr_id);
+    }
 }

@@ -1,5 +1,6 @@
 package com.lab.account.web;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.database.entities.*;
 import com.shop.database.entities.Object;
@@ -213,7 +214,7 @@ public class UserController {
         for (Reference r: refToDelete) {
             referenceService.delete(r);
         }
-        return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = {"/cartIndex"}, method = RequestMethod.GET)
@@ -224,19 +225,28 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/checkout"}, method = RequestMethod.POST)
-    public String checkout(Model model, @RequestParam("checkoutMap") Object checkoutMap) {
-        System.out.println("in checkout");
+    public ResponseEntity<Object> checkout(@RequestBody String checkoutMap) {
+        Object cart = securityService.getCart();
+        Map<Integer, Integer> itemsToBuy = new HashMap<>();
         try {
-            HashMap<String,String> result = new ObjectMapper().readValue(String.valueOf(checkoutMap), HashMap.class);
-            for (Map.Entry<String, String> entry: result.entrySet()) {
-                System.out.println("key:" + entry.getKey() + ", value: " + entry.getValue());
-            }
+            ObjectMapper mapper = new ObjectMapper();
+            itemsToBuy = mapper.readValue(checkoutMap, new TypeReference<HashMap<Integer, Integer>>() {});
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        model.addAttribute("current", "/WEB-INF/views/cart.jsp");
-        return "index";
+        for (Map.Entry<Integer, Integer> entry: itemsToBuy.entrySet()) {
+            Object item = objectService.findById(entry.getKey());
+            Attribute itemQuantity = attributeService.findByNameAndObjectType("quantity", item.getObjectType());
+            Parameter quantityToChange = parameterService.findByObjectAndAttribute(item.getId(), itemQuantity.getId());
+            int wasInShop = Integer.parseInt(quantityToChange.getValue());
+            quantityToChange.setValue(String.valueOf(wasInShop - entry.getValue()));
+            parameterService.save(quantityToChange);
+        }
+        List<Reference> allInCart = cart.getReferences();
+        for (Reference r: allInCart) {
+            referenceService.delete(r);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 

@@ -77,37 +77,19 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
     function checkout() {
         try {
             self.items.references.reduce(function (acc, item) {
-                if ((!item.cost) || (!item.qty)) {
-                    return acc;
-                }
-                console.log("itemID: " + item.num + ", itemQUANTITY: " + item.qty);
-
                 self.checkoutMap[item.num] = item.qty;
-
             }, 0);
         } catch (err) {
             console.log("something's wrong");
         }
-        console.log("self.checkoutMap: " + self.checkoutMap);
 
-        ItemService.createItem({id: 10, value: 'testData'}, 'checkout')
+        ItemService.createItem(self.checkoutMap, 'checkout')
             .then(
                 fetchAllItems,
                 function(errResponse){
                     console.error('Error while checkout');
                 }
             )
-
-        // $http.post('checkout', checkoutMap)
-        //     .success(function (data) {
-        //         console.log("sent checkoutMap succsessfully")
-        //         console.log(data);
-        //     })
-        //     .error(function () {
-        //         console.log("error getting response while checkout");
-        //     });
-
-
     }
 
     function deleteItem(id, cartId) {
