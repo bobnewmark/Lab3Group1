@@ -71,12 +71,12 @@
 
                                 <form ng-submit="ctrl.buy(ctrl.items.id, quant)" class="cart">
                                     <div class="quantity">
-                                        <input type="number" ng-model="quant" ng-init="quant=1" ng-click="" size="4"
-                                               class="input-text qty text" title="Qty" value="1"
+                                        <input type="number" ng-hide="ctrl.items.mapParameters.quantity.value == '0'" ng-model="quant" ng-init="quant=1" ng-click="" size="4"
+                                               class="input-text qty text" title="Qty" value="ctrl.items.mapParameters.quantity.value == '0' ? 0 : 1"
                                                name="quantity" min="1" step="1"
                                                max="{{ctrl.items.mapParameters.quantity.value}}">
                                     </div>
-                                    <button class="add_to_cart_button">Add to cart</button>
+                                    <button class="add_to_cart_button" ng-disabled="ctrl.items.mapParameters.quantity.value == '0'">{{ctrl.items.mapParameters.quantity.value == '0' ? 'SOLD OUT' : 'Add to cart'}}</button>
                                 </form>
 
 
@@ -114,10 +114,9 @@
                                     <div class="product-f-image">
                                         <img src="${contextPath}{{z.mapParameters.icon.value}}" alt="">
                                         <div class="product-hover">
-                                            <a href="#" class="add-to-cart-link" ng-click="ctrl.buyR(z.id)"><i
-                                                    class="fa fa-shopping-cart"></i> Add to
-                                                cart</a>
-                                            <a href="${contextPath}/details/{{z.id}}" class="view-details-link"><i
+                                            <a href="#" class="add-to-cart-link" ng-click="(z.mapParameters.quantity.value == '0')||ctrl.buyR(z.id)"><i
+                                                    class="fa fa-shopping-cart"></i> {{z.mapParameters.quantity.value == '0' ? 'SOLD OUT' : 'Add to cart'}}</a>
+                                            <a href="${contextPath}/details/{{z.id}}" class="view-details-link" target="_self"><i
                                                     class="fa fa-link"></i> See details</a>
                                         </div>
                                     </div>

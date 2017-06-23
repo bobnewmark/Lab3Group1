@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="product-option-shop">
-                            <a href="#" class="add_to_cart_button" ng-click="ctrl.buy(p.id)">Add to cart</a>
+                            <a href="#" class="add_to_cart_button" ng-click="(p.mapParameters.quantity.value == '0')||ctrl.buy(p.id)">{{p.mapParameters.quantity.value == '0' ? 'SOLD OUT' : 'Add to cart'}}</a>
                         </div>
                     </div>
             </div>
