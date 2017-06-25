@@ -1,8 +1,8 @@
 package com.shop.database.services;
 
 
-import com.shop.database.entities.Parameter;
 import com.shop.database.entities.Object;
+import com.shop.database.entities.Parameter;
 import com.shop.database.repositories.ObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * <code>UserDetailServiceImpl</code> is a service for users authentication by their unique username.
+ */
 public class UserDetailsServiceImpl implements UserDetailsService{
     @Autowired
     private ObjectRepository objectRepository;

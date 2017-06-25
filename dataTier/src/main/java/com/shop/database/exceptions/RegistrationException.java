@@ -1,9 +1,10 @@
 package com.shop.database.exceptions;
 
 /**
- * Created by Admin on 09.06.2017.
+ * <code>RegistrationException</code> is a custom exception for cases when it is impossible to create a user.
  */
 public class RegistrationException extends Exception {
+
     public RegistrationException() {
     }
 

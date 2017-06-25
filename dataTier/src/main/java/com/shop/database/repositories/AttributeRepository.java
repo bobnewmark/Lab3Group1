@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by said on 09.05.2017.
+ * <code>AttributeRepository</code> is a repository class that manages work with attributes.
  */
 @Repository
 public interface AttributeRepository extends JpaRepository<Attribute, Integer > {

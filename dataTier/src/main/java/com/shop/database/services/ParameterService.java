@@ -6,7 +6,7 @@ import com.shop.database.entities.Parameter;
 import java.util.List;
 
 /**
- * Created by said on 07.05.2017.
+ * <code>ParameterService</code> is an interface for working with parameter entities in database.
  */
 public interface ParameterService {
     void save(Parameter parameter);

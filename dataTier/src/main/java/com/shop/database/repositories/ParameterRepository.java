@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by said on 09.05.2017.
+ * <code>ParameterRepository</code> is a repository class that manages work with parameters.
  */
 @Repository
 public interface ParameterRepository extends JpaRepository<Parameter, Integer> {

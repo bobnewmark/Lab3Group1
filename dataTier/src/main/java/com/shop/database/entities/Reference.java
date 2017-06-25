@@ -6,8 +6,10 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
-
-
+/**
+ * <code>Reference</code> is a realization of an attribute, but instead of having some value
+ * it is a link to another object.
+ */
 @Entity
 @Table(name = "LAB3_REFERENCES")
 public class Reference {
@@ -79,5 +81,4 @@ public class Reference {
     public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
-
 }

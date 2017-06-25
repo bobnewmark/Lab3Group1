@@ -8,7 +8,8 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by said on 06.05.2017.
+ * <code>ObjectType</code> is an organizational class for a group of objects
+ * that defines attributes for each object in the group.
  */
 @Entity
 @Table(name = "LAB3_OBJECT_TYPES")
@@ -28,7 +29,6 @@ public class ObjectType {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "objectType", cascade = CascadeType.ALL)
     private List<Attribute> attributes;
-
 
     public ObjectType() {
     }

@@ -6,7 +6,7 @@ import com.shop.database.entities.ObjectType;
 import java.util.List;
 
 /**
- * Created by said on 06.05.2017.
+ * <code>AttributeService</code> is an interface for working with attribute entities in database.
  */
 public interface AttributeService {
     void save(Attribute attribute);

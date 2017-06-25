@@ -6,8 +6,9 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
-
-
+/**
+ * <code>Parameter</code> is a class describing a value of an attribute for an object.
+ */
 @Entity
 @Table(name = "LAB3_PARAMETERS")
 public class Parameter {
@@ -25,7 +26,6 @@ public class Parameter {
     private Attribute attribute;
     @Column(name = "VALUE")
     private String value;
-
 
     public Parameter() {
     }
@@ -67,5 +67,4 @@ public class Parameter {
     public void setValue(String value) {
         this.value = value;
     }
-
 }

@@ -9,7 +9,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 
-
+/**
+ * <code>Testes</code> is a class for testing of the project for correct functioning.
+ */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:appconfig-root.xml")

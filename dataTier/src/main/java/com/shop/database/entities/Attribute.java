@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by said on 06.05.2017.
+ * <code>Attribute</code> is an entity class for attributes of object types in the project database tables.
  */
 @Entity
 @Table(name = "LAB3_ATTRIBUTES")

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by said on 09.05.2017.
+ * <code>ObjectRepository</code> is a repository class that manages work with objects.
  */
 @Repository
 public interface ObjectRepository extends JpaRepository<Object, Integer> {
@@ -25,5 +25,4 @@ public interface ObjectRepository extends JpaRepository<Object, Integer> {
     List<Object> findByParent(Object object);
     @Query("select o from Parameter p left join p.object o where p.attribute.id = 34 and p.value = :login")
     Object findByLogin(@Param("login") String login);
-
 }

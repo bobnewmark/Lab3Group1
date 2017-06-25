@@ -3,12 +3,11 @@ package com.shop.database.services;
 import com.shop.database.entities.Attribute;
 import com.shop.database.entities.Object;
 import com.shop.database.entities.Reference;
-import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.List;
 
 /**
- * Created by said on 07.05.2017.
+ * <code>ReferenceService</code> is an interface for working with reference entities in database.
  */
 public interface ReferenceService {
     void save(Reference reference);
@@ -19,6 +18,4 @@ public interface ReferenceService {
     Reference findById(int id);
     List<Reference> findByObjectAndRefObject(Object object, Object refObject);
     void delete(Reference reference);
-
-
 }

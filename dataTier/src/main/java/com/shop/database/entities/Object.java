@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * Created by said on 06.05.2017.
+ * <code>Object</code> is entity class, a structural unit for any object in the project as user,
+ * or shop item, or shopping cart.
  */
 @Entity
 @Table(name = "LAB3_OBJECTS")
@@ -56,8 +56,6 @@ public class Object {
     public void setMapParameters(Map<String, Parameter> mapParameters) {
         this.mapParameters = mapParameters;
     }
-
-
 
     public int getId() {
         return id;

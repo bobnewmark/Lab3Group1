@@ -10,9 +10,12 @@ import com.shop.database.repositories.ParameterRepository;
 import com.shop.database.services.ObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-
+/**
+ * <code>ObjectServiceImpl</code> is a service class for working with object entities.
+ */
 @Service
 public class ObjectServiceImpl implements ObjectService {
 

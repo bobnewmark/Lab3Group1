@@ -11,18 +11,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+/**
+ * <code>ReferenceServiceImpl</code> is a service class for working with reference entities.
+ */
 @Service
 public class ReferenceServiceImpl implements ReferenceService{
 
     @Autowired
     private ReferenceRepository referenceRepository;
 
-
     public void save(Reference attribute) {
         referenceRepository.save(attribute);
     }
-
 
     public List<Reference> findByObject(Object object) {
         List<Reference> refs = referenceRepository.findByObject(object);
@@ -35,7 +35,6 @@ public class ReferenceServiceImpl implements ReferenceService{
         return refs;
     }
 
-
     public List<Reference> findByRefObject(Object refObject) {
         return referenceRepository.findByRefObject(refObject);
     }
@@ -44,7 +43,6 @@ public class ReferenceServiceImpl implements ReferenceService{
     public List<Reference> findByAttribute(Attribute attribute) {
         return referenceRepository.findByAttribute(attribute);
     }
-
 
     public List<Reference> findByName(String name) {
         return referenceRepository.findByName(name);
@@ -63,5 +61,4 @@ public class ReferenceServiceImpl implements ReferenceService{
     public void delete(Reference reference) {
         referenceRepository.delete(reference);
     }
-
 }

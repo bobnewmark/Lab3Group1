@@ -12,8 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+/**
+ * <code>SecurityServiceImpl</code> is a class for managing main user actions as log in, sign in,
+ * finding user in the database, accessing user's shopping cart.
+ */
 @Service
 public class SecurityServiceImpl implements SecurityService{
     @Autowired
@@ -61,6 +63,4 @@ public class SecurityServiceImpl implements SecurityService{
             logger.debug(String.format("Auto login %s successfully!", username));
         }
     }
-
-
 }
