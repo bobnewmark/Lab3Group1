@@ -7,89 +7,80 @@ var App = angular.module('myApp', [],function($locationProvider){
         requireBase: false
     });
 });
-App.factory('Service', ['$http', '$q', function($http, $q){
+App.factory('Service', ['$http', '$q', '$window', function($http, $q, $window){
 
-    var SERVICE_URI = 'http://localhost:7001/laba/registration/';
+    var SERVICE_URI = '/laba/registration/';
 
     var factory = {
-        createItem: createItem
+        createItem: createItem,
+        fetchUser: fetchUser
     };
 
     return factory;
     function createItem(user) {
+        /*$http.defaults.headers.common = {"Access-Control-Request-Headers": "accept, origin, authorization"};
+        $http.defaults.headers.common['Authorization'] = 'Basic YWRtaW46YWRtaW4=';*/
         var deferred = $q.defer();
         $http.post(SERVICE_URI, user)
             .then(
                 function (response) {
                     deferred.resolve(response.data);
+                    $window.location.href = '/laba/';
                 },
                 function(errResponse){
                     console.error('Error while creating User');
+                    deferred.reject(errResponse);
+                    $window.location.href = '/laba/registration?reg-err';
+                }
+            );
+        return deferred.promise;
+    }
+    function fetchUser(url) {
+        var deferred = $q.defer();
+        $http.get(url)
+            .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
                     deferred.reject(errResponse);
                 }
             );
         return deferred.promise;
     }
-    function updateItem(user, id) {
-		var deferred = $q.defer();
-		$http.put(SERVICE_URI+id, user)
-			.then(
-				function (response) {
-					deferred.resolve(response.data);
-				},
-				function(errResponse){
-					console.error('Error while updating User');
-					deferred.reject(errResponse);
-				}
-			);
-		return deferred.promise;
-	}
 }]);
 
-	// create angular controller
 App.controller('mainController',['$scope', 'Service', '$location',  function($scope, Service, $location){
-        var self = this;
-        self.item = {};
-        self.items=[];
-        self.submit = submit;
-        function submit() {
-            if(self.item.id===null){
-                console.log('Saving New User', self.item);
-                Service.createItem(self.item);
-            }else{
-                Service.updateItem(self.item, self.item.id);
-                console.log('User updated with id ', self.item.id);
-            }
-        }
+    var self = this;
+    self.item = {};
+    self.items=[];
+    self.submit = submit;
+    fetchUser();
+    function submit() {
+        console.log('Saving New User', self.item);
+        Service.createItem(self.item);
+    }
+    function fetchUser(){
+        Service.fetchUser('/laba/user')
+            .then(
+                function(d) {
+                    self.item = d;
+                },
+                function(errResponse){
+                    console.error('Error while fetching User');
+                }
+            );
+    }
 
     if($location.absUrl().indexOf("reg-err")!=-1){
         $scope.statusreg = 1;
     }else{
         $scope.statusreg = 0;
     }
-		// function to submit the form after all validation has occurred			
-		$scope.submitForm = function() {
-
-			// check to make sure the form is completely valid
-			if ($scope.userForm.$valid) {
-
-			}
-
-		};
-
-
 	}]);
 
 App.controller('loginController',['$scope', '$location',  function($scope, $location){
-    // function to submit the form after all validation has occurred
-    $scope.submitForm = function() {
-
-        // check to make sure the form is completely valid
-        if ($scope.userForm.$valid) {
-
-        }
-
-    };
     if($location.absUrl().indexOf("error")!=-1){
         $scope.status = 1;
     }else{

@@ -3,7 +3,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
     var self = this;
     var url = $location.protocol()+"://"+$location.host()+":"+$location.port();
     var REST_SERVICE_URI = map[$location.path()];
-
+    var TYPES_URI = '/laba/types/';
     self.item = {id:null, name:'', objectType:{id: null}, parameters:[
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
@@ -15,7 +15,9 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
                                                {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}}]};
     self.items = [];
+    self.types = [];
     self.submit = submit;
+    self.update = update;
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
@@ -23,12 +25,26 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
     self.buy = buy;
 
     fetchAllItems();
-
+    fetchAllTypes();
+    function update() {
+        self.item = $scope.selectedItem;
+    }
     function fetchAllItems(){
         ItemService.fetchAllItems(REST_SERVICE_URI)
             .then(
                 function(d) {
                     self.items = d;
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                }
+            );
+    }
+    function fetchAllTypes(){
+        ItemService.fetchAllItems(TYPES_URI)
+            .then(
+                function(d) {
+                    self.types = d;
                 },
                 function(errResponse){
                     console.error('Error while fetching Users');

@@ -39,7 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         BCryptPasswordEncoder encoder =new BCryptPasswordEncoder(11);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getMapParameters().get("role").getValue()));
-        System.out.println("UserDetailsServiceImpl  "+ user.getMapParameters().get("password").getValue());
+        System.out.println("UserDetailsServiceImpl  "+ user.getMapParameters().get("role").getValue());
         return new org.springframework.security.core.userdetails.User(user.getMapParameters().get("login").getValue(), user.getMapParameters().get("password").getValue(), grantedAuthorities);
     }
 }

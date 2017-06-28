@@ -3,6 +3,7 @@ package com.shop.database.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
@@ -65,6 +66,11 @@ public class Parameter {
     }
 
     public void setValue(String value) {
-        this.value = value;
+        if(this.getAttribute().getName().equals("password")){
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
+            this.value = encoder.encode(value);
+        }else {
+            this.value = value;
+        }
     }
 }

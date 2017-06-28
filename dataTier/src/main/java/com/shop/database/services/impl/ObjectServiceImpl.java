@@ -110,8 +110,4 @@ public class ObjectServiceImpl implements ObjectService {
         objectRepository.delete(id);
     }
 
-    @Override
-    public Object findByLogin(String login) {
-        return objectRepository.findByLogin(login);
-    }
 }

@@ -17,7 +17,6 @@ public class Attribute {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ATTRIBUTE_ID", length = 10, nullable = false)
     private int id;
-
     @Column(name = "NAME")
     private String name;
     @JsonIgnore
@@ -34,7 +33,10 @@ public class Attribute {
     private List<Reference> references;
     @Column(name="uniq")
     private boolean unique;
-
+    @Column(name="hid")
+    private boolean hidden;
+    @Column(name="attach")
+    private boolean attach;
     public Attribute() {
     }
 
@@ -89,5 +91,21 @@ public class Attribute {
 
     public void setUnique(boolean unique) {
         this.unique = unique;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public boolean isAttach() {
+        return attach;
+    }
+
+    public void setAttach(boolean attach) {
+        this.attach = attach;
     }
 }

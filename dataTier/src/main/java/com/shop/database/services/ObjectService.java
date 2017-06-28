@@ -18,5 +18,4 @@ public interface ObjectService {
     List<Object> findByNameAttrAndObjectType(String name, String otName, String value);
     List<Object> findByParent(Object object);
     void delete(int id);
-    Object findByLogin(String login);
 }

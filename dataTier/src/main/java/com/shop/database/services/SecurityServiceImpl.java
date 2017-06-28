@@ -40,7 +40,7 @@ public class SecurityServiceImpl implements SecurityService{
     public Object getUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        return objectService.findByLogin(username);
+        return objectService.findByNameAttrAndObjectType("user", "login", username).get(0);
     }
 
     @Override
@@ -55,12 +55,17 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public void autologin(String username, String password) {
+        System.out.println("username-----"+ username + ", password--------"+ password);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        System.out.println("1");
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        System.out.println("2");
+        //authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        System.out.println("3");
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+            System.out.println("4");
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            logger.debug(String.format("Auto login %s successfully!", username));
+            System.out.println("5");
         }
     }
 }

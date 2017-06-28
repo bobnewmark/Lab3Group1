@@ -57,66 +57,29 @@
             <div class="col-md-12">
                 <div class="latest-product">
                     <h2 class="section-title">Most popular</h2>
-
                                     <data-owl-carousel class="owl-carousel" data-options="{navigation: true, pagination: true, rewindNav : true}">
                                         <div owl-carousel-item="" ng-repeat="p in ctrl.items" id="items" class="item single-product" style="padding: 10px">
                                             <div class="product-f-image">
-
                                                 <img src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
                                                 <div class="product-hover">
-                                                    <a href="#" class="add-to-cart-link" ng-click="(p.mapParameters.quantity.value == '0')||ctrl.buy(p.id)"><i class="fa fa-shopping-cart"></i>
-                                                        {{p.mapParameters.quantity.value == '0' ? 'SOLD OUT' : 'Add to cart'}}</a>
-                                                    <a href="${contextPath}/details/{{p.id}}" class="view-details-link" target="_self"><i
+                                                    <a href="#" class="add-to-cart-link" ng-click="ctrl.buy(p.id)"><i class="fa fa-shopping-cart"></i>
+                                                        Add to
+                                                        cart</a>
+                                                    <a href="${contextPath}/details/{{p.id}}" class="view-details-link"><i
                                                             class="fa fa-link"></i> See details</a>
                                                 </div>
                                             </div>
-
                                             <h2 ng-bind="p.mapParameters.name.value"></h2>
                                             <div class="product-carousel-price">
                                                 <ins ng-bind="p.mapParameters.price.value"></ins>
                                                 <div class="admin" data-toggle="modal" data-target="#editModal" ng-click="ctrl.edit(p.id)"><i class="fa fa-pencil-square-o admin-edit"></i> edit</div>
                                                 <div class="admin" ng-click="ctrl.remove(p.id)"><i class="fa fa-times admin-del"></i> delete</div>
+                                                <div class="admin" data-toggle="modal" data-target="#addModal" ng-click="ctrl.reset()"><i class="fa fa-plus admin-edit"></i> add</div>
                                             </div>
                                         </div>
                                     </data-owl-carousel>
-                    <div id="editModal" class="modal fade" phoneModal >
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
-                                <!-- Заголовок модального окна -->
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h4 class="modal-title">Изменение товара</h4>
-                                </div>
-                                <!-- Основное содержимое модального окна -->
-                                <div class="modal-body">
-                                    <div class="formcontainer">
-                                            <input type="hidden" ng-model="ctrl.item.id" />
-                                            <div class="row" ng-repeat="p in ctrl.item.parameters">
-                                                <div class="form-group col-md-12">
-                                                    <label class="col-md-2 control-lable" for="{{p.attribute.name}}">{{p.attribute.name}}</label>
-                                                    <div class="col-md-7">
-                                                        <input type="text" ng-model="p.value" id="{{p.attribute.name}}" class="{{p.attribute.name}} form-control input-sm" placeholder="Enter {{p.attribute.name}}" required/>
-                                                        <input type="hidden" ng-model="p.object.id" value="{{ctrl.item.id}}"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    </div>
-                                </div>
-                                <!-- Футер модального окна -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                                    <input type="submit" value="{{!ctrl.item.id ? 'Добавить' : 'Редактировать'}}"class="btn btn-primary" ng-disabled="myForm.$invalid" />
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <script>
-                        $(document).ready(function() {
-                            $("#myModalBox").modal('show');
-                        });
-                    </script>
+
+                    <jsp:include page="/WEB-INF/views/modal.jsp"  flush="true"></jsp:include>
                 </div>
             </div>
         </div>

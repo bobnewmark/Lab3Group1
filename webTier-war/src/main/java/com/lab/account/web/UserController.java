@@ -44,6 +44,38 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    public ResponseEntity<Object> registration(@RequestBody Object user) {
+        for(Parameter p: user.getParameters()){
+            p.setObject(user);
+            if(p.getAttribute().getName().equals("role")){
+                p.setValue("USER");
+            }
+        }
+        try {
+            objectService.save(user);
+        } catch (RegistrationException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            /*return "redirect:/registration?reg-err";*/
+        }
+        Object cart = new Object("cart", objectTypeService.findByName("cart"), user);
+        if (objectService.findByParent(user).size() > 0) {
+            cart = objectService.findByParent(user).get(0);
+        } else {
+            cart.setReferences(new ArrayList<Reference>());
+        }
+        try {
+            objectService.save(cart);
+        } catch (RegistrationException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        System.out.println(user.getParameters().get(0).getValue()+" " + user.getParameters().get(1).getValue());
+        System.out.println("not goooooooood");
+        securityService.autologin(user.getParameters().get(0).getValue(), user.getParameters().get(1).getValue());
+        System.out.println("goooooooood");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /*@RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@RequestParam("email") String login, @RequestParam("password") String password, Model model) {
         System.out.println(login + " login--password" + password);
         Object user = new Object();
@@ -74,8 +106,21 @@ public class UserController {
         }
         securityService.autologin(login, password);
         return "redirect:/";
+    }*/
+    @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
+    public ResponseEntity<Object> user() {
+        ObjectType type = objectTypeService.findById(6);
+            Object o = new Object();
+            o.setObjectType(type);
+            o.setName(type.getName());
+            for(Attribute a: type.getAttributes()){
+                Parameter p = new Parameter();
+                p.setObject(o);
+                p.setAttribute(a);
+                o.getParameters().add(p);
+            }
+        return new ResponseEntity<>(o, HttpStatus.OK);
     }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null)
@@ -102,6 +147,27 @@ public class UserController {
         return new ResponseEntity<>(objects, HttpStatus.OK);
     }
 
+    @RequestMapping(value = {"/types"}, method = RequestMethod.GET)
+    public ResponseEntity<List<Object>> types() {
+        List<ObjectType> types = objectTypeService.findAll();
+        List<Object> objects = new ArrayList<>();
+        for(ObjectType ot: types){
+            Object o = new Object();
+            o.setObjectType(ot);
+            o.setName(ot.getName());
+            for(Attribute a: ot.getAttributes()){
+                Parameter p = new Parameter();
+                p.setAttribute(a);
+                p.setObject(o);
+                o.getParameters().add(p);
+            }
+            objects.add(o);
+        }
+        if (objects.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(objects, HttpStatus.OK);
+    }
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
         ObjectType phone = objectTypeService.findByName("Phone");

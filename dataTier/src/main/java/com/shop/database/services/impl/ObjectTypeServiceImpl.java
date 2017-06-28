@@ -6,6 +6,8 @@ import com.shop.database.services.ObjectTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ObjectTypeServiceImpl implements ObjectTypeService {
 
@@ -22,5 +24,10 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
 
     public ObjectType findByName(String name) {
         return objectTypeRepository.findByName(name);
+    }
+
+    @Override
+    public List<ObjectType> findAll() {
+        return objectTypeRepository.findAll();
     }
 }

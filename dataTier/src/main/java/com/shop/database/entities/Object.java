@@ -35,12 +35,24 @@ public class Object {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "object", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Parameter> parameters = new ArrayList<>();
+    private List<Parameter> parameters = new ArrayList<Parameter>(){
+        @Override
+        public boolean add(Parameter parameter) {
+            mapParameters.put(parameter.getAttribute().getName(), parameter);
+            return super.add(parameter);
+        }
+    };
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "object")
     private List<Reference> references = new ArrayList<>();
     @Transient
-    private Map<String, Parameter> mapParameters = new HashMap<>();
+    private Map<String, Parameter> mapParameters = new HashMap<String, Parameter>(){
+        @Override
+        public Parameter put(String key, Parameter value) {
+            parameters.add(value);
+            return super.put(key, value);
+        }
+    };
 
     public Object() {
     }
@@ -54,6 +66,7 @@ public class Object {
     }
 
     public void setMapParameters(Map<String, Parameter> mapParameters) {
+        parameters.addAll(mapParameters.values());
         this.mapParameters = mapParameters;
     }
 
@@ -94,6 +107,9 @@ public class Object {
     }
 
     public void setParameters(List<Parameter> parameters) {
+        for(Parameter p : parameters){
+            mapParameters.put(p.getAttribute().getName(), p);
+        }
         this.parameters = parameters;
     }
 
