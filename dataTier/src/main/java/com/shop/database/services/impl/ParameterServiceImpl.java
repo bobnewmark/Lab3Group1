@@ -19,7 +19,7 @@ public class ParameterServiceImpl implements ParameterService{
     private ParameterRepository parameterRepository;
 
     public void save(Parameter parameter) {
-        parameterRepository.save(parameter);
+        parameterRepository.saveAndFlush(parameter);
     }
 
     public Parameter findById(int id) {

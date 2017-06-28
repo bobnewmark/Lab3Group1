@@ -3,6 +3,7 @@ package com.shop.database.services;
 import com.shop.database.entities.Object;
 import com.shop.database.entities.ObjectType;
 import com.shop.database.exceptions.RegistrationException;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface ObjectService {
     List<Object> findByNameAttrAndObjectType(String name, String otName, String value);
     List<Object> findByParent(Object object);
     void delete(int id);
+    List<Object> getObjectByAttribute(String typeName, String name, Pageable pageable);
 }

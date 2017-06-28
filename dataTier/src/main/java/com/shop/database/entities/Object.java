@@ -7,10 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <code>Object</code> is entity class, a structural unit for any object in the project as user,
@@ -35,24 +32,12 @@ public class Object {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "object", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Parameter> parameters = new ArrayList<Parameter>(){
-        @Override
-        public boolean add(Parameter parameter) {
-            mapParameters.put(parameter.getAttribute().getName(), parameter);
-            return super.add(parameter);
-        }
-    };
+    private List<Parameter> parameters = new ArrayList<Parameter>();
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "object")
     private List<Reference> references = new ArrayList<>();
     @Transient
-    private Map<String, Parameter> mapParameters = new HashMap<String, Parameter>(){
-        @Override
-        public Parameter put(String key, Parameter value) {
-            parameters.add(value);
-            return super.put(key, value);
-        }
-    };
+    private Map<String, Parameter> mapParameters = new HashMap<String, Parameter>();
 
     public Object() {
     }
@@ -61,7 +46,8 @@ public class Object {
         this.name = name;
         this.objectType = objectType;
         this.parent = parent;
-    }public Map<String, Parameter> getMapParameters() {
+    }
+    public Map<String, Parameter> getMapParameters() {
         return mapParameters;
     }
 

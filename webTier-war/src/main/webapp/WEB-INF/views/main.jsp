@@ -65,7 +65,7 @@
                                                     <a href="#" class="add-to-cart-link" ng-click="ctrl.buy(p.id)"><i class="fa fa-shopping-cart"></i>
                                                         Add to
                                                         cart</a>
-                                                    <a href="${contextPath}/details/{{p.id}}" class="view-details-link"><i
+                                                    <a href="${contextPath}/details/{{p.id}}" class="view-details-link"  target="_self"><i
                                                             class="fa fa-link"></i> See details</a>
                                                 </div>
                                             </div>

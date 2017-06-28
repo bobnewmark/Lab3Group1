@@ -7,12 +7,13 @@ import com.shop.database.entities.Object;
 import com.shop.database.exceptions.RegistrationException;
 import com.shop.database.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -68,10 +69,7 @@ public class UserController {
         } catch (RegistrationException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        System.out.println(user.getParameters().get(0).getValue()+" " + user.getParameters().get(1).getValue());
-        System.out.println("not goooooooood");
         securityService.autologin(user.getParameters().get(0).getValue(), user.getParameters().get(1).getValue());
-        System.out.println("goooooooood");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -170,8 +168,8 @@ public class UserController {
     }
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
-        ObjectType phone = objectTypeService.findByName("Phone");
-        List<Object> objects = objectService.findByObjectType(phone);
+
+        List<Object> objects = objectService.getObjectByAttribute("Phone", "rating", new PageRequest(1, 5));
         if (objects.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -334,6 +332,15 @@ public class UserController {
 
     @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
     public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
+        Object object = objectService.findById(id);
+        for (Parameter param: object.getParameters()) {
+            if ("rating".equals(param.getAttribute().getName())) {
+                int num = Integer.parseInt(param.getValue());
+                num++;
+                param.setValue(String.valueOf(num));
+                parameterService.save(param);
+            }
+        }
         model.addAttribute("current", "/WEB-INF/views/details.jsp");
         return "index";
     }

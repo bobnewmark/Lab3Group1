@@ -9,6 +9,7 @@ import com.shop.database.repositories.ObjectRepository;
 import com.shop.database.repositories.ParameterRepository;
 import com.shop.database.services.ObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -108,6 +109,17 @@ public class ObjectServiceImpl implements ObjectService {
     @Override
     public void delete(int id) {
         objectRepository.delete(id);
+    }
+
+    @Override
+    public List<Object> getObjectByAttribute(String typeName, String name, Pageable pageable) {
+        List<Object> objects =  objectRepository.findByAttrAndName(typeName, name, pageable);
+        for (Object o : objects) {
+            for (Parameter p : o.getParameters()) {
+                o.getMapParameters().put(p.getAttribute().getName(), p);
+            }
+        }
+        return objects;
     }
 
 }
