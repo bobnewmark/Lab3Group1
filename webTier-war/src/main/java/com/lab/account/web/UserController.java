@@ -6,6 +6,7 @@ import com.shop.database.entities.*;
 import com.shop.database.entities.Object;
 import com.shop.database.exceptions.RegistrationException;
 import com.shop.database.services.*;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,8 @@ public class UserController {
     @Autowired
     private ReferenceService referenceService;
 
+    private final static Logger logger = Logger.getLogger(UserController.class);
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
@@ -54,7 +57,9 @@ public class UserController {
         }
         try {
             objectService.save(user);
+            logger.info("User " + user.getName() + " saved succsessfully.");
         } catch (RegistrationException e) {
+            logger.error("Cannot save user " + user.getName() + ", ", e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             /*return "redirect:/registration?reg-err";*/
         }
@@ -67,6 +72,7 @@ public class UserController {
         try {
             objectService.save(cart);
         } catch (RegistrationException e) {
+            logger.error("Cannot save cart for user " + user.getName() + ", ", e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         securityService.autologin(user.getParameters().get(0).getValue(), user.getParameters().get(1).getValue());
@@ -123,7 +129,6 @@ public class UserController {
     public String login(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
-
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
@@ -171,6 +176,7 @@ public class UserController {
 
         List<Object> objects = objectService.getObjectByAttribute("Phone", "rating", new PageRequest(1, 5));
         if (objects.isEmpty()) {
+            logger.info("No items to display.");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(objects, HttpStatus.OK);
@@ -184,7 +190,7 @@ public class UserController {
         try {
             objectService.save(object);
         } catch (RegistrationException e) {
-            e.printStackTrace();
+            logger.error("Cannot save changes to object " + object.getName() + ", ", e);
         }
         return new ResponseEntity<Object>(object, HttpStatus.OK);
     }
@@ -192,8 +198,6 @@ public class UserController {
     @RequestMapping(value = "/phone/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteUser(@PathVariable("id") int id) {
         System.out.println("Fetching & Deleting User with id " + id);
-
-
         objectService.delete(id);
         return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
     }
@@ -228,6 +232,7 @@ public class UserController {
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Charger")));
         result.addAll(objectService.findByObjectType(objectTypeService.findByName("Battery")));
         if (result.isEmpty()) {
+            logger.info("No products to display.");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -296,7 +301,7 @@ public class UserController {
             ObjectMapper mapper = new ObjectMapper();
             itemsToBuy = mapper.readValue(checkoutMap, new TypeReference<HashMap<Integer, Integer>>() {});
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Cannot proceed with checkout, ", e);
         }
         for (Map.Entry<Integer, Integer> entry: itemsToBuy.entrySet()) {
             Object item = objectService.findById(entry.getKey());
@@ -332,15 +337,6 @@ public class UserController {
 
     @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
     public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
-        Object object = objectService.findById(id);
-        for (Parameter param: object.getParameters()) {
-            if ("rating".equals(param.getAttribute().getName())) {
-                int num = Integer.parseInt(param.getValue());
-                num++;
-                param.setValue(String.valueOf(num));
-                parameterService.save(param);
-            }
-        }
         model.addAttribute("current", "/WEB-INF/views/details.jsp");
         return "index";
     }

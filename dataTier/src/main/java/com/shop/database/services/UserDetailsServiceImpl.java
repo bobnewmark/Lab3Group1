@@ -4,6 +4,7 @@ package com.shop.database.services;
 import com.shop.database.entities.Object;
 import com.shop.database.entities.Parameter;
 import com.shop.database.repositories.ObjectRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +24,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     @Autowired
     private ObjectRepository objectRepository;
 
+    private final static Logger logger = Logger.getLogger(UserDetailsServiceImpl.class);
+
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -31,6 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         try {
             user = objectRepository.findByAttrAndObjectType("user", "login", username).get(0);
         }catch(IndexOutOfBoundsException e){
+            logger.info("Couldn't find user for autologin, creating new one, exception: ", e);
             user = new Object();
         }
         for(Parameter par: user.getParameters()){

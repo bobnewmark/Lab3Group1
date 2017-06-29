@@ -1,8 +1,7 @@
 package com.shop.database.services;
 
 import com.shop.database.entities.Object;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
  * finding user in the database, accessing user's shopping cart.
  */
 @Service
-public class SecurityServiceImpl implements SecurityService{
+public class SecurityServiceImpl implements SecurityService {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -25,13 +24,13 @@ public class SecurityServiceImpl implements SecurityService{
     @Autowired
     private UserDetailsService userDetailsService;
 
-    private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
+    private static final Logger logger = Logger.getLogger(SecurityServiceImpl.class);
 
     @Override
     public String findLoggedInUsername() {
         java.lang.Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
         if (userDetails instanceof UserDetails) {
-            return ((UserDetails)userDetails).getUsername();
+            return ((UserDetails) userDetails).getUsername();
         }
         return null;
     }
@@ -46,10 +45,7 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     public Object getCart() {
         Object cart = null;
-        try {
-            cart = objectService.findByParent(getUser()).get(0);
-        } catch (Exception ignored) {
-        }
+        cart = objectService.findByParent(getUser()).get(0);
         return cart;
     }
 
