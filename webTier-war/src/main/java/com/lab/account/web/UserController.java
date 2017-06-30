@@ -254,9 +254,18 @@ public class UserController {
         if (cart == null) {
             return "0";
         }
-        Reference item = new Reference(cart, objectService.findById(itemId), "item", attributeService.findByNameAndObjectType("item", objectTypeService.findByName("cart")));
-        cart.getReferences().add(item);
-        referenceService.save(item);
+        ObjectType cartOT = objectTypeService.findByName("cart");
+        Reference item = new Reference(cart, objectService.findById(itemId), "item", attributeService.findByNameAndObjectType("item", cartOT));
+        int amountOfItemInCart = 0;
+        for (Map.Entry<String, Parameter> entry: item.getRefObject().getMapParameters().entrySet()) {
+            if (entry.getKey().equals("quantity")) {
+                amountOfItemInCart = Integer.parseInt(entry.getValue().getValue());
+            }
+        }
+        if (referenceService.findByObjectAndRefObject(cart, item.getRefObject()).size() < amountOfItemInCart) {
+            cart.getReferences().add(item);
+            referenceService.save(item);
+        }
         return String.valueOf(cart.getReferences().size());
     }
 
