@@ -8,20 +8,24 @@ import com.shop.database.exceptions.RegistrationException;
 import com.shop.database.services.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.activation.MimetypesFileTypeMap;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.*;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -41,6 +45,9 @@ public class UserController {
 
     private final static Logger logger = Logger.getLogger(UserController.class);
 
+    @Autowired
+    private Tools tools;
+    private String HOME = "C:/folderForLab3Images/";
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
@@ -79,38 +86,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /*@RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@RequestParam("email") String login, @RequestParam("password") String password, Model model) {
-        System.out.println(login + " login--password" + password);
-        Object user = new Object();
-        user.setName("user");
-        ObjectType ot = objectTypeService.findByName("user");
-        user.setObjectType(ot);
-        user.setParameters(new ArrayList<Parameter>());
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
-        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("login", ot), login));
-        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("password", ot), encoder.encode(password)));
-        user.getParameters().add(new Parameter(user, attributeService.findByNameAndObjectType("role", ot), "USER"));
-        try {
-            objectService.save(user);
-        } catch (RegistrationException e) {
-            return "redirect:/registration?reg-err";
-        }
-        Object cart = new Object("cart", objectTypeService.findByName("cart"), user);
-        if (objectService.findByParent(user).size() > 0) {
-            cart = objectService.findByParent(user).get(0);
-        } else {
-            cart.setReferences(new ArrayList<Reference>());
-        }
 
-        try {
-            objectService.save(cart);
-        } catch (RegistrationException e) {
-            return "redirect:/registration?reg-err";
-        }
-        securityService.autologin(login, password);
-        return "redirect:/";
-    }*/
     @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
     public ResponseEntity<Object> user() {
         ObjectType type = objectTypeService.findById(6);
@@ -136,7 +112,7 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
     public String getIndexPage(Model model) {
         model.addAttribute("current", "/WEB-INF/views/main.jsp");
         return "index";
@@ -172,11 +148,17 @@ public class UserController {
         }
         return new ResponseEntity<>(objects, HttpStatus.OK);
     }
-
+    @RequestMapping(value = {"/brands"}, method = RequestMethod.GET)
+    public ResponseEntity<List<Object>> brands() {
+        List<Object> brands = objectService.findByObjectType(objectTypeService.findByName("brand"));
+        if (brands.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(brands, HttpStatus.OK);
+    }
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
-
-        List<Object> objects = objectService.getObjectByAttribute("Phone", "rating", new PageRequest(1, 5));
+        List<Object> objects = objectService.getObjectByAttribute("Phone", "rating", new PageRequest(0, 5));
         if (objects.isEmpty()) {
             logger.info("No items to display.");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -184,17 +166,70 @@ public class UserController {
         return new ResponseEntity<>(objects, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/phone/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody Object object) {
-        for (Parameter p : object.getParameters()) {
+
+    @RequestMapping(value = {"/fileUpload"}, method = RequestMethod.POST)
+    public ResponseEntity upload (MultipartHttpServletRequest request){
+        int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println("id "+id);
+        Object object = objectService.findById(id);
+        File path = new File(HOME+id);
+        if (!path.exists()) {
+            boolean status = path.mkdirs();
+        }
+        for(Map.Entry<String, MultipartFile> entry : request.getFileMap().entrySet()){
+            String contentName = entry.getValue().getContentType().split("/")[0];
+            String contentEnd = entry.getValue().getContentType().split("/")[1];
+            for(Parameter p: object.getParameters()){
+                if(p.getAttribute().getName().equals(entry.getKey())){
+                    p.setValue("/icons/"+id+"/"+entry.getKey()+"."+contentEnd);
+                    object.getMapParameters().put(entry.getKey(), p);
+                    p=parameterService.save(p);
+                }
+            }
+            if (!contentName.equals("image")){
+                new ResponseEntity(HttpStatus.BAD_REQUEST);
+            }
+            tools.fileUpload(entry.getValue(), HOME+id+"/"+entry.getKey()+"."+contentEnd);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/icons/{id}/{image}.{end}", method= RequestMethod.GET)
+    @ResponseBody
+    protected void doGet(@PathVariable("image") String image, @PathVariable("id") String id, @PathVariable("end") String end, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String filePath = request.getRequestURI();
+        File file = new File(HOME + id+"/"+image+"."+end);
+        InputStream input = new FileInputStream(file);
+        response.setContentLength((int) file.length());
+        response.setContentType(new MimetypesFileTypeMap().getContentType(file));
+        OutputStream output = response.getOutputStream();
+        byte[] bytes = new byte[4096];
+        int read = 0;
+        while ((read = input.read(bytes, 0, 4096)) != -1) {
+            output.write(bytes, 0, read);
+            output.flush();
+        }
+        input.close();
+        output.close();
+    }
+
+    @RequestMapping(value = "/phone/", method = RequestMethod.POST)
+    public ResponseEntity<Integer> updateUser( @RequestBody Object object) {
+        System.out.println(object.getParent().getName()+"----"+object.getParent().getId());
+        for(Parameter p: object.getParameters()){
             p.setObject(object);
+            System.out.println("save phone "+p.getAttribute().getName()+" "+p.getValue());
+            if(p.getAttribute().getName().equals("rating")){
+                p.setValue("0");
+            }
         }
         try {
-            objectService.save(object);
+            object = objectService.save(object);
         } catch (RegistrationException e) {
             logger.error("Cannot save changes to object " + object.getName() + ", ", e);
         }
-        return new ResponseEntity<Object>(object, HttpStatus.OK);
+        System.out.println(object.getId());
+        return new ResponseEntity<>(object.getId(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/phone/{id}", method = RequestMethod.DELETE)
@@ -211,11 +246,11 @@ public class UserController {
         return "index";
     }
 
-    @RequestMapping(value = {"/request/{keyword}"}, method = RequestMethod.GET)
-    public ResponseEntity<List<Object>> searchRequest(@PathVariable("keyword") String keyword) throws URISyntaxException {
-        List<Object> result = objectService.findByNameContaining(keyword);
-        for (int i = 0; i < result.size(); i++) {
-            if (result.get(i).getParent() == null) result.remove(result.get(i));
+    @RequestMapping(value = {"/request/{keyword}/{page}"}, method = RequestMethod.GET)
+    public ResponseEntity<Page<Object>> searchRequest(@PathVariable("keyword") String keyword, @PathVariable("page") int page) throws URISyntaxException {
+        Page<Object> result = objectService.findByNameContaining(keyword, new PageRequest(page-1, 4));
+        if(result.getTotalPages()<page && result.getTotalPages()>0){
+            result = objectService.findByNameContaining(keyword, new PageRequest(result.getTotalPages()-1, 4));
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -226,15 +261,21 @@ public class UserController {
         return "index";
     }
 
-    @RequestMapping(value = {"/products"}, method = RequestMethod.GET)
-    public ResponseEntity<List<Object>> allProducts(Model model) throws URISyntaxException {
-        List<Object> result = new ArrayList<>();
-        result.addAll(objectService.findByObjectType(objectTypeService.findByName("Phone")));
-        result.addAll(objectService.findByObjectType(objectTypeService.findByName("Headphones")));
-        result.addAll(objectService.findByObjectType(objectTypeService.findByName("Charger")));
-        result.addAll(objectService.findByObjectType(objectTypeService.findByName("Battery")));
-        if (result.isEmpty()) {
+
+    @RequestMapping(value = {"/products/{page}"}, method = RequestMethod.GET)
+    public ResponseEntity<Page<Object>> allProducts(@PathVariable("page") int page, Model model) throws URISyntaxException {
+        List<String> list = new ArrayList<>();
+        list.add("Phone");
+        list.add("Headphones");
+        list.add("Charger");
+        list.add("Battery");
+        Page<Object> result = objectService.getObjectByTypes(list, new PageRequest(page-1, 4));
+        if(result.getTotalPages()<page && result.getTotalPages()>0){
+            result = objectService.getObjectByTypes(list, new PageRequest(result.getTotalPages()-1, 4));
+        }
+        if (result.getContent().isEmpty()) {
             logger.info("No products to display.");
+
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -360,6 +401,15 @@ public class UserController {
 
     @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
     public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
+        Object object = objectService.findById(id);
+        for (Parameter param: object.getParameters()) {
+            if ("rating".equals(param.getAttribute().getName())) {
+                int num = Integer.parseInt(param.getValue());
+                num++;
+                param.setValue(String.valueOf(num));
+                parameterService.save(param);
+            }
+        }
         model.addAttribute("current", "/WEB-INF/views/details.jsp");
         return "index";
     }

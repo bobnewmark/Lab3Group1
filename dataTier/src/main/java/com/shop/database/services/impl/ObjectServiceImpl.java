@@ -9,6 +9,7 @@ import com.shop.database.repositories.ObjectRepository;
 import com.shop.database.repositories.ParameterRepository;
 import com.shop.database.services.ObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class ObjectServiceImpl implements ObjectService {
     @Autowired
     private ParameterRepository parameterRepository;
 
-    public void save(Object object) throws RegistrationException {
+    public Object save(Object object) throws RegistrationException {
         for (Parameter param : object.getParameters()) {
             if (param.getAttribute().isUnique()) {
                 for (Parameter par : parameterRepository.findByAttribute(param.getAttribute())) {
@@ -35,11 +36,11 @@ public class ObjectServiceImpl implements ObjectService {
                 }
             }
         }
-        objectRepository.saveAndFlush(object);
+        return objectRepository.saveAndFlush(object);
     }
 
     public Object findById(int id) {
-        Object o = objectRepository.findById(id);
+        Object o = objectRepository.findOne(id);
         for (Parameter p : o.getParameters()) {
             o.getMapParameters().put(p.getAttribute().getName(), p);
         }
@@ -67,8 +68,8 @@ public class ObjectServiceImpl implements ObjectService {
     }
 
     @Override
-    public List<Object> findByNameContaining(String keyword) {
-        List<Object> objects = objectRepository.findByNameContaining(keyword);
+    public Page<Object> findByNameContaining(String keyword, Pageable pageable) {
+        Page<Object> objects = objectRepository.findByNameContaining(keyword, pageable);
         for (Object o : objects) {
             for (Parameter p : o.getParameters()) {
                 o.getMapParameters().put(p.getAttribute().getName(), p);
@@ -114,6 +115,17 @@ public class ObjectServiceImpl implements ObjectService {
     @Override
     public List<Object> getObjectByAttribute(String typeName, String name, Pageable pageable) {
         List<Object> objects =  objectRepository.findByAttrAndName(typeName, name, pageable);
+        for (Object o : objects) {
+            for (Parameter p : o.getParameters()) {
+                o.getMapParameters().put(p.getAttribute().getName(), p);
+            }
+        }
+        return objects;
+    }
+
+    @Override
+    public Page<Object> getObjectByTypes(List<String> names, Pageable pageable) {
+        Page<Object> objects =  objectRepository.findByTypes(names, pageable);
         for (Object o : objects) {
             for (Parameter p : o.getParameters()) {
                 o.getMapParameters().put(p.getAttribute().getName(), p);

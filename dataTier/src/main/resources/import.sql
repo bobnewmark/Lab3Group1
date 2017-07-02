@@ -20,9 +20,9 @@ insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTA
 --attributes for headphones
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (11, 'name', 3, 0, 0, 0);
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (12, 'price', 3, 0, 0, 0);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (13, 'icon', 3, 0, 0, 0);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (14, 'icon2', 3, 0, 0, 0);
-insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (15, 'icon3', 3, 0, 0, 0);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (13, 'icon', 3, 0, 0, 1);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (14, 'icon2', 3, 0, 0, 1);
+insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (15, 'icon3', 3, 0, 0, 1);
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (16, 'microphone', 3, 0, 0, 0);
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (17, 'rating', 3, 0, 1, 0);
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (18, 'quantity', 3, 0, 0, 0);

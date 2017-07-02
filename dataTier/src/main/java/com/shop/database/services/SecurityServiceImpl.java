@@ -45,7 +45,10 @@ public class SecurityServiceImpl implements SecurityService {
     @Override
     public Object getCart() {
         Object cart = null;
-        cart = objectService.findByParent(getUser()).get(0);
+        try {
+            cart = objectService.findByParent(getUser()).get(0);
+        } catch (Exception ignored) {
+        }
         return cart;
     }
 

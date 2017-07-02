@@ -15,13 +15,12 @@
 </div>
 
 
-<div class="single-product-area" ng-controller="SearchController as ctrl" ng-cloak>
+<div class="single-product-area" ng-controller="ItemController as ctrl" ng-cloak>
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-
-
-            <div class="col-md-3 col-sm-6" ng-repeat="p in ctrl.items">
+            <h2 style="text-align: center" ng-if="ctrl.items.totalElements==0">Ничего не найдено</h2>
+            <div class="col-md-3 col-sm-6" ng-repeat="p in ctrl.items.content">
                 <div class="single-shop-product">
                     <div class="product-upper">
                         <img src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
@@ -35,27 +34,30 @@
                     <div class="product-option-shop">
                         <a href="#" class="add_to_cart_button" ng-click="(p.mapParameters.quantity.value == '0')||ctrl.buy(p.id)">{{p.mapParameters.quantity.value == '0' ? 'SOLD OUT' : 'Add to cart'}}</a>
                     </div>
+                    <div class="admin" data-toggle="modal" data-target="#editModal" ng-click="ctrl.editPage(p.id)"><i class="fa fa-pencil-square-o admin-edit"></i> edit</div>
+                    <div class="admin" ng-click="ctrl.remove(p.id)"><i class="fa fa-times admin-del"></i> delete</div>
+                    <div class="admin" data-toggle="modal" data-target="#addModal" ng-click="ctrl.resetAdd()"><i class="fa fa-plus admin-edit"></i> add</div>
                 </div>
             </div>
 
 
         </div>
-
+        <jsp:include page="/WEB-INF/views/modal.jsp"  flush="true"></jsp:include>
         <div class="row">
             <div class="col-md-12">
                 <div class="product-pagination text-center">
                     <nav>
                         <ul class="pagination">
                             <li>
-                                <a href="#" aria-label="Previous">
+                                <a href="#" ng-click="ctrl.goToPage(1)" aria-label="First">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
+                            <li ng-if="ctrl.items.first == false"><a style="cursor: pointer" ng-click="ctrl.goToPage(ctrl.items.number)">{{ctrl.items.number}}</a></li>
+                            <li><a style="cursor: pointer">{{ctrl.items.number+1}}</a></li>
+                            <li ng-if="ctrl.items.last == false"><a style="cursor: pointer" ng-click="ctrl.goToPage(ctrl.items.number+2)">{{ctrl.items.number + 2}}</a></li>
                             <li>
-                                <a href="#" aria-label="Next">
+                                <a style="cursor: pointer" ng-click="ctrl.goToPage(ctrl.items.totalPages)" aria-label="Last">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>

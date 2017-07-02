@@ -60,7 +60,7 @@
                                     <data-owl-carousel class="owl-carousel" data-options="{navigation: true, pagination: true, rewindNav : true}">
                                         <div owl-carousel-item="" ng-repeat="p in ctrl.items" id="items" class="item single-product" style="padding: 10px">
                                             <div class="product-f-image">
-                                                <img src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
+                                                <img ng-src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
                                                 <div class="product-hover">
                                                     <a href="#" class="add-to-cart-link" ng-click="(p.mapParameters.quantity.value == '0')||ctrl.buy(p.id)"><i class="fa fa-shopping-cart"></i>
                                                         {{p.mapParameters.quantity.value == '0' ? 'SOLD OUT' : 'Add to cart'}}</a>
@@ -73,7 +73,7 @@
                                                 <ins ng-bind="p.mapParameters.price.value"></ins>
                                                 <div class="admin" data-toggle="modal" data-target="#editModal" ng-click="ctrl.edit(p.id)"><i class="fa fa-pencil-square-o admin-edit"></i> edit</div>
                                                 <div class="admin" ng-click="ctrl.remove(p.id)"><i class="fa fa-times admin-del"></i> delete</div>
-                                                <div class="admin" data-toggle="modal" data-target="#addModal" ng-click="ctrl.reset()"><i class="fa fa-plus admin-edit"></i> add</div>
+                                                <div class="admin" data-toggle="modal" data-target="#addModal" ng-click="ctrl.resetAdd()"><i class="fa fa-plus admin-edit"></i> add</div>
                                             </div>
                                         </div>
                                     </data-owl-carousel>

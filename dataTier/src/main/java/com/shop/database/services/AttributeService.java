@@ -9,7 +9,7 @@ import java.util.List;
  * <code>AttributeService</code> is an interface for working with attribute entities in database.
  */
 public interface AttributeService {
-    void save(Attribute attribute);
+    Attribute save(Attribute attribute);
     Attribute findById(int id);
     List<Attribute> findByName(String name);
     List<Attribute> findByObjectType(ObjectType objectType);

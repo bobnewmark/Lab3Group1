@@ -1,6 +1,7 @@
 var map = ({'/laba/': '/laba/phone/',
     '/laba/shop': '/laba/products',
-    '/laba/showCart': '/laba/showCart'});
+    '/laba/showCart': '/laba/showCart',
+     '/laba/search/': '/laba/request/'});
 var App = angular.module('myApp', [],function($locationProvider){
     $locationProvider.html5Mode({
         enabled: true,
@@ -18,8 +19,6 @@ App.factory('Service', ['$http', '$q', '$window', function($http, $q, $window){
 
     return factory;
     function createItem(user) {
-        /*$http.defaults.headers.common = {"Access-Control-Request-Headers": "accept, origin, authorization"};
-        $http.defaults.headers.common['Authorization'] = 'Basic YWRtaW46YWRtaW4=';*/
         var deferred = $q.defer();
         $http.post(SERVICE_URI, user)
             .then(

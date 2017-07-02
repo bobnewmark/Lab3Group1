@@ -58,9 +58,7 @@
             <div class="col-md-6">
                 <div class="product-content-right">
                     <div class="woocommerce" ng-controller="mainController as ctrl">
-
-
-                        <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal" novalidate>
+                        <form ng-submit="ctrl.submit()" name="userForm" class="form-horizontal" novalidate>
                             <h2>Registration</h2>
                             <span>${message}</span>
                             <p class="form-row form-row-last">

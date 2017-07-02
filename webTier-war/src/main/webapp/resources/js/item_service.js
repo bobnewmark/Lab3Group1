@@ -6,7 +6,8 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
         createItem: createItem,
         updateItem: updateItem,
         deleteItem: deleteItem,
-        showItem: showItem
+        showItem: showItem,
+        uploadFileToUrl: uploadFileToUrl
     };
 
     return factory;
@@ -57,9 +58,9 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
     }
 
 
-    function updateItem(item, id, url) {
+    function updateItem(item, url) {
         var deferred = $q.defer();
-        $http.put(url+id, item)
+        $http.post(url, item)
             .then(
                 function (response) {
                     deferred.resolve(response.data);
@@ -81,6 +82,33 @@ App.factory('ItemService', ['$http', '$q', function($http, $q){
                 },
                 function(errResponse){
                     console.error('Error while deleting User');
+                    deferred.reject(errResponse);
+                }
+            );
+        return deferred.promise;
+    }
+
+    function uploadFileToUrl(file, url, id){
+        var deferred = $q.defer();
+        var fd = new FormData();
+        fd.append('id', id);
+        Object.keys(file).forEach(function(key) {
+            fd.append(key, file[key]);
+            console.log('file is ' );
+            console.dir(file[key]);
+        });
+        $http.post(url, fd, {
+            transformRequest: function(data, headersGetterFunction) {
+                return data;
+            },
+            headers: {'Content-Type': undefined}
+        })
+            .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while updating User');
                     deferred.reject(errResponse);
                 }
             );

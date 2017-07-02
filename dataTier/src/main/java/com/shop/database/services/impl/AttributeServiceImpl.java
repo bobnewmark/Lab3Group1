@@ -18,8 +18,8 @@ public class AttributeServiceImpl implements AttributeService {
     @Autowired
     private AttributeRepository attributeRepository;
 
-    public void save(Attribute attribute) {
-        attributeRepository.save(attribute);
+    public Attribute save(Attribute attribute) {
+        return attributeRepository.saveAndFlush(attribute);
     }
 
     public Attribute findById(int id) {

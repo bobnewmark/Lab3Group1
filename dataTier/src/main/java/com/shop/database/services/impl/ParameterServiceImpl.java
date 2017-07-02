@@ -18,8 +18,8 @@ public class ParameterServiceImpl implements ParameterService{
     @Autowired
     private ParameterRepository parameterRepository;
 
-    public void save(Parameter parameter) {
-        parameterRepository.saveAndFlush(parameter);
+    public Parameter save(Parameter parameter) {
+        return parameterRepository.saveAndFlush(parameter);
     }
 
     public Parameter findById(int id) {

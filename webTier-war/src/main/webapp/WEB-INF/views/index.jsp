@@ -59,6 +59,7 @@
                             <li><p style="color: royalblue">Вы вошли как: <i class="fa fa-user"></i> <sec:authentication property="principal.username"/></p></li>
                             <li><a href="${contextPath}/logout" target="_self"><i class="fa fa-sign-out"></i> Logout </a></li>
                         </sec:authorize>
+                        <li><p style="color: royalblue" data-toggle="modal" data-target="#typesModal">Добавить тип <i class="fa fa-plus"></i> </p></li>
                     </ul>
                 </div>
             </div>
