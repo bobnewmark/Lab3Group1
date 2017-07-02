@@ -11,7 +11,7 @@
     </appender>
 
     <appender name="file" class="org.apache.log4j.FileAppender">
-        <param name="file" value="logs/webTier.log"/>
+        <param name="file" value="logs/lab3group1_online_shop.log"/>
         <param name="append" value="false"/>
         <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.PatternLayout">
