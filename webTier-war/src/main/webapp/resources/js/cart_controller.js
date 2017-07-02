@@ -80,16 +80,21 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
                 self.checkoutMap[item.num] = item.qty;
             }, 0);
         } catch (err) {
-            console.log("something's wrong");
+            console.log("err: " + err);
         }
 
         ItemService.createItem(self.checkoutMap, 'checkout')
             .then(
                 fetchAllItems,
+                // function (d) {
+                //     if (!angular.equals({}, d)) {
+                //         alert("MESSAGE FROM SERVER: " + d)
+                //     }
+                // },
                 function(errResponse){
                     console.error('Error while checkout');
                 }
-            )
+            );
     }
 
     function deleteItem(id, cartId) {
@@ -97,7 +102,7 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
             .then(
                 fetchAllItems,
                 function (errResponse) {
-                    console.error('Error while deleting User');
+                    console.error('Error while deleting item');
                 }
             );
     }

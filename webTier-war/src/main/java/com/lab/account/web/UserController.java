@@ -49,9 +49,9 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ResponseEntity<Object> registration(@RequestBody Object user) {
-        for(Parameter p: user.getParameters()){
+        for (Parameter p : user.getParameters()) {
             p.setObject(user);
-            if(p.getAttribute().getName().equals("role")){
+            if (p.getAttribute().getName().equals("role")) {
                 p.setValue("USER");
             }
         }
@@ -114,17 +114,18 @@ public class UserController {
     @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
     public ResponseEntity<Object> user() {
         ObjectType type = objectTypeService.findById(6);
-            Object o = new Object();
-            o.setObjectType(type);
-            o.setName(type.getName());
-            for(Attribute a: type.getAttributes()){
-                Parameter p = new Parameter();
-                p.setObject(o);
-                p.setAttribute(a);
-                o.getParameters().add(p);
-            }
+        Object o = new Object();
+        o.setObjectType(type);
+        o.setName(type.getName());
+        for (Attribute a : type.getAttributes()) {
+            Parameter p = new Parameter();
+            p.setObject(o);
+            p.setAttribute(a);
+            o.getParameters().add(p);
+        }
         return new ResponseEntity<>(o, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null)
@@ -154,11 +155,11 @@ public class UserController {
     public ResponseEntity<List<Object>> types() {
         List<ObjectType> types = objectTypeService.findAll();
         List<Object> objects = new ArrayList<>();
-        for(ObjectType ot: types){
+        for (ObjectType ot : types) {
             Object o = new Object();
             o.setObjectType(ot);
             o.setName(ot.getName());
-            for(Attribute a: ot.getAttributes()){
+            for (Attribute a : ot.getAttributes()) {
                 Parameter p = new Parameter();
                 p.setAttribute(a);
                 p.setObject(o);
@@ -171,6 +172,7 @@ public class UserController {
         }
         return new ResponseEntity<>(objects, HttpStatus.OK);
     }
+
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
 
@@ -184,7 +186,7 @@ public class UserController {
 
     @RequestMapping(value = "/phone/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody Object object) {
-        for(Parameter p: object.getParameters()){
+        for (Parameter p : object.getParameters()) {
             p.setObject(object);
         }
         try {
@@ -257,7 +259,7 @@ public class UserController {
         ObjectType cartOT = objectTypeService.findByName("cart");
         Reference item = new Reference(cart, objectService.findById(itemId), "item", attributeService.findByNameAndObjectType("item", cartOT));
         int amountOfItemInCart = 0;
-        for (Map.Entry<String, Parameter> entry: item.getRefObject().getMapParameters().entrySet()) {
+        for (Map.Entry<String, Parameter> entry : item.getRefObject().getMapParameters().entrySet()) {
             if (entry.getKey().equals("quantity")) {
                 amountOfItemInCart = Integer.parseInt(entry.getValue().getValue());
             }
@@ -282,6 +284,14 @@ public class UserController {
         if (cart.getReferences().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        for (Reference r: cart.getReferences()) {
+            int availableInShop = Integer.parseInt(r.getRefObject().getMapParameters().get("quantity").getValue());
+            if (referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() > availableInShop) {
+                for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() - availableInShop ; i++) {
+                    referenceService.delete(referenceService.findByObjectAndRefObject(cart, r.getRefObject()).get(0));
+                }
+            }
+        }
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
@@ -289,7 +299,7 @@ public class UserController {
     public ResponseEntity<Object> removeFromCart(@PathVariable("id") int id) {
         Object cart = securityService.getCart();
         List<Reference> refToDelete = referenceService.findByObjectAndRefObject(cart, objectService.findById(id));
-        for (Reference r: refToDelete) {
+        for (Reference r : refToDelete) {
             referenceService.delete(r);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -303,25 +313,29 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/checkout"}, method = RequestMethod.POST)
-    public ResponseEntity<Object> checkout(@RequestBody String checkoutMap) {
+    public ResponseEntity<String> checkout(@RequestBody String checkoutMap) {
         Object cart = securityService.getCart();
         Map<Integer, Integer> itemsToBuy = new HashMap<>();
         try {
             ObjectMapper mapper = new ObjectMapper();
-            itemsToBuy = mapper.readValue(checkoutMap, new TypeReference<HashMap<Integer, Integer>>() {});
+            itemsToBuy = mapper.readValue(checkoutMap, new TypeReference<HashMap<Integer, Integer>>() {
+            });
         } catch (IOException e) {
             logger.error("Cannot proceed with checkout, ", e);
         }
-        for (Map.Entry<Integer, Integer> entry: itemsToBuy.entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : itemsToBuy.entrySet()) {
             Object item = objectService.findById(entry.getKey());
             Attribute itemQuantity = attributeService.findByNameAndObjectType("quantity", item.getObjectType());
             Parameter quantityToChange = parameterService.findByObjectAndAttribute(item.getId(), itemQuantity.getId());
             int wasInShop = Integer.parseInt(quantityToChange.getValue());
+            if (entry.getValue() > wasInShop) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
             quantityToChange.setValue(String.valueOf(wasInShop - entry.getValue()));
             parameterService.save(quantityToChange);
         }
         List<Reference> allInCart = cart.getReferences();
-        for (Reference r: allInCart) {
+        for (Reference r : allInCart) {
             referenceService.delete(r);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -333,7 +347,7 @@ public class UserController {
     @RequestMapping(value = {"/detailed/{id}"}, method = RequestMethod.GET)
     public ResponseEntity<Object> itemDetails2(@PathVariable("id") int id) throws URISyntaxException {
         Object object = objectService.findById(id);
-        for (Parameter param: object.getParameters()) {
+        for (Parameter param : object.getParameters()) {
             if ("rating".equals(param.getAttribute().getName())) {
                 int num = Integer.parseInt(param.getValue());
                 num++;

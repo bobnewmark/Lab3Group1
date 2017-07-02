@@ -62,10 +62,9 @@
                                             <div class="product-f-image">
                                                 <img src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
                                                 <div class="product-hover">
-                                                    <a href="#" class="add-to-cart-link" ng-click="ctrl.buy(p.id)"><i class="fa fa-shopping-cart"></i>
-                                                        Add to
-                                                        cart</a>
-                                                    <a href="${contextPath}/details/{{p.id}}" class="view-details-link"  target="_self"><i
+                                                    <a href="#" class="add-to-cart-link" ng-click="(p.mapParameters.quantity.value == '0')||ctrl.buy(p.id)"><i class="fa fa-shopping-cart"></i>
+                                                        {{p.mapParameters.quantity.value == '0' ? 'SOLD OUT' : 'Add to cart'}}</a>
+                                                    <a href="${contextPath}/details/{{p.id}}" class="view-details-link" target="_self"><i
                                                             class="fa fa-link"></i> See details</a>
                                                 </div>
                                             </div>
