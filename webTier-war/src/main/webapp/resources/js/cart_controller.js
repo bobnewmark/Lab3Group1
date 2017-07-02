@@ -46,6 +46,7 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
     }
 
     function getCount(i) {
+        fetchAllItems();
         var iCount = iCount || 0;
         for (var item in this.items) {
             for (var level1 in this.items[item]) {
@@ -86,6 +87,14 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
         ItemService.createItem(self.checkoutMap, 'checkout')
             .then(
                 fetchAllItems,
+                // function(d) {
+                //     console.log("D: " + d);
+                //     console.log("D to string : " + d.toString());
+                //     console.log("D value of: " + d.valueOf());
+                //     console.log("D json stringify: " + JSON.stringify(d));
+                //
+                //     alert(d);
+                // },
                 // function (d) {
                 //     if (!angular.equals({}, d)) {
                 //         alert("MESSAGE FROM SERVER: " + d)
