@@ -1,6 +1,8 @@
-package com.shop.database.services;
+package com.shop.database.services.impl;
 
 import com.shop.database.entities.Object;
+import com.shop.database.services.ObjectService;
+import com.shop.database.services.SecurityService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -10,7 +10,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 /**
- * Created by viko0417 on 7/1/2017.
+ * <code>ToolsImpl</code> is a realization of the <code>Tools</code> interface,
+ * this service uploads file from admin user.
  */
 @Service
 public class ToolsImpl implements Tools {
