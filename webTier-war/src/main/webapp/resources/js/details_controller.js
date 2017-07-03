@@ -1,20 +1,20 @@
-'use strict';
-App.controller('DetailsController', ['$scope', 'ItemService', '$location', function($scope, ItemService, $location) {
+"use strict";
+App.controller("DetailsController", ["$scope", "ItemService", "$location", function($scope, ItemService, $location) {
     var self = this;
-    var detailId = $location.path().substr($location.path().lastIndexOf('/') + 1 );
-    var URI = 'http://localhost:7001/laba/detailed/' + detailId;
-    var URI_R = 'http://localhost:7001/laba/related/' + detailId;
+    var detailId = $location.path().substr($location.path().lastIndexOf("/") + 1 );
+    var URI = "http://localhost:7001/laba/detailed/" + detailId;
+    var URI_R = "http://localhost:7001/laba/related/" + detailId;
 
-    self.items = {id:null, name:'', objectType:{id: null, name:''}, parameters:[
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}},
-        {id:null, value:'', attribute:{id:null, name:''}, object:{id:null}}]};
+    self.items = {id:null, name:"", objectType:{id: null, name:""}, parameters:[
+        {id:null, value:"", attribute:{id:null, name:""}, object:{id:null}},
+        {id:null, value:"", attribute:{id:null, name:""}, object:{id:null}},
+        {id:null, value:"", attribute:{id:null, name:""}, object:{id:null}},
+        {id:null, value:"", attribute:{id:null, name:""}, object:{id:null}},
+        {id:null, value:"", attribute:{id:null, name:""}, object:{id:null}},
+        {id:null, value:"", attribute:{id:null, name:""}, object:{id:null}},
+        {id:null, value:"", attribute:{id:null, name:""}, object:{id:null}},
+        {id:null, value:"", attribute:{id:null, name:""}, object:{id:null}},
+        {id:null, value:"", attribute:{id:null, name:""}, object:{id:null}}]};
     self.related = [];
     self.buy = buy;
     self.buyR = buyR;
@@ -29,7 +29,7 @@ App.controller('DetailsController', ['$scope', 'ItemService', '$location', funct
                     fetchRelated();
                 },
                 function(errResponse){
-                    console.error('Error while fetching detailed info');
+                    console.error("Error while fetching detailed info");
                 }
             );
     }
@@ -37,20 +37,20 @@ App.controller('DetailsController', ['$scope', 'ItemService', '$location', funct
     function buy(id, quantity) {
         $.ajax({
             contentType: "application/json; charset=utf-8",
-            url: 'buy',
+            url: "buy",
             data: ({itemId : id, quantity : quantity}),
             success: function() {
                 $scope.updateIndex();
-                //$location.path('/laba/shop');
+                //$location.path("/laba/shop");
             }
         });
     }
 
     function buyR(id) {
-        console.log('buying related: ' + id);
+        console.log("buying related: " + id);
         $.ajax({
             contentType: "application/json; charset=utf-8",
-            url: 'http://localhost:7001/laba/addToCart',
+            url: "http://localhost:7001/laba/addToCart",
             data: ({itemId : id}),
             success: function() {
                 $scope.updateIndex();
@@ -65,7 +65,7 @@ App.controller('DetailsController', ['$scope', 'ItemService', '$location', funct
                     self.related = d;
                 },
                 function(errResponse){
-                    console.error('Error while fetching Users');
+                    console.error("Error while fetching Users");
                 }
             );
     }

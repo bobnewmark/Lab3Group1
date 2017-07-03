@@ -1,34 +1,34 @@
-'use strict';
-App.controller('ItemController', ['$scope', 'ItemService', '$location', function ($scope, ItemService, $location) {
+"use strict";
+App.controller("ItemController", ["$scope", "ItemService", "$location", function ($scope, ItemService, $location) {
     var self = this;
     var REST_SERVICE_URI = map[$location.path()];
-    var TYPES_URI = '/laba/types/';
-    var BRANDS_URI = '/laba/brands/';
-    var keyword = '';
-    keyword = $location.search()['keyword'];
+    var TYPES_URI = "/laba/types/";
+    var BRANDS_URI = "/laba/brands/";
+    var keyword = "";
+    keyword = $location.search()["keyword"];
     var file = $scope.myFile;
     self.item = {
-        id: null, name: '', objectType: {id: null}, parameters: [
-            {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}},
-            {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}},
-            {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}},
-            {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}},
-            {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}},
-            {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}},
-            {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}},
-            {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}},
-            {id: null, value: '', attribute: {id: null, name: ''}, object: {id: null}}], parent: {}
+        id: null, name: "", objectType: {id: null}, parameters: [
+            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
+            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
+            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
+            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
+            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
+            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
+            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
+            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
+            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}}], parent: {}
     };
     self.items = {number: 0, content: []};
     self.types = [];
     self.type = {
         id: null,
-        name: '',
+        name: "",
         parent: {},
         unique: false,
         hidden: false,
         attach: false,
-        attributes: [{id: null, name: '', objectType: {id: null}}]
+        attributes: [{id: null, name: "", objectType: {id: null}}]
     };
     self.files = [];
     self.count = 0;
@@ -54,12 +54,12 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
 
     function addAttr() {
         console.log(self.type);
-        self.type.attributes.push({id: null, name: '', objectType: {id: null}});
+        self.type.attributes.push({id: null, name: "", objectType: {id: null}});
     }
 
     function goToPage(page) {
         if (!keyword) {
-            keyword = '';
+            keyword = "";
         }
         ItemService.fetchAllItems(map[$location.path()] + keyword + "/" + page)
             .then(
@@ -67,7 +67,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
                     self.items = d;
                 },
                 function (errResponse) {
-                    console.error('Error while fetching Users');
+                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -87,7 +87,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
                     self.items = d;
                 },
                 function (errResponse) {
-                    console.error('Error while fetching Users');
+                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -99,7 +99,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
                     self.types = d;
                 },
                 function (errResponse) {
-                    console.error('Error while fetching Users');
+                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -111,7 +111,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
                     self.brands = d;
                 },
                 function (errResponse) {
-                    console.error('Error while fetching Users');
+                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -119,7 +119,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
     function buy(id) {
         $.ajax({
             contentType: "application/json; charset=utf-8",
-            url: 'addToCart',
+            url: "addToCart",
             data: ({itemId: id}),
             success: function () {
                 $scope.updateIndex();
@@ -134,7 +134,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
                     self.items = d;
                 },
                 function (errResponse) {
-                    console.error('Error while fetching Users');
+                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -144,7 +144,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
             .then(
                 uploadFile,
                 function (errResponse) {
-                    console.error('Error while creating Item');
+                    console.error("Error while creating Item");
                 }
             );
     }
@@ -154,7 +154,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
             .then(
                 uploadFile,
                 function (errResponse) {
-                    console.error('Error while updating User');
+                    console.error("Error while updating User");
                 }
             );
     }
@@ -164,7 +164,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
             .then(
                 fetchAllItems,
                 function (errResponse) {
-                    console.error('Error while deleting User');
+                    console.error("Error while deleting User");
                 }
             );
     }
@@ -175,20 +175,20 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
 
     function submit() {
         if (self.item.id === null) {
-            console.log('Saving New Item', self.item);
+            console.log("Saving New Item", self.item);
             updateItem(self.item);
-            angular.element(document.querySelector('#addModal')).modal('hide');
+            angular.element(document.querySelector("#addModal")).modal("hide");
             resetAdd();
         } else {
             updateItem(self.item);
-            console.log('Item updated with id ', self.item.id);
-            angular.element(document.querySelector('#editModal')).modal('hide');
+            console.log("Item updated with id ", self.item.id);
+            angular.element(document.querySelector("#editModal")).modal("hide");
             reset();
         }
     }
 
     function edit(id) {
-        console.log('id to be edited', id);
+        console.log("id to be edited", id);
         for (var i = 0; i < self.items.length; i++) {
             if (self.items[i].id === id) {
                 self.item = angular.copy(self.items[i]);
@@ -198,7 +198,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
     }
 
     function editPage(id) {
-        console.log('id to be edited', id);
+        console.log("id to be edited", id);
         for (var i = 0; i < self.items.content.length; i++) {
             if (self.items.content[i].id === id) {
                 self.item = angular.copy(self.items.content[i]);
@@ -208,7 +208,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
     }
 
     function remove(id) {
-        console.log('id to be deleted', id);
+        console.log("id to be deleted", id);
         if (self.item.id === id) {//clean form if the user to be deleted is shown there.
             reset();
         }
@@ -217,16 +217,16 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
 
     function reset() {
         self.item = {
-            id: null, name: '', objectType: {id: null}, parameters: [
-                {id: null, value: '', attribute: {id: null, name: 'name'}, object: {id: null}},
-                {id: null, value: '', attribute: {id: null, name: 'price'}, object: {id: null}},
-                {id: null, value: '', attribute: {id: null, name: 'icon'}, object: {id: null}},
-                {id: null, value: '', attribute: {id: null, name: 'icon2'}, object: {id: null}},
-                {id: null, value: '', attribute: {id: null, name: 'icon3'}, object: {id: null}},
-                {id: null, value: '', attribute: {id: null, name: 'OS'}, object: {id: null}},
-                {id: null, value: '', attribute: {id: null, name: 'diagonal'}, object: {id: null}},
-                {id: null, value: '', attribute: {id: null, name: 'rating'}, object: {id: null}},
-                {id: null, value: '', attribute: {id: null, name: 'quantity'}, object: {id: null}}]
+            id: null, name: "", objectType: {id: null}, parameters: [
+                {id: null, value: "", attribute: {id: null, name: "name"}, object: {id: null}},
+                {id: null, value: "", attribute: {id: null, name: "price"}, object: {id: null}},
+                {id: null, value: "", attribute: {id: null, name: "icon"}, object: {id: null}},
+                {id: null, value: "", attribute: {id: null, name: "icon2"}, object: {id: null}},
+                {id: null, value: "", attribute: {id: null, name: "icon3"}, object: {id: null}},
+                {id: null, value: "", attribute: {id: null, name: "OS"}, object: {id: null}},
+                {id: null, value: "", attribute: {id: null, name: "diagonal"}, object: {id: null}},
+                {id: null, value: "", attribute: {id: null, name: "rating"}, object: {id: null}},
+                {id: null, value: "", attribute: {id: null, name: "quantity"}, object: {id: null}}]
         };
         $scope.myForm.$setPristine(); //reset Form
     }
@@ -243,19 +243,19 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
             .then(
                 fetchAllItems,
                 function (errResponse) {
-                    console.error('Error while upload file');
+                    console.error("Error while upload file");
                 }
             );
-    };
+    }
 
 }])
-    .directive('fileModel', ['$parse', function ($parse) {
+    .directive("fileModel", ["$parse", function ($parse) {
         return {
-            restrict: 'A',
+            restrict: "A",
             link: function (scope, element, attrs) {
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
-                element.bind('change', function () {
+                element.bind("change", function () {
                     scope.$apply(function () {
                         modelSetter(scope, element[0].files[0]);
                     });
@@ -265,7 +265,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
     }])
     .directive("owlCarousel", function ($window) {
         return {
-            restrict: 'E',
+            restrict: "E",
             transclude: false,
             link: function (scope) {
                 scope.initCarousel = function (element) {
@@ -283,7 +283,7 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
                             1180: {items: 4}
                         }
                     };
-                    var customOptions = scope.$eval($(element).attr('data-options'));
+                    var customOptions = scope.$eval($(element).attr("data-options"));
                     // combine the two options objects
                     for (var key in customOptions) {
                         defaultOptions[key] = customOptions[key];
@@ -291,28 +291,27 @@ App.controller('ItemController', ['$scope', 'ItemService', '$location', function
                     $(element).owlCarousel(options);
                 };
                 scope.destroy = function (element) {
-                    $(element).data('owlCarousel').destroy();
+                    $(element).data("owlCarousel").destroy();
                 };
-
             }
         };
     })
-    .directive('owlCarouselItem', [function () {
+    .directive("owlCarouselItem", [function () {
         return {
-            restrict: 'A',
+            restrict: "A",
             transclude: false,
             link: function (scope, element) {
                 // wait for the last item in the ng-repeat then call init
                 scope.$watch("item", function () {
-                    if ($(element.parent()).data('owlCarousel') === undefined) {
+                    if ($(element.parent()).data("owlCarousel") === undefined) {
                         if (scope.$last) {
                             scope.initCarousel(element.parent());
                         }
                     } else {
                         scope.destroy(element.parent());
-                        var queryResult = element[0].querySelector('.owl-stage:last-child');
+                        var queryResult = element[0].querySelector(".owl-stage:last-child");
                         var stage = angular.element(queryResult);
-                        console.log(stage.hasClass('active'));
+                        console.log(stage.hasClass("active"));
                     }
                 });
             }

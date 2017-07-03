@@ -22,7 +22,7 @@
             <div class="col-md-3 col-sm-6" ng-repeat="p in ctrl.items.content">
                     <div class="single-shop-product">
                         <div class="product-upper">
-                            <img src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
+                            <img ng-src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
                         </div>
                         <h2><a href="${contextPath}/details/{{p.id}}" target="_self">{{p.mapParameters.name.value}}</a></h2>
                         <div class="product-carousel-price">
@@ -60,7 +60,6 @@
                             </li>
                         </ul>
                     </nav>
-
                 </div>
             </div>
         </div>

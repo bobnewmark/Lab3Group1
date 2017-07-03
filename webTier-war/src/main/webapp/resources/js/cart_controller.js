@@ -1,19 +1,19 @@
-'use strict';
-App.controller('CartController', ['$scope', 'ItemService', function ($scope, ItemService) {
+"use strict";
+App.controller("CartController", ["$scope", "ItemService", function ($scope, ItemService) {
     var self = this;
-    var REST_SERVICE_URI = 'http://localhost:7001/laba/showCart/';
+    var REST_SERVICE_URI = "http://localhost:7001/laba/showCart/";
 
     self.item = {
-        id: null, name: '', objectType: {id: null},
+        id: null, name: "", objectType: {id: null},
         references: [
             {
-                id: null, name: '', object: {id: null},
+                id: null, name: "", object: {id: null},
                 refObject: {
-                    id: null, name: '',
+                    id: null, name: "",
                     mapParameters: {
                         price: {
-                            id: null, attribute: {id: null, name: '', unique: null},
-                            value: ''
+                            id: null, attribute: {id: null, name: "", unique: null},
+                            value: ""
                         }
                     }
                 }
@@ -40,7 +40,7 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
                     $scope.updateIndex();
                 },
                 function (errResponse) {
-                    console.error('Error while fetching Users');
+                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -83,7 +83,7 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
             console.log("err: " + err);
         }
 
-        ItemService.createItem(self.checkoutMap, 'checkout')
+        ItemService.createItem(self.checkoutMap, "checkout")
             .then(
                 function(d) {
                     if (d.toString().length > 0) {
@@ -94,17 +94,17 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
                     fetchAllItems();
                 },
                 function(errResponse){
-                    console.error('Error while checkout');
+                    console.error("Error while checkout");
                 }
             );
     }
 
-    function deleteItem(id, cartId) {
+    function deleteItem(id) {
         ItemService.deleteItem(id, REST_SERVICE_URI)
             .then(
                 fetchAllItems,
                 function (errResponse) {
-                    console.error('Error while deleting item');
+                    console.error("Error while deleting item");
                 }
             );
     }
@@ -117,7 +117,7 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
     }
 }])
 
-    .filter('unique', function () {
+    .filter("unique", function () {
         return function (collection, keyname) {
             var output = [],
                 keys = [];

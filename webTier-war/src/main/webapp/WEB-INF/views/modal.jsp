@@ -112,41 +112,42 @@
                     <div class="formcontainer">
                         <input type="hidden" ng-model="ctrl.item.id"/>
                         <div class="row">
-                                <label class="col-md-6 control-lable" for="selectType">Выберите родителя</label>
-                                <select id="selectTypes" ng-options="type as type.name for type in ctrl.types"
-                                        ng-model="ctrl.type.parent" required></select>
-                                <div class="form-group col-md-12">
-                                    <label class="col-md-2 control-lable">Имя типа</label>
-                                    <div class="col-md-4">
-                                        <input type="text" ng-model="ctrl.type.name"  style="width: 70px"
-                                               class="{{ctrl.type.name}} form-control input-sm"
-                                               placeholder="Enter {{ctrl.type.name}}" required/>
-                                    </div>
+                            <label class="col-md-6 control-lable" for="selectType">Выберите родителя</label>
+                            <select id="selectTypes" ng-options="type as type.name for type in ctrl.types"
+                                    ng-model="ctrl.type.parent" required></select>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-lable">Имя типа</label>
+                                <div class="col-md-4">
+                                    <input type="text" ng-model="ctrl.type.name" style="width: 70px"
+                                           class="{{ctrl.type.name}} form-control input-sm"
+                                           placeholder="Enter {{ctrl.type.name}}" required/>
                                 </div>
-                                <div class="form-group col-md-12" ng-repeat="a in ctrl.type.attributes">
-                                    <label class="col-md-3 control-lable">имя атрибута</label>
-                                    <div class="col-md-6">
-                                        <input type="text" ng-model="a.name" style="width: 70px"
-                                               class="{{a.name}} form-control input-sm"
-                                               placeholder="Enter {{a.name}}" required/>
-                                    </div>
-                                    <label class="col-md-4 control-lable">уникальность</label>
-                                    <div class="col-md-1">
-                                        <input type="checkbox" ng-model="a.unique"/>
-                                    </div>
-                                    <label class="col-md-4 control-lable">скрытый</label>
-                                    <div class="col-md-1">
-                                        <input type="checkbox" ng-model="a.hidden"/>
-                                    </div>
-                                    <label class="col-md-4 control-lable">файл</label>
-                                    <div class="col-md-1">
-                                        <input type="checkbox" ng-model="a.attach"/>
-                                    </div>
-                                </div>
-                                <div style="color: royalblue" ng-click="ctrl.addAttr()">Добавить атрибут<i class="fa fa-plus"></i> </div>
                             </div>
+                            <div class="form-group col-md-12" ng-repeat="a in ctrl.type.attributes">
+                                <label class="col-md-3 control-lable">имя атрибута</label>
+                                <div class="col-md-6">
+                                    <input type="text" ng-model="a.name" style="width: 70px"
+                                           class="{{a.name}} form-control input-sm"
+                                           placeholder="Enter {{a.name}}" required/>
+                                </div>
+                                <label class="col-md-4 control-lable">уникальность</label>
+                                <div class="col-md-1">
+                                    <input type="checkbox" ng-model="a.unique"/>
+                                </div>
+                                <label class="col-md-4 control-lable">скрытый</label>
+                                <div class="col-md-1">
+                                    <input type="checkbox" ng-model="a.hidden"/>
+                                </div>
+                                <label class="col-md-4 control-lable">файл</label>
+                                <div class="col-md-1">
+                                    <input type="checkbox" ng-model="a.attach"/>
+                                </div>
+                            </div>
+                            <div style="color: royalblue" ng-click="ctrl.addAttr()">Добавить атрибут<i
+                                    class="fa fa-plus"></i></div>
+                        </div>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                        <input type="submit" value="Добавить" class="btn btn-primary" />
+                        <input type="submit" value="Добавить" class="btn btn-primary"/>
                     </div>
                 </div>
                 <!-- Футер модального окна -->

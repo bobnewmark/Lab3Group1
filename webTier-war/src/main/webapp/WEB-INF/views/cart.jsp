@@ -15,7 +15,6 @@
 </div>
 <!-- End Page title area -->
 
-
 <div class="single-product-area" ng-controller="CartController as ctrl">
 
     <div class="zigzag-bottom"></div>
@@ -45,11 +44,12 @@
                                     </td>
 
                                     <td class="product-thumbnail">
-                                        <a href="${contextPath}/details/{{item.refObject.id}}" target="_self"><img width="145"
-                                                                                                    height="145"
-                                                                                                    alt="poster_1_up"
-                                                                                                    class="shop_thumbnail"
-                                                                                                    src="${contextPath}{{item.refObject.mapParameters.icon.value}}"></a>
+                                        <a href="${contextPath}/details/{{item.refObject.id}}" target="_self"><img
+                                                width="145"
+                                                height="145"
+                                                alt="poster_1_up"
+                                                class="shop_thumbnail"
+                                                ng-src="${contextPath}{{item.refObject.mapParameters.icon.value}}"></a>
                                     </td>
 
                                     <td class="product-name" ng-model="item.num" ng-init="item.num=item.refObject.id">
@@ -107,7 +107,8 @@
 
                                         <input type="submit" value="Checkout" name="proceed"
                                                class="checkout-button button alt wc-forward">
-                                        <p ng-show="tooMuch==1" style="color: red"><br />Oops, not enough items in the shop. Please, try again...</p>
+                                        <p ng-show="tooMuch==1" style="color: red"><br/>Oops, not enough items in the
+                                            shop. Please, try again...</p>
                                     </td>
                                 </tr>
 

@@ -1,8 +1,4 @@
 jQuery(document).ready(function($){
-    
-    // jQuery sticky Menu
-    
-	/*$(".mainmenu-area").sticky({topSpacing:0});*/
 
     $('.brand-list').owlCarousel({
         loop:true,
@@ -11,20 +7,19 @@ jQuery(document).ready(function($){
         responsiveClass:true,
         responsive:{
             0:{
-                items:1,
+                items:1
             },
             600:{
-                items:3,
+                items:3
             },
             1000:{
-                items:4,
+                items:4
             }
         }
-    });    
-    
+    });
     
     // Bootstrap Mobile Menu fix
-    $(".navbar-nav li a").click(function(){
+    $('.navbar-nav li a').click(function(){
         $(".navbar-collapse").removeClass('in');
     });    
     
@@ -40,28 +35,11 @@ jQuery(document).ready(function($){
     });    
     
     // Bootstrap ScrollPSY
-    $('body').scrollspy({ 
+    $('body').scrollspy({
         target: '.navbar-collapse',
         offset: 95
     })
 });
-
-// function removeFromCart(id, currentRow) {
-//     alert('removing ' + id + ' from cart');
-//     var tr = $(this).closest('tr');
-//     $.ajax({
-//         contentType: "application/json; charset=utf-8",
-//         url: 'removeFromCart',
-//         data: ({itemId : id}),
-//         success: function(data) {
-//             alert('item removed');
-//             $('#cartNum').html(data);
-//             //$(this).closest("tr").remove();
-//             //tr.remove();
-//             currentRow.closest('tr').remove;
-//         }
-//     });
-// }
 
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
