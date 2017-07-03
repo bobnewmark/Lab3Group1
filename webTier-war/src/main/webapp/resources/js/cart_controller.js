@@ -46,7 +46,6 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
     }
 
     function getCount(i) {
-        fetchAllItems();
         var iCount = iCount || 0;
         for (var item in this.items) {
             for (var level1 in this.items[item]) {
@@ -86,20 +85,14 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
 
         ItemService.createItem(self.checkoutMap, 'checkout')
             .then(
-                fetchAllItems,
-                // function(d) {
-                //     console.log("D: " + d);
-                //     console.log("D to string : " + d.toString());
-                //     console.log("D value of: " + d.valueOf());
-                //     console.log("D json stringify: " + JSON.stringify(d));
-                //
-                //     alert(d);
-                // },
-                // function (d) {
-                //     if (!angular.equals({}, d)) {
-                //         alert("MESSAGE FROM SERVER: " + d)
-                //     }
-                // },
+                function(d) {
+                    if (d.toString().length > 0) {
+                        $scope.tooMuch = 1;
+                    } else {
+                        $scope.tooMuch = 0;
+                    }
+                    fetchAllItems();
+                },
                 function(errResponse){
                     console.error('Error while checkout');
                 }
@@ -117,7 +110,7 @@ App.controller('CartController', ['$scope', 'ItemService', function ($scope, Ite
     }
 
     function remove(id) {
-        if (self.item.id === id) {//clean form if the user to be deleted is shown there.
+        if (self.item.id === id) {
             reset();
         }
         deleteItem(id);

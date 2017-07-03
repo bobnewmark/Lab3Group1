@@ -22,10 +22,12 @@ import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.*;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -48,6 +50,7 @@ public class UserController {
     @Autowired
     private Tools tools;
     private String HOME = "C:/folderForLab3Images/";
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
@@ -148,6 +151,7 @@ public class UserController {
         }
         return new ResponseEntity<>(objects, HttpStatus.OK);
     }
+
     @RequestMapping(value = {"/brands"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> brands() {
         List<Object> brands = objectService.findByObjectType(objectTypeService.findByName("brand"));
@@ -156,6 +160,7 @@ public class UserController {
         }
         return new ResponseEntity<>(brands, HttpStatus.OK);
     }
+
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
         List<Object> objects = objectService.getObjectByAttribute("Phone", "rating", new PageRequest(0, 5));
@@ -168,37 +173,37 @@ public class UserController {
 
 
     @RequestMapping(value = {"/fileUpload"}, method = RequestMethod.POST)
-    public ResponseEntity upload (MultipartHttpServletRequest request){
+    public ResponseEntity upload(MultipartHttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
-        System.out.println("id "+id);
+        System.out.println("id " + id);
         Object object = objectService.findById(id);
-        File path = new File(HOME+id);
+        File path = new File(HOME + id);
         if (!path.exists()) {
             boolean status = path.mkdirs();
         }
-        for(Map.Entry<String, MultipartFile> entry : request.getFileMap().entrySet()){
+        for (Map.Entry<String, MultipartFile> entry : request.getFileMap().entrySet()) {
             String contentName = entry.getValue().getContentType().split("/")[0];
             String contentEnd = entry.getValue().getContentType().split("/")[1];
-            for(Parameter p: object.getParameters()){
-                if(p.getAttribute().getName().equals(entry.getKey())){
-                    p.setValue("/icons/"+id+"/"+entry.getKey()+"."+contentEnd);
+            for (Parameter p : object.getParameters()) {
+                if (p.getAttribute().getName().equals(entry.getKey())) {
+                    p.setValue("/icons/" + id + "/" + entry.getKey() + "." + contentEnd);
                     object.getMapParameters().put(entry.getKey(), p);
-                    p=parameterService.save(p);
+                    p = parameterService.save(p);
                 }
             }
-            if (!contentName.equals("image")){
+            if (!contentName.equals("image")) {
                 new ResponseEntity(HttpStatus.BAD_REQUEST);
             }
-            tools.fileUpload(entry.getValue(), HOME+id+"/"+entry.getKey()+"."+contentEnd);
+            tools.fileUpload(entry.getValue(), HOME + id + "/" + entry.getKey() + "." + contentEnd);
         }
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value="/icons/{id}/{image}.{end}", method= RequestMethod.GET)
+    @RequestMapping(value = "/icons/{id}/{image}.{end}", method = RequestMethod.GET)
     @ResponseBody
     protected void doGet(@PathVariable("image") String image, @PathVariable("id") String id, @PathVariable("end") String end, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filePath = request.getRequestURI();
-        File file = new File(HOME + id+"/"+image+"."+end);
+        File file = new File(HOME + id + "/" + image + "." + end);
         InputStream input = new FileInputStream(file);
         response.setContentLength((int) file.length());
         response.setContentType(new MimetypesFileTypeMap().getContentType(file));
@@ -214,12 +219,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/phone/", method = RequestMethod.POST)
-    public ResponseEntity<Integer> updateUser( @RequestBody Object object) {
-        System.out.println(object.getParent().getName()+"----"+object.getParent().getId());
-        for(Parameter p: object.getParameters()){
+    public ResponseEntity<Integer> updateUser(@RequestBody Object object) {
+        System.out.println(object.getParent().getName() + "----" + object.getParent().getId());
+        for (Parameter p : object.getParameters()) {
             p.setObject(object);
-            System.out.println("save phone "+p.getAttribute().getName()+" "+p.getValue());
-            if(p.getAttribute().getName().equals("rating")){
+            System.out.println("save phone " + p.getAttribute().getName() + " " + p.getValue());
+            if (p.getAttribute().getName().equals("rating")) {
                 p.setValue("0");
             }
         }
@@ -248,9 +253,9 @@ public class UserController {
 
     @RequestMapping(value = {"/request/{keyword}/{page}"}, method = RequestMethod.GET)
     public ResponseEntity<Page<Object>> searchRequest(@PathVariable("keyword") String keyword, @PathVariable("page") int page) throws URISyntaxException {
-        Page<Object> result = objectService.findByNameContaining(keyword, new PageRequest(page-1, 4));
-        if(result.getTotalPages()<page && result.getTotalPages()>0){
-            result = objectService.findByNameContaining(keyword, new PageRequest(result.getTotalPages()-1, 4));
+        Page<Object> result = objectService.findByNameContaining(keyword, new PageRequest(page - 1, 4));
+        if (result.getTotalPages() < page && result.getTotalPages() > 0) {
+            result = objectService.findByNameContaining(keyword, new PageRequest(result.getTotalPages() - 1, 4));
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -269,9 +274,9 @@ public class UserController {
         list.add("Headphones");
         list.add("Charger");
         list.add("Battery");
-        Page<Object> result = objectService.getObjectByTypes(list, new PageRequest(page-1, 4));
-        if(result.getTotalPages()<page && result.getTotalPages()>0){
-            result = objectService.getObjectByTypes(list, new PageRequest(result.getTotalPages()-1, 4));
+        Page<Object> result = objectService.getObjectByTypes(list, new PageRequest(page - 1, 4));
+        if (result.getTotalPages() < page && result.getTotalPages() > 0) {
+            result = objectService.getObjectByTypes(list, new PageRequest(result.getTotalPages() - 1, 4));
         }
         if (result.getContent().isEmpty()) {
             logger.info("No products to display.");
@@ -325,14 +330,6 @@ public class UserController {
         if (cart.getReferences().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        for (Reference r: cart.getReferences()) {
-            int availableInShop = Integer.parseInt(r.getRefObject().getMapParameters().get("quantity").getValue());
-            if (referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() > availableInShop) {
-                for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() - availableInShop ; i++) {
-                    referenceService.delete(referenceService.findByObjectAndRefObject(cart, r.getRefObject()).get(0));
-                }
-            }
-        }
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
@@ -354,7 +351,7 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/checkout"}, method = RequestMethod.POST)
-    public ResponseEntity<String> checkout(@RequestBody String checkoutMap) {
+    public ResponseEntity<Map<String, String>> checkout(@RequestBody String checkoutMap) {
         Object cart = securityService.getCart();
         Map<Integer, Integer> itemsToBuy = new HashMap<>();
         try {
@@ -364,17 +361,45 @@ public class UserController {
         } catch (IOException e) {
             logger.error("Cannot proceed with checkout, ", e);
         }
+
+        // Checking if customer is trying to buy too much
+        boolean buyingTooMuch = false;
         for (Map.Entry<Integer, Integer> entry : itemsToBuy.entrySet()) {
             Object item = objectService.findById(entry.getKey());
             Attribute itemQuantity = attributeService.findByNameAndObjectType("quantity", item.getObjectType());
             Parameter quantityToChange = parameterService.findByObjectAndAttribute(item.getId(), itemQuantity.getId());
             int wasInShop = Integer.parseInt(quantityToChange.getValue());
             if (entry.getValue() > wasInShop) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                buyingTooMuch = true;
+                for (Reference r : cart.getReferences()) {
+                    if (entry.getKey() == r.getRefObject().getId()) {
+                        if (referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() > wasInShop) {
+                            for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() - wasInShop; i++) {
+                                referenceService.delete(referenceService.findByObjectAndRefObject(cart, r.getRefObject()).get(0));
+                            }
+                        }
+                    }
+                }
             }
-            quantityToChange.setValue(String.valueOf(wasInShop - entry.getValue()));
-            parameterService.save(quantityToChange);
         }
+        // If shop doesn't have enough items customer gets a notification
+        if (buyingTooMuch) {
+            Map<String, String> map = new HashMap<>();
+            map.put("message", "Trying to buy too much!");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        // Otherwise customer buys items - quantity decreases
+        else {
+            for (Map.Entry<Integer, Integer> entry : itemsToBuy.entrySet()) {
+                Object item = objectService.findById(entry.getKey());
+                Attribute itemQuantity = attributeService.findByNameAndObjectType("quantity", item.getObjectType());
+                Parameter quantityToChange = parameterService.findByObjectAndAttribute(item.getId(), itemQuantity.getId());
+                int wasInShop = Integer.parseInt(quantityToChange.getValue());
+                quantityToChange.setValue(String.valueOf(wasInShop - entry.getValue()));
+                parameterService.save(quantityToChange);
+            }
+        }
+        // All references are removed
         List<Reference> allInCart = cart.getReferences();
         for (Reference r : allInCart) {
             referenceService.delete(r);
@@ -402,7 +427,7 @@ public class UserController {
     @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
     public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
         Object object = objectService.findById(id);
-        for (Parameter param: object.getParameters()) {
+        for (Parameter param : object.getParameters()) {
             if ("rating".equals(param.getAttribute().getName())) {
                 int num = Integer.parseInt(param.getValue());
                 num++;

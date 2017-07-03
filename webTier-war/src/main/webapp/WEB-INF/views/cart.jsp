@@ -17,6 +17,7 @@
 
 
 <div class="single-product-area" ng-controller="CartController as ctrl">
+
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
@@ -37,22 +38,23 @@
                                 </thead>
                                 <tbody>
 
-
-                                <tr class="cart_item" ng-repeat="item in ctrl.items.references | unique: 'name'" >
+                                <tr class="cart_item" ng-repeat="item in ctrl.items.references | unique: 'name'">
                                     <td class="product-remove">
-                                        <a title="Remove this item" ng-click="ctrl.remove(item.refObject.id)" class="remove" href="#">×</a>
+                                        <a title="Remove this item" ng-click="ctrl.remove(item.refObject.id)"
+                                           class="remove" href="#">×</a>
                                     </td>
 
                                     <td class="product-thumbnail">
-                                        <a href="${contextPath}/details/{{item.refObject.id}}"><img width="145" height="145"
-                                                                                       alt="poster_1_up"
-                                                                                       class="shop_thumbnail"
-                                                                                       src="${contextPath}{{item.refObject.mapParameters.icon.value}}"></a>
+                                        <a href="${contextPath}/details/{{item.refObject.id}}" target="_self"><img width="145"
+                                                                                                    height="145"
+                                                                                                    alt="poster_1_up"
+                                                                                                    class="shop_thumbnail"
+                                                                                                    src="${contextPath}{{item.refObject.mapParameters.icon.value}}"></a>
                                     </td>
 
                                     <td class="product-name" ng-model="item.num" ng-init="item.num=item.refObject.id">
                                         <a href="${contextPath}/details/{{item.refObject.id}}"
-                                           ng-bind="item.refObject.mapParameters.name.value"></a>
+                                           ng-bind="item.refObject.mapParameters.name.value" target="_self"></a>
                                     </td>
 
                                     <td class="product-price">
@@ -60,26 +62,21 @@
                                                ng-init="item.cost=((item.refObject.mapParameters.price.value + 0) / 10)"
                                                value="{{item.refObject.mapParameters.price.value}}" size="4"
                                                class="input-text qty text">
-
                                     </td>
 
                                     <td class="product-quantity">
                                         <div class="quantity buttons_added">
                                             <input type="number" ng-model="item.qty"
                                                    ng-init="item.qty = ctrl.getCount(item.refObject.id)" size="4"
-                                                   class="input-text qty text"  min="1"
+                                                   class="input-text qty text" min="1"
                                                    max="{{item.refObject.mapParameters.quantity.value}}">
-
-
                                         </div>
-
                                     </td>
 
                                     <td class="product-subtotal">
-                                        <span class="amount" >{{item.cost * item.qty}} </span>
+                                        <span class="amount">{{item.cost * item.qty}} </span>
                                     </td>
                                 </tr>
-
 
                                 <tr class="cart_item">
                                     <td class="product-remove">
@@ -101,19 +98,19 @@
                                     </td>
 
                                     <td class="product-subtotal">
-                                        <span class="amount" >{{ctrl.total()}}</span>
+                                        <span class="amount">{{ctrl.total()}}</span>
                                     </td>
                                 </tr>
-
 
                                 <tr>
                                     <td class="actions" colspan="6">
 
                                         <input type="submit" value="Checkout" name="proceed"
                                                class="checkout-button button alt wc-forward">
-
+                                        <p ng-show="tooMuch==1" style="color: red"><br />Oops, not enough items in the shop. Please, try again...</p>
                                     </td>
                                 </tr>
+
                                 </tbody>
                             </table>
                         </form>
