@@ -20,7 +20,7 @@
         </authentication-provider>
     </authentication-manager>
     <beans:bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"></beans:bean>
-    <beans:bean id="userDetailsServiceImpl" class="com.shop.database.services.UserDetailsServiceImpl"></beans:bean>
+    <beans:bean id="userDetailsServiceImpl" class="com.shop.database.services.impl.UserDetailsServiceImpl"></beans:bean>
 
     <beans:bean id="encoder"
           class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">

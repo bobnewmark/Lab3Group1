@@ -1,4 +1,4 @@
-package com.shop.database.services;
+package com.shop.database.services.impl;
 
 
 import com.shop.database.entities.Object;
