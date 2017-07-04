@@ -1,10 +1,10 @@
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (1, 'brand', null);
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (2, 'Phone', null);
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (3, 'Headphones', 2);
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (4, 'Charger',  2);
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (5, 'Battery', 2);
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (6, 'user', null);
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id) values (7, 'cart', 6);
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (1, 'brand', null, 0, 'fa-fa-trademark');
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (2, 'Phone', null, 1, 'fa fa-mobile');
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (3, 'Headphones', 2, 1, 'fa fa-headphones');
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (4, 'Charger',  2, 1, 'fa fa-plug');
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (5, 'Battery', 2, 1, 'fa fa-bolt');
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (6, 'user', null, 0, 'fa-fa-user');
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (7, 'cart', 6, 0, 'fa fa-shopping-cart');
 --attributes for brand
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (1, 'logo', 1, 0, 0, 1);
 --attributes for phone

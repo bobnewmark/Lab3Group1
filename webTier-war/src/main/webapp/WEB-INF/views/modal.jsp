@@ -15,7 +15,7 @@
                         <input type="hidden" ng-model="ctrl.item.id"/>
                         <div class="row" ng-repeat="par in ctrl.item.parameters">
                             <div class="form-group col-md-12" ng-if="par.attribute.hidden!=true">
-                                <label class="col-md-2 control-lable" for="{{par.attribute.name}}">{{par.attribute.name}}</label>
+                                <label class="col-md-2 control-lable">{{par.attribute.name}}</label>
                                 <div ng-switch="par.attribute.attach">
                                     <div class="col-md-7" ng-switch-when="true">
                                         <input type="file" file-model="ctrl.files[par.attribute.name]">
@@ -70,8 +70,22 @@
                         </div>
                         <div class="row" ng-repeat="p in ctrl.item.parameters">
                             <div class="form-group col-md-12" ng-if="p.attribute.hidden!=true">
-                                <label class="col-md-2 control-lable"
-                                       for="{{p.attribute.name}}">{{p.attribute.name}}</label>
+                                <label class="col-md-2 control-lable">{{p.attribute.name}}</label>
+                                <div ng-switch="p.attribute.attach">
+                                    <div class="col-md-7" ng-switch-when="true">
+                                        <input type="file" file-model="ctrl.files[p.attribute.name]">
+                                    </div>
+                                    <div class="col-md-7" ng-switch-default>
+                                        <input type="text" ng-model="p.value"
+                                               class="{{p.attribute.name}} form-control input-sm"
+                                               placeholder="Enter {{p.attribute.name}}" required/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-repeat="p in ctrl.item.references">
+                            <div class="form-group col-md-12" ng-if="p.attribute.hidden!=true">
+                                <label class="col-md-2 control-lable">{{p.attribute.name}}</label>
                                 <div ng-switch="p.attribute.attach">
                                     <div class="col-md-7" ng-switch-when="true">
                                         <input type="file" file-model="ctrl.files[p.attribute.name]">
@@ -101,61 +115,63 @@
 <div id="typesModal" class="modal fade" typeModal>
     <div class="modal-dialog">
         <div class="modal-content">
-            <form ng-submit="ctrl.submit()" name="typeForm" class="form-horizontal">
+            <form ng-submit="ctrl.submitType()" name="typeForm" class="form-horizontal">
                 <!-- Заголовок модального окна -->
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">изменение/добавление типов</h4>
+                    <h4 class="modal-title">Добавление типа</h4>
                 </div>
                 <!-- Основное содержимое модального окна -->
                 <div class="modal-body">
                     <div class="formcontainer">
                         <input type="hidden" ng-model="ctrl.item.id"/>
                         <div class="row">
-                            <label class="col-md-6 control-lable" for="selectType">Выберите родителя</label>
-                            <select id="selectTypes" ng-options="type as type.name for type in ctrl.types"
-                                    ng-model="ctrl.type.parent" required></select>
                             <div class="form-group col-md-12">
-                                <label class="col-md-2 control-lable">Имя типа</label>
-                                <div class="col-md-4">
-                                    <input type="text" ng-model="ctrl.type.name" style="width: 70px"
-                                           class="{{ctrl.type.name}} form-control input-sm"
-                                           placeholder="Enter {{ctrl.type.name}}" required/>
-                                </div>
+                                <label class="col-md-4 control-lable">Имя типа</label>
+                                <input type="text" ng-model="ctrl.type.name" style="width: 120px"
+                                       class="{{ctrl.type.name}} form-control input-sm"
+                                       placeholder="Enter {{ctrl.type.name}}" required/>
                             </div>
-                            <div class="form-group col-md-12" ng-repeat="a in ctrl.type.attributes">
-                                <label class="col-md-3 control-lable">имя атрибута</label>
-                                <div class="col-md-6">
-                                    <input type="text" ng-model="a.name" style="width: 70px"
+                            <div class="form-group col-md-12">
+                                <label class="col-md-4 control-lable" for="selectType">Выберите родителя</label>
+                                <select id="selectTypes" style="width: 120px"
+                                        ng-options="type as type.objectType.name for type in ctrl.types"
+                                        ng-model="ctrl.type.parent" ng-change="ctrl.setParent()"></select>
+                            </div>
+                            <div style="border-bottom: 1px solid #e5e5e5; text-align: center"
+                                 class="form-group col-md-12">Аттрибуты
+                            </div>
+                            <div class="form-group col-md-11" ng-repeat="a in ctrl.type.attributes">
+                                <label class="col-md-1 control-lable">имя</label>
+                                <div class="col-md-3">
+                                    <input type="text" ng-model="a.name" style="width: 120px"
                                            class="{{a.name}} form-control input-sm"
                                            placeholder="Enter {{a.name}}" required/>
                                 </div>
-                                <label class="col-md-4 control-lable">уникальность</label>
+                                <label class="col-md-2 control-lable" style="font-weight: 100">уникальный</label>
                                 <div class="col-md-1">
                                     <input type="checkbox" ng-model="a.unique"/>
                                 </div>
-                                <label class="col-md-4 control-lable">скрытый</label>
+                                <label class="col-md-2 control-lable" style="font-weight: 100">скрытый</label>
                                 <div class="col-md-1">
                                     <input type="checkbox" ng-model="a.hidden"/>
                                 </div>
-                                <label class="col-md-4 control-lable">файл</label>
+                                <label class="col-md-1 control-lable" style="font-weight: 100">файл</label>
                                 <div class="col-md-1">
                                     <input type="checkbox" ng-model="a.attach"/>
                                 </div>
                             </div>
-                            <div style="color: royalblue" ng-click="ctrl.addAttr()">Добавить атрибут<i
+                            <div class="col-md-1" style="color: green" ng-click="ctrl.addAttr()"><i
                                     class="fa fa-plus"></i></div>
                         </div>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                        <input type="submit" value="Добавить" class="btn btn-primary"/>
                     </div>
                 </div>
                 <!-- Футер модального окна -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <input type="submit" value="{{!ctrl.item.id ? 'Добавить' : 'Редактировать'}}"
+                    <input type="submit" value="Добавить"
                            class="btn btn-primary"
-                           ng-disabled="addForm.$invalid"/>
+                           ng-disabled="typeForm.$invalid"/>
                 </div>
             </form>
         </div>

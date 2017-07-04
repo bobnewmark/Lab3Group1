@@ -134,4 +134,26 @@ public class ObjectServiceImpl implements ObjectService {
         return objects;
     }
 
+    @Override
+    public Page<Object> getObjectByType(String name, Pageable pageable) {
+        Page<Object> objects =  objectRepository.findByTypeName(name, pageable);
+        for (Object o : objects) {
+            for (Parameter p : o.getParameters()) {
+                o.getMapParameters().put(p.getAttribute().getName(), p);
+            }
+        }
+        return objects;
+    }
+
+    @Override
+    public Page<Object> getAllProducts(Pageable pageable) {
+        Page<Object> objects =  objectRepository.findAllProducts(pageable);
+        for (Object o : objects) {
+            for (Parameter p : o.getParameters()) {
+                o.getMapParameters().put(p.getAttribute().getName(), p);
+            }
+        }
+        return objects;
+    }
+
 }

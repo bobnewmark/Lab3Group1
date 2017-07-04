@@ -30,4 +30,8 @@ public interface ObjectRepository extends JpaRepository<Object, Integer> {
     List<Object> findByAttrAndName(@Param("otName") String otName, @Param("name") String name, Pageable pageable);
     @Query("Select c from Object c where c.objectType.name in :names")
     Page<Object> findByTypes(@Param("names") List<String> names, Pageable pageable);
+    @Query("Select c from Object c where c.objectType.name = :name")
+    Page<Object> findByTypeName(@Param("name") String name, Pageable pageable);
+    @Query("Select c from Object c where c.objectType.product = true")
+    Page<Object> findAllProducts(Pageable pageable);
 }

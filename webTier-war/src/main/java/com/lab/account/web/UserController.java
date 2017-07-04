@@ -22,12 +22,10 @@ import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.*;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -88,6 +86,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
     @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
     public ResponseEntity<Object> user() {
         ObjectType type = objectTypeService.findById(6);
@@ -128,6 +127,18 @@ public class UserController {
         return new ResponseEntity<>(objects, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/save-type/", method = RequestMethod.POST)
+    public ResponseEntity<Integer> saveType( @RequestBody ObjectType objectType) {
+        System.out.println(objectType.getParent().getName()+"----"+objectType.getParent().getId());
+        for(Attribute a: objectType.getAttributes()){
+            a.setObjectType(objectType);
+            System.out.println("save phone "+a.getName());
+        }
+        objectType = objectTypeService.save(objectType);
+        System.out.println(objectType.getId());
+        return new ResponseEntity<>(objectType.getId(), HttpStatus.OK);
+    }
+
     @RequestMapping(value = {"/types"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> types() {
         List<ObjectType> types = objectTypeService.findAll();
@@ -158,7 +169,6 @@ public class UserController {
         }
         return new ResponseEntity<>(brands, HttpStatus.OK);
     }
-
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
         List<Object> objects = objectService.getObjectByAttribute("Phone", "rating", new PageRequest(0, 5));
@@ -255,22 +265,32 @@ public class UserController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @RequestMapping(value = {"/products/{class}/{page}"}, method = RequestMethod.GET)
+    public ResponseEntity<Page<Object>> classOfProducts(@PathVariable("class") String clas, @PathVariable("page") int page) throws URISyntaxException {
+        Page<Object> result = objectService.getObjectByType(clas, new PageRequest(page-1, 4));
+        if(result.getTotalPages()<page && result.getTotalPages()>0){
+            result = objectService.getObjectByType(clas, new PageRequest(result.getTotalPages()-1, 4));
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @RequestMapping(value = {"/shop"}, method = RequestMethod.GET)
     public String shop(Model model) throws URISyntaxException {
         model.addAttribute("current", "/WEB-INF/views/shop.jsp");
         return "index";
     }
 
+
     @RequestMapping(value = {"/products/{page}"}, method = RequestMethod.GET)
     public ResponseEntity<Page<Object>> allProducts(@PathVariable("page") int page, Model model) throws URISyntaxException {
-        List<String> list = new ArrayList<>();
+       /* List<String> list = new ArrayList<>();
         list.add("Phone");
         list.add("Headphones");
         list.add("Charger");
-        list.add("Battery");
-        Page<Object> result = objectService.getObjectByTypes(list, new PageRequest(page - 1, 4));
-        if (result.getTotalPages() < page && result.getTotalPages() > 0) {
-            result = objectService.getObjectByTypes(list, new PageRequest(result.getTotalPages() - 1, 4));
+        list.add("Battery");*/
+        Page<Object> result = objectService.getAllProducts( new PageRequest(page-1, 4));
+        if(result.getTotalPages()<page && result.getTotalPages()>0){
+            result = objectService.getAllProducts(new PageRequest(result.getTotalPages()-1, 4));
         }
         if (result.getContent().isEmpty()) {
             LOGGER.info("No products to display.");
@@ -323,6 +343,14 @@ public class UserController {
         if (cart.getReferences().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        for (Reference r: cart.getReferences()) {
+            int availableInShop = Integer.parseInt(r.getRefObject().getMapParameters().get("quantity").getValue());
+            if (referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() > availableInShop) {
+                for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() - availableInShop ; i++) {
+                    referenceService.delete(referenceService.findByObjectAndRefObject(cart, r.getRefObject()).get(0));
+                }
+            }
+        }
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
@@ -364,11 +392,11 @@ public class UserController {
             int wasInShop = Integer.parseInt(quantityToChange.getValue());
             if (entry.getValue() > wasInShop) {
                 buyingTooMuch = true;
-                for (Reference ref : cart.getReferences()) {
-                    if (entry.getKey() == ref.getRefObject().getId()) {
-                        if (referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).size() > wasInShop) {
-                            for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).size() - wasInShop; i++) {
-                                referenceService.delete(referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).get(0));
+                for (Reference r : cart.getReferences()) {
+                    if (entry.getKey() == r.getRefObject().getId()) {
+                        if (referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() > wasInShop) {
+                            for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() - wasInShop; i++) {
+                                referenceService.delete(referenceService.findByObjectAndRefObject(cart, r.getRefObject()).get(0));
                             }
                         }
                     }
@@ -394,8 +422,8 @@ public class UserController {
         }
         // All references are removed
         List<Reference> allInCart = cart.getReferences();
-        for (Reference ref : allInCart) {
-            referenceService.delete(ref);
+        for (Reference r : allInCart) {
+            referenceService.delete(r);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -420,6 +448,14 @@ public class UserController {
     @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
     public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
         Object object = objectService.findById(id);
+        for (Parameter param : object.getParameters()) {
+            if ("rating".equals(param.getAttribute().getName())) {
+                int num = Integer.parseInt(param.getValue());
+                num++;
+                param.setValue(String.valueOf(num));
+                parameterService.save(param);
+            }
+        }
         model.addAttribute("current", "/WEB-INF/views/details.jsp");
         return "index";
     }

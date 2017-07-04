@@ -1,4 +1,5 @@
 var map = ({'/laba/': '/laba/phone/',
+    '/laba': '/laba/phone/',
     '/laba/shop': '/laba/products',
     '/laba/showCart': '/laba/showCart',
      '/laba/search/': '/laba/request/'});

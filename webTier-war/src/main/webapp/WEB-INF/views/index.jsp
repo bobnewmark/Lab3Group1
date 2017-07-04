@@ -25,7 +25,7 @@
     <link href="<c:url value='/resources/css/owl.carousel.css' />" rel="stylesheet">
     <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet">
     <link href="<c:url value='/resources/css/responsive.css' />" rel="stylesheet">
-
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery.min.js"></script>
 
     <!-- Bootstrap JS form CDN -->

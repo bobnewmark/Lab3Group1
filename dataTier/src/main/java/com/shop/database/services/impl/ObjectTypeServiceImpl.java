@@ -14,8 +14,8 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
     @Autowired
     private ObjectTypeRepository objectTypeRepository;
 
-    public void save(ObjectType objectType) {
-        objectTypeRepository.save(objectType);
+    public ObjectType save(ObjectType objectType) {
+        return objectTypeRepository.saveAndFlush(objectType);
     }
 
     public ObjectType findById(int id) {
@@ -30,4 +30,5 @@ public class ObjectTypeServiceImpl implements ObjectTypeService {
     public List<ObjectType> findAll() {
         return objectTypeRepository.findAll();
     }
+
 }

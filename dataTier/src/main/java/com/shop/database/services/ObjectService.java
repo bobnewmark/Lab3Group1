@@ -22,4 +22,6 @@ public interface ObjectService {
     void delete(int id);
     List<Object> getObjectByAttribute(String typeName, String name, Pageable pageable);
     Page<Object> getObjectByTypes(List<String> names, Pageable pageable);
+    Page<Object> getObjectByType(String name, Pageable pageable);
+    Page<Object> getAllProducts(Pageable pageable);
 }
