@@ -1,42 +1,30 @@
 package com.lab.account.validator;
 
-import com.shop.database.entities.User;
-import com.shop.database.services.UserService;
+import com.shop.database.entities.Object;
+import com.shop.database.services.ObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+/**
+ * <code>UserValidator</code> is a class for reassuring that user's login is unique withing the project database.
+ */
 @Component
 public class UserValidator implements Validator {
     @Autowired
-    private UserService userService;
+    private ObjectService userService;
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return User.class.equals(aClass);
+        return Object.class.equals(aClass);
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
-        User user = (User) o;
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-        if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
-            errors.rejectValue("username", "Size.userForm.username");
-        }
-        if (userService.findByUsername(user.getUsername()) != null) {
+    public void validate(java.lang.Object o, Errors errors) {
+        Object user = (Object) o;
+        if (userService.findByNameAttrAndObjectType("login", "user", user.getMapParameters().get("login").getValue()) != null) {
             errors.rejectValue("username", "Duplicate.userForm.username");
-        }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password");
-        }
-
-        if (!user.getPasswordConfirm().equals(user.getPassword())) {
-            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
         }
     }
 }

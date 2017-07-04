@@ -1,5 +1,6 @@
 package com.shop.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -7,7 +8,8 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by said on 06.05.2017.
+ * <code>ObjectType</code> is an organizational class for a group of objects
+ * that defines attributes for each object in the group.
  */
 @Entity
 @Table(name = "LAB3_OBJECT_TYPES")
@@ -16,14 +18,15 @@ public class ObjectType {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "OBJECT_TYPE_ID", length = 10, nullable = false)
     private int id;
-
-    @Column(name = "NAME")
+    @Column(name = "NAME", unique = true)
     private String name;
-
+    @Column(name = "ICON")
+    private String icon;
+    @Column(name = "product")
+    private boolean product;
     @ManyToOne
-    @JoinColumn(name = "PARENT_ID", referencedColumnName = "OBJECT_TYPE_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "PARENT_ID", referencedColumnName = "OBJECT_TYPE_ID", updatable = false)
     private ObjectType parent;
-
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "objectType", cascade = CascadeType.ALL)
     private List<Attribute> attributes;
@@ -32,9 +35,26 @@ public class ObjectType {
     public ObjectType() {
     }
 
-    public ObjectType(int id, String name) {
-        this.id = id;
+    public ObjectType(String name, ObjectType parent, List<Attribute> attributes) {
         this.name = name;
+        this.parent = parent;
+        this.attributes = attributes;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public boolean isProduct() {
+        return product;
+    }
+
+    public void setProduct(boolean product) {
+        this.product = product;
     }
 
     public int getId() {

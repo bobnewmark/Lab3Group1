@@ -1,36 +1,53 @@
 package com.shop.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
-import java.io.Serializable;
-import java.lang.*;
-import java.util.Objects;
 
 /**
- * Created by said on 06.05.2017.
+ * <code>Reference</code> is a realization of an attribute, but instead of having some value
+ * it is a link to another object.
  */
 @Entity
 @Table(name = "LAB3_REFERENCES")
 public class Reference {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "REFERENCE_ID", length = 10, insertable = false, updatable = false, nullable = false)
+    private int id;
+    @JsonIgnore
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     @JoinColumn(name = "OBJECT_ID", referencedColumnName = "OBJECT_ID")
     private Object object;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     @JoinColumn(name = "REF_OBJECT_ID", referencedColumnName = "OBJECT_ID")
     private Object refObject;
     @Column(name = "NAME")
     private String name;
-    @Embedded
-    @Id
-    private Key id;
+    @ManyToOne
+    @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ATTRIBUTE_ID")
+    private Attribute attribute;
 
     public Reference() {
     }
 
-    public Reference(Object object, Object refObject, String name) {
+    public Reference(Object object, Object refObject, String name, Attribute attribute) {
         this.object = object;
         this.refObject = refObject;
         this.name = name;
-        this.id = new Key(object, refObject, name);
+        this.attribute = attribute;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Object getObject() {
@@ -57,68 +74,11 @@ public class Reference {
         this.name = name;
     }
 
-    public Key getId() {
-        return id;
+    public Attribute getAttribute() {
+        return attribute;
     }
 
-    public void setId(Key id) {
-        this.id = id;
+    public void setAttribute(Attribute attribute) {
+        this.attribute = attribute;
     }
-
-    @Embeddable
-    public static class Key implements Serializable {
-        private int object_id;
-        private int ref_object_id;
-        private String name;
-
-        public Key() {
-        }
-
-        public Key(Object object, Object refObject, String name) {
-            this.object_id = object.getId();
-            this.ref_object_id = refObject.getId();
-            this.name = name;
-        }
-
-        public int getObject_id() {
-            return object_id;
-        }
-
-        public void setObject_id(int object_id) {
-            this.object_id = object_id;
-        }
-
-        public int getRef_object_id() {
-            return ref_object_id;
-        }
-
-        public void setRef_object_id(int ref_object_id) {
-            this.ref_object_id = ref_object_id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public boolean equals(java.lang.Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Key key = (Key) o;
-            return object_id == key.object_id &&
-                    ref_object_id == key.ref_object_id &&
-                    Objects.equals(name, key.name);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(object_id, ref_object_id, name);
-        }
-    }
-
-
 }

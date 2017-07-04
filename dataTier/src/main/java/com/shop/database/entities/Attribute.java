@@ -1,5 +1,6 @@
 package com.shop.database.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -7,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Created by said on 06.05.2017.
+ * <code>Attribute</code> is an entity class for attributes of object types in the project database tables.
  */
 @Entity
 @Table(name = "LAB3_ATTRIBUTES")
@@ -16,19 +17,26 @@ public class Attribute {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ATTRIBUTE_ID", length = 10, nullable = false)
     private int id;
-
     @Column(name = "NAME")
     private String name;
-
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "OBJECT_TYPE_ID", referencedColumnName = "OBJECT_TYPE_ID")
     private ObjectType objectType;
-
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL)
     private List<Parameter> parameters;
-
-
+    @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "attribute", cascade = CascadeType.REMOVE)
+    private List<Reference> references;
+    @Column(name="uniq")
+    private boolean unique;
+    @Column(name="hid")
+    private boolean hidden;
+    @Column(name="attach")
+    private boolean attach;
     public Attribute() {
     }
 
@@ -67,5 +75,37 @@ public class Attribute {
 
     public void setParameters(List<Parameter> parameters) {
         this.parameters = parameters;
+    }
+
+    public List<Reference> getReferences() {
+        return references;
+    }
+
+    public void setReferences(List<Reference> references) {
+        this.references = references;
+    }
+
+    public boolean isUnique() {
+        return unique;
+    }
+
+    public void setUnique(boolean unique) {
+        this.unique = unique;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public boolean isAttach() {
+        return attach;
+    }
+
+    public void setAttach(boolean attach) {
+        this.attach = attach;
     }
 }

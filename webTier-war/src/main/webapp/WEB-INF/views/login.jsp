@@ -1,55 +1,120 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Log in with your account</title>
-
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-
-<div class="container">
-
-    <form method="POST" action="${contextPath}/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
-
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-            <span>${message}</span>
-            <input name="username" type="text" class="form-control" placeholder="Username"
-                   autofocus="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
-            <span>${error}</span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-            <h4 class="text-center"><a href="${contextPath}/registration">Create an account</a></h4>
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Login/Registration</h2>
+                </div>
+            </div>
         </div>
-
-    </form>
-
+    </div>
 </div>
-<!-- /container -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-</body>
-</html>
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="product-content-right">
+                    <div class="woocommerce">
+
+                        <form id="login-form-wrap" action="${contextPath}/j_spring_security_check"
+                              name="loginForm" class="login collapse in" method="post"
+                              ng-controller="loginController as ctrl">
+                            <h2>login</h2>
+                            <p class="form-row form-row-last">
+                                <label for="email">e-mail<span class="required">*</span></label>
+                            <div class="input-group"
+                                 ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input id="email" type="text" name="j_username" class="input-text"
+                                       ng-model="ctrl.item.parameters[0]" required>
+                            </div>
+                            <p ng-show="loginForm.email.$invalid && !loginForm.email.$pristine" class="help-block">
+                                введите логин</p>
+                            </p>
+                            <p class="form-row form-row-last">
+                                <label for="password">Пароль<span class="required">*</span>
+                                </label>
+                            <div class="input-group"
+                                 ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="password" type="password" name="j_password" class="input-text"
+                                       ng-model="ctrl.item.parameters[1]" required>
+                            </div>
+                            <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine"
+                               class="help-block">введите пароль</p>
+                            </p>
+                            <p ng-show="{{status==1}}" style="color: red">Вы ввели неправильный логин либо пароль</p>
+                            <p class="form-row">
+                                <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Логин
+                                </button>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            </p>
+
+                            <div class="clear"></div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="product-content-right">
+                    <div class="woocommerce" ng-controller="mainController as ctrl">
+                        <form ng-submit="ctrl.submit()" name="userForm" class="form-horizontal" novalidate>
+                            <h2>Registration</h2>
+                            <span>${message}</span>
+                            <p class="form-row form-row-last">
+                                <label for="email">e-mail<span class="required">*</span>
+                                </label>
+                            <div class="input-group"
+                                 ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input type="email" name="email" class="input-text"
+                                       ng-model="ctrl.item.parameters[0].value" required>
+                            </div>
+                            <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">вы
+                                ввели не правильный email</p>
+                            </p>
+                            <p class="form-row form-row-last">
+                                <label for="password">Пароль<span class="required">*</span>
+                                </label>
+                            <div class="input-group"
+                                 ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" name="password" class="input-text"
+                                       ng-model="ctrl.item.parameters[1].value" ng-minlength="6" ng-maxlength="12"
+                                       required>
+                            </div>
+                            <p ng-show="userForm.password.$error.minlength" class="help-block">Ваш пароль короткий</p>
+                            <p ng-show="userForm.password.$error.maxlength" class="help-block">Ваш пароль длинный</p>
+                            </p>
+                            <p class="form-row form-row-last">
+                                <label for="password">Подтвердите пароль<span class="required">*</span>
+                                </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" id="confirmpass" name="confirmpassword" class="input-text"
+                                       ng-model="confirmpassword" data-password-verify="ctrl.item.parameters[1].value"
+                                       required>
+                            </div>
+                            <p ng-show="userForm.confirmpassword.$error.passwordVerify" class="help-block">Пароли не
+                                совпадают</p>
+                            </p>
+                            <p ng-show="{{statusreg==1}}" style="color: red">Пользователь с таким логином уже
+                                существует</p>
+                            <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Регистрация
+                            </button>
+                            <input type="hidden" class="btn btn-primary" name="${_csrf.parameterName}"
+                                   value="${_csrf.token}"/>
+                            <div class="clear"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
