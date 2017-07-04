@@ -311,7 +311,6 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
                         scope.destroy(element.parent());
                         var queryResult = element[0].querySelector(".owl-stage:last-child");
                         var stage = angular.element(queryResult);
-                        console.log(stage.hasClass("active"));
                     }
                 });
             }

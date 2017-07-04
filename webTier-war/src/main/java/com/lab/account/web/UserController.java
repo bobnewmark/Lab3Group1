@@ -45,7 +45,7 @@ public class UserController {
     @Autowired
     private ReferenceService referenceService;
 
-    private final static Logger logger = Logger.getLogger(UserController.class);
+    private final static Logger LOGGER = Logger.getLogger(UserController.class);
 
     @Autowired
     private Tools tools;
@@ -67,11 +67,10 @@ public class UserController {
         }
         try {
             objectService.save(user);
-            logger.info("User " + user.getName() + " saved succsessfully.");
+            LOGGER.info("User " + user.getName() + " saved succsessfully.");
         } catch (RegistrationException e) {
-            logger.error("Cannot save user " + user.getName() + ", ", e);
+            LOGGER.error("Cannot save user " + user.getName() + ", ", e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            /*return "redirect:/registration?reg-err";*/
         }
         Object cart = new Object("cart", objectTypeService.findByName("cart"), user);
         if (objectService.findByParent(user).size() > 0) {
@@ -82,13 +81,12 @@ public class UserController {
         try {
             objectService.save(cart);
         } catch (RegistrationException e) {
-            logger.error("Cannot save cart for user " + user.getName() + ", ", e);
+            LOGGER.error("Cannot save cart for user " + user.getName() + ", ", e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         securityService.autologin(user.getParameters().get(0).getValue(), user.getParameters().get(1).getValue());
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
     @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
     public ResponseEntity<Object> user() {
@@ -165,7 +163,7 @@ public class UserController {
     public ResponseEntity<List<Object>> phones() {
         List<Object> objects = objectService.getObjectByAttribute("Phone", "rating", new PageRequest(0, 5));
         if (objects.isEmpty()) {
-            logger.info("No items to display.");
+            LOGGER.info("No items to display.");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(objects, HttpStatus.OK);
@@ -220,10 +218,9 @@ public class UserController {
 
     @RequestMapping(value = "/phone/", method = RequestMethod.POST)
     public ResponseEntity<Integer> updateUser(@RequestBody Object object) {
-        System.out.println(object.getParent().getName() + "----" + object.getParent().getId());
         for (Parameter p : object.getParameters()) {
             p.setObject(object);
-            System.out.println("save phone " + p.getAttribute().getName() + " " + p.getValue());
+            LOGGER.info("Saving object " + p.getAttribute().getName() + " " + p.getValue());
             if (p.getAttribute().getName().equals("rating")) {
                 p.setValue("0");
             }
@@ -231,19 +228,17 @@ public class UserController {
         try {
             object = objectService.save(object);
         } catch (RegistrationException e) {
-            logger.error("Cannot save changes to object " + object.getName() + ", ", e);
+            LOGGER.error("Cannot save changes to object " + object.getName() + ", ", e);
         }
-        System.out.println(object.getId());
         return new ResponseEntity<>(object.getId(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/phone/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteUser(@PathVariable("id") int id) {
-        System.out.println("Fetching & Deleting User with id " + id);
+        LOGGER.info("Fetching & Deleting Object with id " + id);
         objectService.delete(id);
         return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
     }
-
 
     @RequestMapping(value = {"/search"})
     public String search(Model model, HttpServletRequest request) {
@@ -266,7 +261,6 @@ public class UserController {
         return "index";
     }
 
-
     @RequestMapping(value = {"/products/{page}"}, method = RequestMethod.GET)
     public ResponseEntity<Page<Object>> allProducts(@PathVariable("page") int page, Model model) throws URISyntaxException {
         List<String> list = new ArrayList<>();
@@ -279,7 +273,7 @@ public class UserController {
             result = objectService.getObjectByTypes(list, new PageRequest(result.getTotalPages() - 1, 4));
         }
         if (result.getContent().isEmpty()) {
-            logger.info("No products to display.");
+            LOGGER.info("No products to display.");
 
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -291,7 +285,6 @@ public class UserController {
         model.addAttribute("current", "/WEB-INF/views/contacts.jsp");
         return "index";
     }
-
 
 // WORKING WITH CART ---------------------------------------------------------------------------------------------------
 
@@ -359,7 +352,7 @@ public class UserController {
             itemsToBuy = mapper.readValue(checkoutMap, new TypeReference<HashMap<Integer, Integer>>() {
             });
         } catch (IOException e) {
-            logger.error("Cannot proceed with checkout, ", e);
+            LOGGER.error("Cannot proceed with checkout, ", e);
         }
 
         // Checking if customer is trying to buy too much

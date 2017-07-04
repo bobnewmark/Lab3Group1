@@ -29,7 +29,6 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
     self.total = total;
     self.checkout = checkout;
 
-
     fetchAllItems();
 
     function fetchAllItems() {

@@ -58,10 +58,8 @@
                                     </td>
 
                                     <td class="product-price">
-                                        <input type="number" align="middle" readonly="true" ng-model="item.cost"
-                                               ng-init="item.cost=((item.refObject.mapParameters.price.value + 0) / 10)"
-                                               value="{{item.refObject.mapParameters.price.value}}" size="4"
-                                               class="input-text qty text">
+                                        <span class="amount" ng-model="item.cost"
+                                              ng-init="item.cost=((item.refObject.mapParameters.price.value + 0) / 10)">{{item.refObject.mapParameters.price.value}}</span>
                                     </td>
 
                                     <td class="product-quantity">
@@ -105,7 +103,7 @@
                                 <tr>
                                     <td class="actions" colspan="6">
 
-                                        <input type="submit" value="Checkout" name="proceed"
+                                        <input type="submit" ng-disabled="ctrl.total()==0" value="Checkout" name="proceed"
                                                class="checkout-button button alt wc-forward">
                                         <p ng-show="tooMuch==1" style="color: red"><br/>Oops, not enough items in the
                                             shop. Please, try again...</p>

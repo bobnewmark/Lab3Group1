@@ -32,15 +32,15 @@
                         <div class="col-sm-6">
                             <div class="product-images">
                                 <div class="product-main-img">
-                                    <img src="${contextPath}{{ctrl.items.mapParameters.icon.value}}" alt="">
+                                    <img ng-src="${contextPath}{{ctrl.items.mapParameters.icon.value}}" alt="">
                                 </div>
                                 <div class="product-gallery">
 
                                     <img ng-show="ctrl.items.mapParameters.icon2.value != null"
-                                         src="${contextPath}{{ctrl.items.mapParameters.icon2.value}}" alt="">
+                                         ng-src="${contextPath}{{ctrl.items.mapParameters.icon2.value}}" alt="">
 
                                     <img ng-show="ctrl.items.mapParameters.icon3.value != null"
-                                         src="${contextPath}{{ctrl.items.mapParameters.icon3.value}}" alt="">
+                                         ng-src="${contextPath}{{ctrl.items.mapParameters.icon3.value}}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                                         <input type="number" ng-hide="ctrl.items.mapParameters.quantity.value == '0'"
                                                ng-model="quant" ng-init="quant=1" ng-click="" size="4"
                                                class="input-text qty text" title="Qty"
-                                               value="ctrl.items.mapParameters.quantity.value == '0' ? 0 : 1"
+                                               value="1"
                                                name="quantity" min="1" step="1"
                                                max="{{ctrl.items.mapParameters.quantity.value}}">
                                     </div>
@@ -92,7 +92,7 @@
                             <div owl-carousel-item="" ng-repeat="z in ctrl.related">
                                 <div class="single-product">
                                     <div class="product-f-image">
-                                        <img src="${contextPath}{{z.mapParameters.icon.value}}" alt="">
+                                        <img ng-src="${contextPath}{{z.mapParameters.icon.value}}" alt="">
                                         <div class="product-hover">
                                             <a href="#" class="add-to-cart-link"
                                                ng-click="(z.mapParameters.quantity.value == '0')||ctrl.buyR(z.id)"><i
@@ -107,7 +107,7 @@
                                     <h2 ng-bind="z.mapParameters.name.value"></h2>
 
                                     <div class="product-carousel-price">
-                                        <ins ng-bind="z.mapParameters.price.value"></ins>
+                                        <ins>Price: {{z.mapParameters.price.value}}</ins>
                                     </div>
                                 </div>
                             </div>
