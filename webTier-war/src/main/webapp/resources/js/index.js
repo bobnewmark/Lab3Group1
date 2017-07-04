@@ -1,17 +1,19 @@
-var map = ({'/laba/': '/laba/phone/',
-    '/laba': '/laba/phone/',
-    '/laba/shop': '/laba/products',
-    '/laba/showCart': '/laba/showCart',
-     '/laba/search/': '/laba/request/'});
-var App = angular.module('myApp', [],function($locationProvider){
+var map = ({
+    "/laba/": "/laba/phone/",
+    "/laba": "/laba/phone/",
+    "/laba/shop": "/laba/products",
+    "/laba/showCart": "/laba/showCart",
+    "/laba/search/": "/laba/request/"
+});
+var App = angular.module("myApp", [], function ($locationProvider) {
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
     });
 });
-App.factory('Service', ['$http', '$q', '$window', function($http, $q, $window){
+App.factory("Service", ["$http", "$q", "$window", function ($http, $q, $window) {
 
-    var SERVICE_URI = '/laba/registration/';
+    var SERVICE_URI = "/laba/registration/";
 
     var factory = {
         createItem: createItem,
@@ -25,16 +27,17 @@ App.factory('Service', ['$http', '$q', '$window', function($http, $q, $window){
             .then(
                 function (response) {
                     deferred.resolve(response.data);
-                    $window.location.href = '/laba/';
+                    $window.location.href = "/laba/";
                 },
-                function(errResponse){
-                    console.error('Error while creating User');
+                function (errResponse) {
+                    console.error("Error while creating User");
                     deferred.reject(errResponse);
-                    $window.location.href = '/laba/registration?reg-err';
+                    $window.location.href = "/laba/registration?reg-err";
                 }
             );
         return deferred.promise;
     }
+
     function fetchUser(url) {
         var deferred = $q.defer();
         $http.get(url)
@@ -42,8 +45,8 @@ App.factory('Service', ['$http', '$q', '$window', function($http, $q, $window){
                 function (response) {
                     deferred.resolve(response.data);
                 },
-                function(errResponse){
-                    console.error('Error while fetching Users');
+                function (errResponse) {
+                    console.error("Error while fetching Users");
                     deferred.reject(errResponse);
                 }
             );
@@ -51,63 +54,60 @@ App.factory('Service', ['$http', '$q', '$window', function($http, $q, $window){
     }
 }]);
 
-App.controller('mainController',['$scope', 'Service', '$location',  function($scope, Service, $location){
+App.controller("mainController", ["$scope", "Service", "$location", function ($scope, Service, $location) {
     var self = this;
     self.item = {};
-    self.items=[];
+    self.items = [];
     self.submit = submit;
     fetchUser();
     function submit() {
-        console.log('Saving New User', self.item);
         Service.createItem(self.item);
     }
-    function fetchUser(){
-        Service.fetchUser('/laba/user')
+
+    function fetchUser() {
+        Service.fetchUser("/laba/user")
             .then(
-                function(d) {
+                function (d) {
                     self.item = d;
                 },
-                function(errResponse){
-                    console.error('Error while fetching User');
+                function (errResponse) {
+                    console.error("Error while fetching User");
                 }
             );
     }
 
-    if($location.absUrl().indexOf("reg-err")!=-1){
+    if ($location.absUrl().indexOf("reg-err") != -1) {
         $scope.statusreg = 1;
-    }else{
+    } else {
         $scope.statusreg = 0;
     }
-	}]);
-
-App.controller('loginController',['$scope', '$location',  function($scope, $location){
-    if($location.absUrl().indexOf("error")!=-1){
-        $scope.status = 1;
-    }else{
-        $scope.status = 0;
-    }
-
-
 }]);
 
+App.controller("loginController", ["$scope", "$location", function ($scope, $location) {
+    if ($location.absUrl().indexOf("error") != -1) {
+        $scope.status = 1;
+    } else {
+        $scope.status = 0;
+    }
+}]);
 
-App.directive("passwordVerify", function() {
+App.directive("passwordVerify", function () {
     return {
         require: "ngModel",
         scope: {
-            passwordVerify: '='
+            passwordVerify: "="
         },
-        link: function(scope, element, attrs, ctrl) {
-            scope.$watch(function() {
+        link: function (scope, element, attrs, ctrl) {
+            scope.$watch(function () {
                 var combined;
 
                 if (scope.passwordVerify || ctrl.$viewValue) {
-                    combined = scope.passwordVerify + '_' + ctrl.$viewValue;
+                    combined = scope.passwordVerify + "_" + ctrl.$viewValue;
                 }
                 return combined;
-            }, function(value) {
+            }, function (value) {
                 if (value) {
-                    ctrl.$parsers.unshift(function(viewValue) {
+                    ctrl.$parsers.unshift(function (viewValue) {
                         var origin = scope.passwordVerify;
                         if (origin !== viewValue) {
                             ctrl.$setValidity("passwordVerify", false);

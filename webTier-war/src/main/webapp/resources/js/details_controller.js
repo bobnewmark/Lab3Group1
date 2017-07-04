@@ -47,7 +47,6 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
     }
 
     function buyR(id) {
-        console.log("buying related: " + id);
         $.ajax({
             contentType: "application/json; charset=utf-8",
             url: "http://localhost:7001/laba/addToCart",
@@ -69,6 +68,4 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
                 }
             );
     }
-
-
 }]);

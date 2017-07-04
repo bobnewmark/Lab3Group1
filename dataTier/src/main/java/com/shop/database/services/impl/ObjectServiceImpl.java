@@ -70,9 +70,9 @@ public class ObjectServiceImpl implements ObjectService {
     @Override
     public Page<Object> findByNameContaining(String keyword, Pageable pageable) {
         Page<Object> objects = objectRepository.findByNameContaining(keyword, pageable);
-        for (Object o : objects) {
-            for (Parameter p : o.getParameters()) {
-                o.getMapParameters().put(p.getAttribute().getName(), p);
+        for (Object obj : objects) {
+            for (Parameter param : obj.getParameters()) {
+                obj.getMapParameters().put(param.getAttribute().getName(), param);
             }
         }
         return objects;
@@ -137,9 +137,9 @@ public class ObjectServiceImpl implements ObjectService {
     @Override
     public Page<Object> getObjectByType(String name, Pageable pageable) {
         Page<Object> objects =  objectRepository.findByTypeName(name, pageable);
-        for (Object o : objects) {
-            for (Parameter p : o.getParameters()) {
-                o.getMapParameters().put(p.getAttribute().getName(), p);
+        for (Object obj : objects) {
+            for (Parameter param : obj.getParameters()) {
+                obj.getMapParameters().put(param.getAttribute().getName(), param);
             }
         }
         return objects;
@@ -148,9 +148,9 @@ public class ObjectServiceImpl implements ObjectService {
     @Override
     public Page<Object> getAllProducts(Pageable pageable) {
         Page<Object> objects =  objectRepository.findAllProducts(pageable);
-        for (Object o : objects) {
-            for (Parameter p : o.getParameters()) {
-                o.getMapParameters().put(p.getAttribute().getName(), p);
+        for (Object obj : objects) {
+            for (Parameter param : obj.getParameters()) {
+                obj.getMapParameters().put(param.getAttribute().getName(), param);
             }
         }
         return objects;

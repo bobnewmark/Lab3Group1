@@ -147,11 +147,11 @@ public class UserController {
             Object obj = new Object();
             obj.setObjectType(oType);
             obj.setName(oType.getName());
-            for (Attribute a : oType.getAttributes()) {
-                Parameter p = new Parameter();
-                p.setAttribute(a);
-                p.setObject(obj);
-                obj.getParameters().add(p);
+            for (Attribute attr : oType.getAttributes()) {
+                Parameter param = new Parameter();
+                param.setAttribute(attr);
+                param.setObject(obj);
+                obj.getParameters().add(param);
             }
             objects.add(obj);
         }
@@ -392,11 +392,11 @@ public class UserController {
             int wasInShop = Integer.parseInt(quantityToChange.getValue());
             if (entry.getValue() > wasInShop) {
                 buyingTooMuch = true;
-                for (Reference r : cart.getReferences()) {
-                    if (entry.getKey() == r.getRefObject().getId()) {
-                        if (referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() > wasInShop) {
-                            for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() - wasInShop; i++) {
-                                referenceService.delete(referenceService.findByObjectAndRefObject(cart, r.getRefObject()).get(0));
+                for (Reference ref : cart.getReferences()) {
+                    if (entry.getKey() == ref.getRefObject().getId()) {
+                        if (referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).size() > wasInShop) {
+                            for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).size() - wasInShop; i++) {
+                                referenceService.delete(referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).get(0));
                             }
                         }
                     }
@@ -422,8 +422,8 @@ public class UserController {
         }
         // All references are removed
         List<Reference> allInCart = cart.getReferences();
-        for (Reference r : allInCart) {
-            referenceService.delete(r);
+        for (Reference ref : allInCart) {
+            referenceService.delete(ref);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

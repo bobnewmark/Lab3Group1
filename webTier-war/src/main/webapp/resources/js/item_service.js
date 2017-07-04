@@ -94,7 +94,6 @@ App.factory("ItemService", ["$http", "$q", function($http, $q){
         fd.append("id", id);
         Object.keys(file).forEach(function(key) {
             fd.append(key, file[key]);
-            console.log("file is " );
             console.dir(file[key]);
         });
         $http.post(url, fd, {
