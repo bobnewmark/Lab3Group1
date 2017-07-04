@@ -26,10 +26,10 @@ public class ReferenceServiceImpl implements ReferenceService{
 
     public List<Reference> findByObject(Object object) {
         List<Reference> refs = referenceRepository.findByObject(object);
-        for(Reference r: refs){
-            Object refObject = r.getRefObject();
-            for(Parameter p: refObject.getParameters()){
-                refObject.getMapParameters().put(p.getAttribute().getName(), p);
+        for(Reference ref: refs){
+            Object refObject = ref.getRefObject();
+            for(Parameter param: refObject.getParameters()){
+                refObject.getMapParameters().put(param.getAttribute().getName(), param);
             }
         }
         return refs;

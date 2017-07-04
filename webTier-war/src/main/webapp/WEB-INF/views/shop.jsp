@@ -24,10 +24,10 @@
                         <div class="product-upper">
                             <img ng-src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
                         </div>
-                        <h2><a href="${contextPath}/details/{{p.id}}" target="_self">{{p.mapParameters.name.value}}</a></h2>
+                        <div style="min-height: 10%"><h2><a href="${contextPath}/details/{{p.id}}" target="_self">{{p.mapParameters.name.value}}</a></h2></div>
+
                         <div class="product-carousel-price">
                             <ins ng-bind="p.mapParameters.price.attribute.name+': '+p.mapParameters.price.value"></ins>
-                            <del></del>
                         </div>
 
                         <div class="product-option-shop">

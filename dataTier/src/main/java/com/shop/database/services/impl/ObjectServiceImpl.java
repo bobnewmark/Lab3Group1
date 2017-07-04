@@ -40,11 +40,11 @@ public class ObjectServiceImpl implements ObjectService {
     }
 
     public Object findById(int id) {
-        Object o = objectRepository.findOne(id);
-        for (Parameter p : o.getParameters()) {
-            o.getMapParameters().put(p.getAttribute().getName(), p);
+        Object obj = objectRepository.findOne(id);
+        for (Parameter param : obj.getParameters()) {
+            obj.getMapParameters().put(param.getAttribute().getName(), param);
         }
-        return o;
+        return obj;
     }
 
     public List<Object> findByName(String name) {
@@ -59,9 +59,9 @@ public class ObjectServiceImpl implements ObjectService {
 
     public List<Object> findByObjectType(ObjectType objectType) {
         List<Object> objects = objectRepository.findByObjectType(objectType);
-        for (Object o : objects) {
-            for (Parameter p : o.getParameters()) {
-                o.getMapParameters().put(p.getAttribute().getName(), p);
+        for (Object obj : objects) {
+            for (Parameter param : obj.getParameters()) {
+                obj.getMapParameters().put(param.getAttribute().getName(), param);
             }
         }
         return objects;
@@ -81,9 +81,9 @@ public class ObjectServiceImpl implements ObjectService {
     @Override
     public List<Object> findByNameAttrAndObjectType(String name, String otName, String value) {
         List<Object> objects = objectRepository.findByAttrAndObjectType(name, otName, value);
-        for (Object o : objects) {
-            for (Parameter p : o.getParameters()) {
-                o.getMapParameters().put(p.getAttribute().getName(), p);
+        for (Object obj : objects) {
+            for (Parameter param : obj.getParameters()) {
+                obj.getMapParameters().put(param.getAttribute().getName(), param);
             }
         }
         return objects;
@@ -92,16 +92,16 @@ public class ObjectServiceImpl implements ObjectService {
     @Override
     public List<Object> findByParent(Object object) {
         List<Object> objects = objectRepository.findByParent(object);
-        for (Object o : objects) {
-            List<Reference> refs = o.getReferences();
-            for (Reference r : refs) {
-                Object refObject = r.getRefObject();
-                for (Parameter p : refObject.getParameters()) {
-                    refObject.getMapParameters().put(p.getAttribute().getName(), p);
+        for (Object obj : objects) {
+            List<Reference> refs = obj.getReferences();
+            for (Reference ref : refs) {
+                Object refObject = ref.getRefObject();
+                for (Parameter param : refObject.getParameters()) {
+                    refObject.getMapParameters().put(param.getAttribute().getName(), param);
                 }
             }
-            for (Parameter p : o.getParameters()) {
-                o.getMapParameters().put(p.getAttribute().getName(), p);
+            for (Parameter param : obj.getParameters()) {
+                obj.getMapParameters().put(param.getAttribute().getName(), param);
             }
         }
         return objects;
@@ -115,9 +115,9 @@ public class ObjectServiceImpl implements ObjectService {
     @Override
     public List<Object> getObjectByAttribute(String typeName, String name, Pageable pageable) {
         List<Object> objects =  objectRepository.findByAttrAndName(typeName, name, pageable);
-        for (Object o : objects) {
-            for (Parameter p : o.getParameters()) {
-                o.getMapParameters().put(p.getAttribute().getName(), p);
+        for (Object obj : objects) {
+            for (Parameter param : obj.getParameters()) {
+                obj.getMapParameters().put(param.getAttribute().getName(), param);
             }
         }
         return objects;
@@ -126,9 +126,9 @@ public class ObjectServiceImpl implements ObjectService {
     @Override
     public Page<Object> getObjectByTypes(List<String> names, Pageable pageable) {
         Page<Object> objects =  objectRepository.findByTypes(names, pageable);
-        for (Object o : objects) {
-            for (Parameter p : o.getParameters()) {
-                o.getMapParameters().put(p.getAttribute().getName(), p);
+        for (Object obj : objects) {
+            for (Parameter param : obj.getParameters()) {
+                obj.getMapParameters().put(param.getAttribute().getName(), param);
             }
         }
         return objects;

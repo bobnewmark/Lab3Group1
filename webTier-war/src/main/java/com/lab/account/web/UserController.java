@@ -49,7 +49,7 @@ public class UserController {
 
     @Autowired
     private Tools tools;
-    private String HOME = "C:/folderForLab3Images/";
+    private final String HOME = "C:/folderForLab3Images/";
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -59,10 +59,10 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ResponseEntity<Object> registration(@RequestBody Object user) {
-        for (Parameter p : user.getParameters()) {
-            p.setObject(user);
-            if (p.getAttribute().getName().equals("role")) {
-                p.setValue("USER");
+        for (Parameter param : user.getParameters()) {
+            param.setObject(user);
+            if (param.getAttribute().getName().equals("role")) {
+                param.setValue("USER");
             }
         }
         try {
@@ -91,16 +91,16 @@ public class UserController {
     @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
     public ResponseEntity<Object> user() {
         ObjectType type = objectTypeService.findById(6);
-        Object o = new Object();
-        o.setObjectType(type);
-        o.setName(type.getName());
-        for (Attribute a : type.getAttributes()) {
-            Parameter p = new Parameter();
-            p.setObject(o);
-            p.setAttribute(a);
-            o.getParameters().add(p);
+        Object obj = new Object();
+        obj.setObjectType(type);
+        obj.setName(type.getName());
+        for (Attribute attr : type.getAttributes()) {
+            Parameter param = new Parameter();
+            param.setObject(obj);
+            param.setAttribute(attr);
+            obj.getParameters().add(param);
         }
-        return new ResponseEntity<>(o, HttpStatus.OK);
+        return new ResponseEntity<>(obj, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -132,17 +132,17 @@ public class UserController {
     public ResponseEntity<List<Object>> types() {
         List<ObjectType> types = objectTypeService.findAll();
         List<Object> objects = new ArrayList<>();
-        for (ObjectType ot : types) {
-            Object o = new Object();
-            o.setObjectType(ot);
-            o.setName(ot.getName());
-            for (Attribute a : ot.getAttributes()) {
+        for (ObjectType oType : types) {
+            Object obj = new Object();
+            obj.setObjectType(oType);
+            obj.setName(oType.getName());
+            for (Attribute a : oType.getAttributes()) {
                 Parameter p = new Parameter();
                 p.setAttribute(a);
-                p.setObject(o);
-                o.getParameters().add(p);
+                p.setObject(obj);
+                obj.getParameters().add(p);
             }
-            objects.add(o);
+            objects.add(obj);
         }
         if (objects.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -330,8 +330,8 @@ public class UserController {
     public ResponseEntity<Object> removeFromCart(@PathVariable("id") int id) {
         Object cart = securityService.getCart();
         List<Reference> refToDelete = referenceService.findByObjectAndRefObject(cart, objectService.findById(id));
-        for (Reference r : refToDelete) {
-            referenceService.delete(r);
+        for (Reference ref : refToDelete) {
+            referenceService.delete(ref);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -364,11 +364,11 @@ public class UserController {
             int wasInShop = Integer.parseInt(quantityToChange.getValue());
             if (entry.getValue() > wasInShop) {
                 buyingTooMuch = true;
-                for (Reference r : cart.getReferences()) {
-                    if (entry.getKey() == r.getRefObject().getId()) {
-                        if (referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() > wasInShop) {
-                            for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() - wasInShop; i++) {
-                                referenceService.delete(referenceService.findByObjectAndRefObject(cart, r.getRefObject()).get(0));
+                for (Reference ref : cart.getReferences()) {
+                    if (entry.getKey() == ref.getRefObject().getId()) {
+                        if (referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).size() > wasInShop) {
+                            for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).size() - wasInShop; i++) {
+                                referenceService.delete(referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).get(0));
                             }
                         }
                     }
@@ -394,8 +394,8 @@ public class UserController {
         }
         // All references are removed
         List<Reference> allInCart = cart.getReferences();
-        for (Reference r : allInCart) {
-            referenceService.delete(r);
+        for (Reference ref : allInCart) {
+            referenceService.delete(ref);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -420,14 +420,6 @@ public class UserController {
     @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
     public String details(@PathVariable("id") int id, Model model) throws URISyntaxException {
         Object object = objectService.findById(id);
-        for (Parameter param : object.getParameters()) {
-            if ("rating".equals(param.getAttribute().getName())) {
-                int num = Integer.parseInt(param.getValue());
-                num++;
-                param.setValue(String.valueOf(num));
-                parameterService.save(param);
-            }
-        }
         model.addAttribute("current", "/WEB-INF/views/details.jsp");
         return "index";
     }

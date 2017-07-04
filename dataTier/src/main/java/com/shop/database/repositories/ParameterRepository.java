@@ -19,6 +19,6 @@ public interface ParameterRepository extends JpaRepository<Parameter, Integer> {
     List<Parameter> findByAttribute(Attribute attribute);
     List<Parameter> findByValue(String value);
     Parameter findById(int id);
-    @Query("select p from Parameter p left join p.object o where o.id = :ob_id and o.id = p.object.id and p.attribute.id = :attr_id")
-    Parameter findByObjectAndAttribute(@Param("ob_id") int ob_id, @Param("attr_id") int attr_id);
+    @Query("select p from Parameter p left join p.object o where o.id = :objid and o.id = p.object.id and p.attribute.id = :attrid")
+    Parameter findByObjectAndAttribute(@Param("objid") int objid, @Param("attrid") int attrid);
 }

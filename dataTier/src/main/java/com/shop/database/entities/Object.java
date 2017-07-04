@@ -91,8 +91,8 @@ public class Object {
     }
 
     public void setParameters(List<Parameter> parameters) {
-        for(Parameter p : parameters){
-            mapParameters.put(p.getAttribute().getName(), p);
+        for(Parameter param : parameters){
+            mapParameters.put(param.getAttribute().getName(), param);
         }
         this.parameters = parameters;
     }
