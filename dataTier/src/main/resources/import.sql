@@ -199,7 +199,7 @@ insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) value
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (109, '/resources/img/LENOVOBL192(2000MAH).jpg', 32, 18);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (110, null, 33, 18);
 ---adding parameters for chargers
-insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (111, 'SAMSUNG ACADU10CBECSTD (BLACK) CAR CHARGER', 19, 19);
+insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (111, 'SAMSUNG ACADU10 CAR CHARGER', 19, 19);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (112, '250', 20, 19);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (113, '1.5 m', 21, 19);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (114, '0', 22, 19);

@@ -5,6 +5,7 @@ import com.shop.database.services.ObjectService;
 import com.shop.database.services.SecurityService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 /**
- * <code>SecurityServiceImpl</code> is a class for managing main user actions as log in, sign in,
+ * <code>SecurityServiceImpl</code> is a class for managing main user actions as log in,
  * finding user in the database, accessing user's shopping cart.
  */
 @Service
@@ -46,19 +47,16 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public Object getCart() {
-        Object cart = null;
-        try {
-            cart = objectService.findByParent(getUser()).get(0);
-        } catch (Exception ignored) {
+        if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken){
+            return null;
         }
-        return cart;
+        return objectService.findByParent(getUser()).get(0);
     }
 
     @Override
     public void autologin(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-        //authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }

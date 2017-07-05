@@ -21,8 +21,8 @@ public class UserValidator implements Validator {
     }
 
     @Override
-    public void validate(java.lang.Object o, Errors errors) {
-        Object user = (Object) o;
+    public void validate(java.lang.Object obj, Errors errors) {
+        Object user = (Object) obj;
         if (userService.findByNameAttrAndObjectType("login", "user", user.getMapParameters().get("login").getValue()) != null) {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }

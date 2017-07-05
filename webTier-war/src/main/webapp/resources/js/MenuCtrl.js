@@ -27,7 +27,7 @@ App.directive("setClassWhenAtTop", function ($window) {
         if ($location.path().split("?")[0] === "/laba" + url) {
             return "active";
         } else {
-            return "not-active"
+            return "not-active";
         }
     };
     $scope.updateIndex = function () {

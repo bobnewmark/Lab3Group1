@@ -109,10 +109,7 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
     }
 
     function remove(id) {
-        if (self.item.id === id) {
-            reset();
-        }
-        deleteItem(id);
+            deleteItem(id);
     }
 }])
 

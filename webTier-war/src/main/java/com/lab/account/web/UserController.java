@@ -129,10 +129,8 @@ public class UserController {
 
     @RequestMapping(value = "/save-type/", method = RequestMethod.POST)
     public ResponseEntity<Integer> saveType( @RequestBody ObjectType objectType) {
-        System.out.println(objectType.getParent().getName()+"----"+objectType.getParent().getId());
-        for(Attribute a: objectType.getAttributes()){
-            a.setObjectType(objectType);
-            System.out.println("save phone "+a.getName());
+        for(Attribute attr: objectType.getAttributes()){
+            attr.setObjectType(objectType);
         }
         objectType = objectTypeService.save(objectType);
         System.out.println(objectType.getId());
@@ -183,7 +181,6 @@ public class UserController {
     @RequestMapping(value = {"/fileUpload"}, method = RequestMethod.POST)
     public ResponseEntity upload(MultipartHttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
-        System.out.println("id " + id);
         Object object = objectService.findById(id);
         File path = new File(HOME + id);
         if (!path.exists()) {
@@ -192,11 +189,11 @@ public class UserController {
         for (Map.Entry<String, MultipartFile> entry : request.getFileMap().entrySet()) {
             String contentName = entry.getValue().getContentType().split("/")[0];
             String contentEnd = entry.getValue().getContentType().split("/")[1];
-            for (Parameter p : object.getParameters()) {
-                if (p.getAttribute().getName().equals(entry.getKey())) {
-                    p.setValue("/icons/" + id + "/" + entry.getKey() + "." + contentEnd);
-                    object.getMapParameters().put(entry.getKey(), p);
-                    p = parameterService.save(p);
+            for (Parameter param : object.getParameters()) {
+                if (param.getAttribute().getName().equals(entry.getKey())) {
+                    param.setValue("/icons/" + id + "/" + entry.getKey() + "." + contentEnd);
+                    object.getMapParameters().put(entry.getKey(), param);
+                    parameterService.save(param);
                 }
             }
             if (!contentName.equals("image")) {
@@ -343,11 +340,11 @@ public class UserController {
         if (cart.getReferences().isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        for (Reference r: cart.getReferences()) {
-            int availableInShop = Integer.parseInt(r.getRefObject().getMapParameters().get("quantity").getValue());
-            if (referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() > availableInShop) {
-                for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, r.getRefObject()).size() - availableInShop ; i++) {
-                    referenceService.delete(referenceService.findByObjectAndRefObject(cart, r.getRefObject()).get(0));
+        for (Reference ref: cart.getReferences()) {
+            int availableInShop = Integer.parseInt(ref.getRefObject().getMapParameters().get("quantity").getValue());
+            if (referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).size() > availableInShop) {
+                for (int i = 0; i < referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).size() - availableInShop ; i++) {
+                    referenceService.delete(referenceService.findByObjectAndRefObject(cart, ref.getRefObject()).get(0));
                 }
             }
         }
