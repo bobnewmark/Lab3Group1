@@ -25,8 +25,6 @@ public class SecurityServiceImpl implements SecurityService {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    private static final Logger logger = Logger.getLogger(SecurityServiceImpl.class);
-
     @Override
     public String findLoggedInUsername() {
         java.lang.Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();

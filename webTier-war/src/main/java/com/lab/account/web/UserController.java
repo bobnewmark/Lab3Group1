@@ -225,11 +225,11 @@ public class UserController {
 
     @RequestMapping(value = "/phone/", method = RequestMethod.POST)
     public ResponseEntity<Integer> updateUser(@RequestBody Object object) {
-        for (Parameter p : object.getParameters()) {
-            p.setObject(object);
-            LOGGER.info("Saving object " + p.getAttribute().getName() + " " + p.getValue());
-            if (p.getAttribute().getName().equals("rating")) {
-                p.setValue("0");
+        for (Parameter param : object.getParameters()) {
+            param.setObject(object);
+            LOGGER.info("Saving object " + param.getAttribute().getName() + " " + param.getValue());
+            if (param.getAttribute().getName().equals("rating")) {
+                param.setValue("0");
             }
         }
         try {
