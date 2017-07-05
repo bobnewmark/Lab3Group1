@@ -48,7 +48,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         for (Parameter par : user.getParameters()) {
             user.getMapParameters().put(par.getAttribute().getName(), par);
         }
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getMapParameters().get("role").getValue()));
         return new org.springframework.security.core.userdetails.User(user.getMapParameters().get("login").getValue(), user.getMapParameters().get("password").getValue(), grantedAuthorities);
