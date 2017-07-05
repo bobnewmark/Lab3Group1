@@ -1,10 +1,11 @@
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (1, 'brand', null, 0, 'fa-fa-trademark');
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (1, 'brand', null, 0, 'fa fa-copyright');
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (2, 'Phone', null, 1, 'fa fa-mobile');
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (3, 'Headphones', 2, 1, 'fa fa-headphones');
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (4, 'Charger',  2, 1, 'fa fa-plug');
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (5, 'Battery', 2, 1, 'fa fa-bolt');
-insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (6, 'user', null, 0, 'fa-fa-user');
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (6, 'user', null, 0, 'fa fa-user');
 insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (7, 'cart', 6, 0, 'fa fa-shopping-cart');
+insert into LAB3_OBJECT_TYPES (OBJECT_TYPE_ID, NAME, parent_id, product, icon) values (8, 'icons', null, 0, 'fa fa-user');
 --attributes for brand
 insert INTO lab3_attributes (ATTRIBUTE_ID, NAME, OBJECT_TYPE_ID, UNIQ, HID, ATTACH) values (1, 'logo', 1, 0, 0, 1);
 --attributes for phone
@@ -82,6 +83,31 @@ insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (20
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (21, 'SAMSUNG HS1303BEGRU', 3, 1);
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (22, 'SAMSUNG HS1303WEGRU', 3, 1);
 insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (23, 'Samsung In ear Fit', 3, 1);
+--adding icons
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (24, 'fa fa-copyright', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (25, 'fa fa-mobile', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (26, 'fa fa-headphones', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (27, 'fa fa-plug', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (28, 'fa fa-bolt', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (29, 'fa fa-user', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (30, 'fa fa-shopping-cart', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (31, 'fa fa-home', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (32, 'fa fa-laptop', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (33, 'fa fa-desktop', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (34, 'fa fa-volume-up', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (35, 'fa fa-clock-o', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (36, 'fa fa-tablet', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (37, 'fa fa-music', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (38, 'fa fa-car', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (39, 'fa fa-futbol-o', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (40, 'fa fa-gamepad', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (41, 'fa fa-gift', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (42, 'fa fa-globe', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (43, 'fa fa-money', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (44, 'fa fa-video-camera', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (45, 'fa fa-cc-visa', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (46, 'fa fa-usd', 8, null);
+insert into LAB3_OBJECTS (OBJECT_ID, NAME, OBJECT_TYPE_ID, PARENT_ID) values (47, 'fa fa-eur', 8, null);
 --adding parameters for phones
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (7, 'SAMSUNG SM-J700H GALAXY J7 DS BLACK', 2, 7);
 insert into lab3_PARAMETERS (parameter_id, value, attribute_id, object_id) values (8, '5000', 3,  7);

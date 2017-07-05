@@ -129,11 +129,12 @@ public class UserController {
 
     @RequestMapping(value = "/save-type/", method = RequestMethod.POST)
     public ResponseEntity<Integer> saveType( @RequestBody ObjectType objectType) {
-        for(Attribute attr: objectType.getAttributes()){
-            attr.setObjectType(objectType);
+        objectType.setProduct(true);
+        for(Attribute a: objectType.getAttributes()){
+            a.setObjectType(objectType);
+
         }
         objectType = objectTypeService.save(objectType);
-        System.out.println(objectType.getId());
         return new ResponseEntity<>(objectType.getId(), HttpStatus.OK);
     }
 
@@ -166,6 +167,15 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(brands, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = {"/my-icons"}, method = RequestMethod.GET)
+    public ResponseEntity<List<Object>> icons() {
+        List<Object> icons = objectService.findByObjectType(objectTypeService.findByName("icons"));
+        if (icons.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(icons, HttpStatus.OK);
     }
     @RequestMapping(value = {"/phone"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> phones() {
@@ -280,11 +290,6 @@ public class UserController {
 
     @RequestMapping(value = {"/products/{page}"}, method = RequestMethod.GET)
     public ResponseEntity<Page<Object>> allProducts(@PathVariable("page") int page, Model model) throws URISyntaxException {
-       /* List<String> list = new ArrayList<>();
-        list.add("Phone");
-        list.add("Headphones");
-        list.add("Charger");
-        list.add("Battery");*/
         Page<Object> result = objectService.getAllProducts( new PageRequest(page-1, 4));
         if(result.getTotalPages()<page && result.getTotalPages()>0){
             result = objectService.getAllProducts(new PageRequest(result.getTotalPages()-1, 4));

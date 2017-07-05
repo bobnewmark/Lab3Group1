@@ -46,7 +46,7 @@ public class SecurityServiceImpl implements SecurityService {
         if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken){
             return null;
         }
-        return objectService.findByParent(getUser()).get(0);
+        return objectService.findByParent(getUser()).get(0); /*TODO: throw IndexOutOfBoundsException if role Admin*/
     }
 
     @Override

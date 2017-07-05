@@ -25,17 +25,21 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         id: null,
         name: "",
         parent: {},
-        product: false,
-        attributes: [{id: null, name: "", objectType: {id: null},  unique: false,  hidden: false, attach: false}]
+        icon: 'fa fa-picture-o',
+        product: true,
+        attributes: [{id: null, name: '', objectType: {id: null}}]
     };
     self.files = [];
     self.count = 0;
     self.brands = [];
     self.shop = "";
+    self.hide = true;
     self.submit = submit;
     self.getProducts = getProducts;
+    self.getIcons = getIcons;
     self.submitType = submitType;
     self.update = update;
+    self.icons = [];
     self.edit = edit;
     self.addAttr = addAttr;
     self.editPage = editPage;
@@ -43,20 +47,25 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     self.reset = reset;
     self.resetAdd = resetAdd;
     self.resetType = resetType;
+    self.selectType = selectType;
     self.setParent = setParent;
     self.show = show;
     self.buy = buy;
     self.goToPage = goToPage;
     self.uploadFile = uploadFile;
+    self.setIcon = setIcon;
+    self.reqIcon = reqIcon;
     fetchAllItems();
     fetchAllTypes();
     fetchAllBrands();
-
+    getIcons();
     function update() {
         self.item = $scope.selectedItem;
     }
     function setParent() {
-        self.type.parent = self.type.parent.objectType;
+        console.log($scope.selectedItem);
+        self.type.parent = {id: null};
+        self.type.parent.id = $scope.selectedItem;
     }
     function getProducts(name) {
         self.shop = "/"+name;
@@ -67,6 +76,17 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
                 },
                 function (errResponse) {
                     console.error("Error while fetching " + name);
+                }
+            );
+    }
+    function getIcons() {
+        ItemService.fetchAllItems("/laba/my-icons/")
+            .then(
+                function (d) {
+                    self.icons = d;
+                },
+                function (errResponse) {
+                    console.error('Error while fetching Users');
                 }
             );
     }
@@ -195,8 +215,8 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     function submit() {
             updateItem(self.item);
             angular.element(document.querySelector('#addModal')).modal('hide');
-            resetAdd();
             angular.element(document.querySelector('#editModal')).modal('hide');
+            resetAdd();
             reset();
     }
     function submitType() {
@@ -207,7 +227,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
                     console.error("Error while updating User");
                 }
             );
-        angular.element(document.querySelector('#addModal')).modal('hide');
+        angular.element(document.querySelector('#editTypesModal')).modal('hide');
         resetType();
     }
 
@@ -253,22 +273,47 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     }
 
     function resetAdd() {
+        if(angular.isDefined($scope.selectedItem)){
+            delete $scope.selectedItem;
+        }
         self.item = {};
         $scope.addForm.$setPristine();
     }
     function resetType() {
+        if(angular.isDefined($scope.selectedItem)){
+            delete $scope.selectedItem;
+        }
         self.type = {
             id: null,
-            name: "",
-            parent: {},
-            unique: false,
-            hidden: false,
-            attach: false,
-            attributes: [{id: null, name: "", objectType: {id: null}}]
+            name: '',
+            parent: {id: null},
+            icon: 'fa fa-picture-o',
+            product: true,
+            attributes: [{id: null, name: '', objectType: {id: null}}]
         };
         $scope.typeForm.$setPristine();
     }
 
+    function selectType(type) {
+        self.type = type;
+        try {
+            $scope.selectedItem = type.parent.id;
+        }catch(e){
+            $scope.selectedItem = '';
+        }
+        console.log($scope.selectedItem);
+        console.log(self.type);
+        $scope.typeForm.$setPristine();
+    }
+    function setIcon(name) {
+        self.hide=true;
+        self.type.icon = name;
+        $scope.typeForm.$setPristine();
+    }
+    function reqIcon() {
+        self.hide=false;
+        $scope.typeForm.$setPristine();
+    }
     function uploadFile(data) {
         var uploadUrl = "/laba/fileUpload";
         ItemService.uploadFileToUrl(self.files, uploadUrl, data)

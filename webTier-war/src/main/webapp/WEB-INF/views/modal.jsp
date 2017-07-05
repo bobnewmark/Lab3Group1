@@ -1,15 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%--modal window for edit object--%>
+
 <div id="editModal" class="modal fade" phoneModal>
     <div class="modal-dialog">
         <div class="modal-content">
             <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
-                <!-- Заголовок модального окна -->
+
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Изменение товара</h4>
+                    <button type="button" class="close" data-dismiss="modal" ng-click="ctrl.reset()" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Изменение объекта</h4>
                 </div>
-                <!-- Основное содержимое модального окна -->
+
                 <div class="modal-body">
                     <div class="formcontainer">
                         <input type="hidden" ng-model="ctrl.item.id"/>
@@ -30,9 +33,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- Футер модального окна -->
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-default" ng-click="ctrl.reset()" data-dismiss="modal">Закрыть</button>
                     <input type="submit" value="{{!ctrl.item.id ? 'Добавить' : 'Редактировать'}}"
                            class="btn btn-primary" ng-disabled="myForm.$invalid"/>
                 </div>
@@ -41,16 +44,17 @@
     </div>
 </div>
 
+<%--modal window for create object--%>
+
 <div id="addModal" class="modal fade" phoneModal>
     <div class="modal-dialog">
         <div class="modal-content">
             <form ng-submit="ctrl.submit()" name="addForm" class="form-horizontal">
-                <!-- Заголовок модального окна -->
+
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Добавление товара</h4>
+                    <button type="button" class="close" data-dismiss="modal"  ng-click="ctrl.resetAdd()" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Добавление объектов</h4>
                 </div>
-                <!-- Основное содержимое модального окна -->
                 <div class="modal-body">
                     <div class="formcontainer">
                         <input type="hidden" ng-model="ctrl.item.id"/>
@@ -65,7 +69,7 @@
                             <div class="form-group col-md-6" ng-show="ctrl.item.objectType.name=='Phone'">
                                 <label class="col-md-6 control-lable" for="selectBrand">Выберите бренд</label>
                                 <select id="selectBrand" ng-options="brand as brand.name for brand in ctrl.brands"
-                                        ng-model="ctrl.item.parent" required></select>
+                                        ng-model="ctrl.item.parent"></select>
                             </div>
                         </div>
                         <div class="row" ng-repeat="p in ctrl.item.parameters">
@@ -100,10 +104,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- Футер модального окна -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <input type="submit" value="{{!ctrl.item.id ? 'Добавить' : 'Редактировать'}}"
+                    <button type="button" class="btn btn-default"  ng-click="ctrl.resetAdd()" data-dismiss="modal">Закрыть</button>
+                    <input type="submit" value="Добавить"
                            class="btn btn-primary" ng-disabled="addForm.$invalid"/>
                 </div>
             </form>
@@ -111,35 +114,62 @@
     </div>
 </div>
 
+<%--modal window for create object types--%>
 
-<div id="typesModal" class="modal fade" typeModal>
+<%--modal window for edit object types--%>
+
+<div id="editTypesModal" class="modal fade" typeModal>
     <div class="modal-dialog">
         <div class="modal-content">
             <form ng-submit="ctrl.submitType()" name="typeForm" class="form-horizontal">
-                <!-- Заголовок модального окна -->
+
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Добавление типа</h4>
+                    <button type="button" class="close" data-dismiss="modal"  ng-click="ctrl.resetType()" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Редактирование типа</h4>
                 </div>
-                <!-- Основное содержимое модального окна -->
+
                 <div class="modal-body">
+
+                    <div class="form-group col-md-12">
+                        <div class="col-md-3" ng-repeat="type in ctrl.types">
+                            <a href="#" ng-click="ctrl.selectType(type.objectType)">
+                                <i class="{{type.objectType.icon}}"></i> {{type.objectType.name}}
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#" ng-click="ctrl.resetType()">
+                                <i class="fa fa-plus"></i> add type
+                            </a>
+                        </div>
+                    </div>
                     <div class="formcontainer">
                         <input type="hidden" ng-model="ctrl.item.id"/>
                         <div class="row">
-                            <div class="form-group col-md-12">
-                                <label class="col-md-4 control-lable">Имя типа</label>
-                                <input type="text" ng-model="ctrl.type.name" style="width: 120px"
-                                       class="{{ctrl.type.name}} form-control input-sm"
-                                       placeholder="Enter {{ctrl.type.name}}" required/>
+                            <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-5 control-lable">Имя типа</label>
+                                    <input type="text" ng-model="ctrl.type.name" style="width: 120px"
+                                           class="{{ctrl.type.name}} form-control input-sm"
+                                           placeholder="Enter {{ctrl.type.name}}" required/>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-5 control-lable" for="selectType">Выберите родителя</label>
+                                    <select id="selType" style="width: 120px" ng-model="selectedItem"
+                                            ng-options="type.objectType.id as type.name for type in ctrl.types"
+                                            ng-change="ctrl.setParent()"></select>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-5 control-lable" for="selectType">Картинка</label>
+                                    <a href="#" ng-click="ctrl.reqIcon()">
+                                        <i style="font-size: 24px" class="{{ctrl.type.icon}}"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="form-group col-md-12">
-                                <label class="col-md-4 control-lable" for="selectType">Выберите родителя</label>
-                                <select id="selectTypes" style="width: 120px"
-                                        ng-options="type as type.objectType.name for type in ctrl.types"
-                                        ng-model="ctrl.type.parent" ng-change="ctrl.setParent()"></select>
+                            <div class="form-group col-md-4" ng-if="ctrl.hide == false">
+                                <jsp:include page="/WEB-INF/views/icons.jsp" flush="true"></jsp:include>
                             </div>
                             <div style="border-bottom: 1px solid #e5e5e5; text-align: center"
-                                 class="form-group col-md-12">Аттрибуты
+                                 class="form-group col-md-12">Атрибуты
                             </div>
                             <div class="form-group col-md-11" ng-repeat="a in ctrl.type.attributes">
                                 <label class="col-md-1 control-lable">имя</label>
@@ -166,9 +196,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- Футер модального окна -->
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-default"  ng-click="ctrl.resetType()"  data-dismiss="modal">Закрыть</button>
                     <input type="submit" value="Добавить"
                            class="btn btn-primary"
                            ng-disabled="typeForm.$invalid"/>
