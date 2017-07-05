@@ -46,19 +46,14 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
 
     function getCount(i) {
         var iCount = iCount || 0;
-        for (var item in this.items) {
-            for (var level1 in this.items[item]) {
-                for (var level2 in this.items[item][level1]) {
-                    for (var level3 in this.items[item][level1][level2]) {
-                        if (this.items[item][level1][level2][level3] == i) {
-                            iCount++;
-                        }
-                    }
+            for (var y = 0; y < this.items["references"].length; y++) {
+                if (this.items["references"][y]["refObject"]["id"] === i) {
+                    iCount++;
                 }
             }
-        }
         return iCount;
     }
+
 
     function total() {
         try {
@@ -84,7 +79,7 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
 
         ItemService.createItem(self.checkoutMap, "checkout")
             .then(
-                function(d) {
+                function (d) {
                     if (d.toString().length > 0) {
                         $scope.tooMuch = 1;
                     } else {
@@ -92,7 +87,7 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
                     }
                     fetchAllItems();
                 },
-                function(errResponse){
+                function (errResponse) {
                     console.error("Error while checkout");
                 }
             );
@@ -109,7 +104,7 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
     }
 
     function remove(id) {
-            deleteItem(id);
+        deleteItem(id);
     }
 }])
 
