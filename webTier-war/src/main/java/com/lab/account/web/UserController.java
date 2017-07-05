@@ -130,9 +130,8 @@ public class UserController {
     @RequestMapping(value = "/save-type/", method = RequestMethod.POST)
     public ResponseEntity<Integer> saveType( @RequestBody ObjectType objectType) {
         objectType.setProduct(true);
-        for(Attribute a: objectType.getAttributes()){
-            a.setObjectType(objectType);
-
+        for(Attribute attr: objectType.getAttributes()){
+            attr.setObjectType(objectType);
         }
         objectType = objectTypeService.save(objectType);
         return new ResponseEntity<>(objectType.getId(), HttpStatus.OK);

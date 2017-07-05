@@ -5,19 +5,19 @@
                 nextText:'<i class="fa fa-angle-right"></i>',
                 prevText:'<i class="fa fa-angle-left"></i>',
                 auto: true,
-                onSliderLoad:function(currentIndex){
+                onSliderLoad (currentIndex){
                     $("#bxslider-home4 li").find(".caption").each(function(i){
                         $(this).show().addClass("animated fadeInRight").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function(){
                             $(this).removeClass("fadeInRight animated");
                         });
-                    })
+                    });
                 },
-                onSlideBefore:function(slideElement, oldIndex, newIndex){
+                onSlideBefore (slideElement, oldIndex, newIndex){
                     slideElement.find(".caption").each(function(){
                        $(this).hide().removeClass("animated fadeInRight");
                     });
                 },
-                onSlideAfter: function(slideElement, oldIndex, newIndex){
+                onSlideAfter (slideElement, oldIndex, newIndex){
                     setTimeout(function(){
                         slideElement.find(".caption").each(function(){
                            $(this).show().addClass("animated fadeInRight").one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function(){

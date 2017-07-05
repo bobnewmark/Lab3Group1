@@ -97,7 +97,7 @@ App.directive("passwordVerify", function () {
         scope: {
             passwordVerify: "="
         },
-        link: function (scope, element, attrs, ctrl) {
+        link (scope, element, attrs, ctrl) {
             scope.$watch(function () {
                 var combined;
 

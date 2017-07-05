@@ -38,7 +38,7 @@ App.controller("SearchController", ["$scope", "ItemService", "$location", functi
             contentType: "application/json; charset=utf-8",
             url: "http://localhost:7001/laba/addToCart",
             data: ({itemId: id}),
-            success: function () {
+            success () {
                 $scope.updateIndex();
             }
         });
@@ -51,7 +51,7 @@ App.controller("SearchController", ["$scope", "ItemService", "$location", functi
                     self.related = d;
                 },
                 function (errResponse) {
-                    console.error("Error while fetching Users");
+                    console.error("Error while fetching related");
                 }
             );
     }

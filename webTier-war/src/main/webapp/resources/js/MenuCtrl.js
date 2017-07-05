@@ -3,7 +3,7 @@ App.directive("setClassWhenAtTop", function ($window) {
 
     return {
         restrict: "A",
-        link: function (scope, element, attrs) {
+        link (scope, element, attrs) {
             var topClass = attrs.setClassWhenAtTop, // get CSS class from directive's attribute value
                 offsetTop = element.offset().top - 50; // get element"s top relative to the document
 

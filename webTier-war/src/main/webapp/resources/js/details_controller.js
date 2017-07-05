@@ -39,7 +39,7 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
             contentType: "application/json; charset=utf-8",
             url: "buy",
             data: ({itemId : id, quantity : quantity}),
-            success: function() {
+            success() {
                 $scope.updateIndex();
                 //$location.path("/laba/shop");
             }
@@ -51,7 +51,7 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
             contentType: "application/json; charset=utf-8",
             url: "http://localhost:7001/laba/addToCart",
             data: ({itemId : id}),
-            success: function() {
+            success() {
                 $scope.updateIndex();
             }
         });

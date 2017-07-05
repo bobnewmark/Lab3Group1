@@ -50,7 +50,6 @@ App.factory("ItemService", ["$http", "$q", function($http, $q){
                     deferred.resolve(response.data);
                 },
                 function(errResponse){
-                    console.error("Error while creating User");
                     deferred.reject(errResponse);
                 }
             );
@@ -81,7 +80,6 @@ App.factory("ItemService", ["$http", "$q", function($http, $q){
                     deferred.resolve(response.data);
                 },
                 function(errResponse){
-                    console.error("Error while deleting User");
                     deferred.reject(errResponse);
                 }
             );
@@ -97,7 +95,7 @@ App.factory("ItemService", ["$http", "$q", function($http, $q){
             console.dir(file[key]);
         });
         $http.post(url, fd, {
-            transformRequest: function(data, headersGetterFunction) {
+            transformRequest (data, headersGetterFunction) {
                 return data;
             },
             headers: {"Content-Type": undefined}

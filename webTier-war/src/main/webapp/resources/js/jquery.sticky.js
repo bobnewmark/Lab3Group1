@@ -14,10 +14,10 @@
     var defaults = {
             topSpacing: 0,
             bottomSpacing: 0,
-            className: 'is-sticky',
-            wrapperClassName: 'sticky-wrapper',
+            className: "is-sticky",
+            wrapperClassName: "sticky-wrapper",
             center: false,
-            getWidthFrom: '',
+            getWidthFrom: "",
             responsiveWidth: false
         },
         $window = $(window),

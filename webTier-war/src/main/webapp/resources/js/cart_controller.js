@@ -74,7 +74,6 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
                 self.checkoutMap[item.num] = item.qty;
             }, 0);
         } catch (err) {
-            console.log("err: " + err);
         }
 
         ItemService.createItem(self.checkoutMap, "checkout")

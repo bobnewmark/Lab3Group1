@@ -63,7 +63,6 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         self.item = $scope.selectedItem;
     }
     function setParent() {
-        console.log($scope.selectedItem);
         self.type.parent = {id: null};
         self.type.parent.id = $scope.selectedItem;
     }
@@ -86,7 +85,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
                     self.icons = d;
                 },
                 function (errResponse) {
-                    console.error('Error while fetching Users');
+                    console.error('Error while fetching icons');
                 }
             );
     }
@@ -160,7 +159,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
             contentType: "application/json; charset=utf-8",
             url: "addToCart",
             data: ({itemId: id}),
-            success: function () {
+            success () {
                 $scope.updateIndex();
             }
         });
@@ -301,8 +300,6 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         }catch(e){
             $scope.selectedItem = '';
         }
-        console.log($scope.selectedItem);
-        console.log(self.type);
         $scope.typeForm.$setPristine();
     }
     function setIcon(name) {
@@ -328,7 +325,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
 }])
     .directive("fileModel", ["$parse", function ($parse) {
         return {
-            restrict: 'A',
+            restrict: "A",
             link: function (scope, element, attrs) {
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
@@ -342,9 +339,9 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     }])
     .directive("owlCarousel", function ($window) {
         return {
-            restrict: 'E',
+            restrict: "E",
             transclude: false,
-            link: function (scope) {
+            link (scope) {
                 scope.initCarousel = function (element) {
                     var defaultOptions = {};
                     var options = {
@@ -378,7 +375,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         return {
             restrict: 'A',
             transclude: false,
-            link: function (scope, element) {
+            link (scope, element) {
                 // wait for the last item in the ng-repeat then call init
                 scope.$watch("item", function () {
                     if ($(element.parent()).data('owlCarousel') === undefined) {
