@@ -4,17 +4,24 @@ package com.lab.account.web;
 import com.shop.database.entities.*;
 import com.shop.database.entities.Object;
 import com.shop.database.exceptions.RegistrationException;
-import com.shop.database.services.*;
+import com.shop.database.services.ObjectService;
+import com.shop.database.services.ObjectTypeService;
+import com.shop.database.services.SecurityService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import java.util.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 
+/**
+ * <code>UserController</code> is a controller to handle user-related operations.
+ */
 @Controller
 public class UserController {
     @Autowired
@@ -26,15 +33,23 @@ public class UserController {
 
     private final static Logger LOGGER = Logger.getLogger(UserController.class);
 
-    @Autowired
-    private Tools tools;
-
+    /**
+     * Takes user to the login page.
+     * @param model carries inner jsp
+     * @return outer page with it
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
         return "index";
     }
 
+    /**
+     * Method for registering new user in the database. It also creates user's shopping cart
+     * and automatically performs sign in after user is created.
+     * @param user is a new user to register sent from client
+     * @return confirmation ResponseEntity
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ResponseEntity<Object> registration(@RequestBody Object user) {
         for (Parameter param : user.getParameters()) {
@@ -67,6 +82,10 @@ public class UserController {
     }
 
 
+    /**
+     * Method returns new Object of user type
+     * @return blank user
+     */
     @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
     public ResponseEntity<Object> user() {
         ObjectType type = objectTypeService.findById(6);
@@ -82,6 +101,13 @@ public class UserController {
         return new ResponseEntity<>(obj, HttpStatus.OK);
     }
 
+    /**
+     * Method for logging in/out actions. Depending on the result, user gets a message.
+     * @param model is a Model for sending data back to client
+     * @param error in case of incorrect user/password
+     * @param logout in case of logging out
+     * @return login page
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null)
@@ -91,5 +117,4 @@ public class UserController {
         model.addAttribute("current", "/WEB-INF/views/login.jsp");
         return "login";
     }
-
 }
