@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
 
-    $('.brand-list').owlCarousel({
+    $(".brand-list").owlCarousel({
         loop: true,
         nav: true,
         margin: 20,
@@ -19,23 +19,23 @@ jQuery(document).ready(function ($) {
     });
 
     // Bootstrap Mobile Menu fix
-    $('.navbar-nav li a').click(function () {
-        $(".navbar-collapse").removeClass('in');
+    $(".navbar-nav li a").click(function () {
+        $(".navbar-collapse").removeClass("in");
     });
 
     // jQuery Scroll effect
-    $('.navbar-nav li a, .scroll-to-up').bind('click', function (event) {
-        var $anchor = $(this);
-        var headerH = $('.header-area').outerHeight();
-        $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top - headerH + "px"
+    $(".navbar-nav li a, .scroll-to-up").bind("click", function (event) {
+        let $anchor = $(this);
+        let headerH = $(".header-area").outerHeight();
+        $("html, body").stop().animate({
+            scrollTop: $($anchor.attr("href")).offset().top - headerH + "px"
         }, 1200, "easeInOutExpo");
 
         event.preventDefault();
     });
 
     // Bootstrap ScrollPSY
-    $('body').scrollspy({
+    $("body").scrollspy({
         target: ".navbar-collapse",
         offset: 95
     })
@@ -52,7 +52,7 @@ jQuery(document).ready(function ($) {
     a.async = 1;
     a.src = g;
     m.parentNode.insertBefore(a, m)
-})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+})(window, document, "script", "https://www.google-analytics.com/analytics.js", "ga");
 
-ga('create', 'UA-10146041-21', 'auto');
-ga('send', 'pageview');
+ga("create", "UA-10146041-21", "auto");
+ga("send", "pageview");

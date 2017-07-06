@@ -537,7 +537,9 @@ body {
 
 .product-carousel-price ins {
     color: #5a88ca;
-    font-weight: 700;
+    font-weight: 500;
+    font-size: xx-large;
+    font-kerning: auto;
     margin-right: 5px;
     text-decoration: none;
 }
@@ -674,7 +676,9 @@ body {
 
 .product-wid-price ins {
     color: #5a88ca;
-    font-weight: 700;
+    font-weight: 500;
+    font-size: xx-large;
+    font-kerning: auto;
     margin-right: 10px;
     text-decoration: none;
 }
@@ -962,7 +966,9 @@ input[type="submit"]:hover, button[type=submit]:hover {
 
 .product-sidebar-price > ins {
     color: #5a88ca;
-    font-weight: 700;
+    font-weight: 500;
+    font-size: xx-large;
+    font-kerning: auto;
     margin-right: 10px;
     text-decoration: none;
 }
@@ -1029,7 +1035,9 @@ input[type="submit"]:hover, button[type=submit]:hover {
 
 .product-inner-price > ins {
     color: #5a88ca;
-    font-weight: 700;
+    font-weight: 500;
+    font-size: xx-large;
+    font-kerning: auto;
     margin-right: 10px;
     text-decoration: none;
 }

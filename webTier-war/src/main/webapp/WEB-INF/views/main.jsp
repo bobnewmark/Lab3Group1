@@ -76,7 +76,9 @@
                             </div>
                             <h2 ng-bind="p.mapParameters.name.value"></h2>
                             <div class="product-carousel-price">
-                                <ins ng-bind="p.mapParameters.price.value"></ins>
+                                <div style="text-align: center; vertical-align: middle;">
+                                    <ins ng-bind="'₴ '+p.mapParameters.price.value"></ins>
+                                </div>
                                 <div class="admin" data-toggle="modal" data-target="#editModal"
                                      ng-click="ctrl.edit(p.id)"><i class="fa fa-pencil-square-o admin-edit"></i> edit
                                 </div>

@@ -60,8 +60,8 @@
                             <img ng-src="${contextPath}{{p.mapParameters.icon.value}}" alt="">
                         </div>
                         <h2><a href="${contextPath}/details/{{p.id}}" target="_self">{{p.mapParameters.name.value}}</a></h2>
-                        <div class="product-carousel-price">
-                            <ins ng-bind="p.mapParameters.price.attribute.name+': '+p.mapParameters.price.value"></ins>
+                        <div class="product-carousel-price" style="text-align: center; vertical-align: middle;">
+                            <ins ng-bind="'₴ '+p.mapParameters.price.value"></ins>
                         </div>
 
                         <div class="product-option-shop">

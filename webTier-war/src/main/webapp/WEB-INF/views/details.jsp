@@ -49,8 +49,7 @@
                             <div class="product-inner">
                                 <h2 class="product-name">{{ctrl.items.mapParameters.name.value}}</h2>
                                 <div class="product-inner-price">
-                                    <ins>Price: {{ctrl.items.mapParameters.price.value}}</ins>
-                                    <del></del>
+                                    <ins>₴ {{ctrl.items.mapParameters.price.value}}</ins>
                                 </div>
                                 <form ng-submit="ctrl.buy(ctrl.items.id, quant)" class="cart">
                                     <div class="quantity">

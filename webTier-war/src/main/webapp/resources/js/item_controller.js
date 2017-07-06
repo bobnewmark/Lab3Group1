@@ -1,12 +1,12 @@
 "use strict";
 App.controller("ItemController", ["$scope", "ItemService", "$location", function ($scope, ItemService, $location) {
-    var self = this;
-    var REST_SERVICE_URI = map[$location.path()];
-    var TYPES_URI = "/laba/types/";
-    var BRANDS_URI = "/laba/brands/";
-    var keyword = "";
+    let self = this;
+    let REST_SERVICE_URI = map[$location.path()];
+    let TYPES_URI = "/laba/types/";
+    let BRANDS_URI = "/laba/brands/";
+    let keyword = "";
     keyword = $location.search()["keyword"];
-    var file = $scope.myFile;
+    let file = $scope.myFile;
     self.item = {
         id: null, name: "", objectType: {id: null}, parameters: [
             {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
@@ -25,9 +25,9 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         id: null,
         name: "",
         parent: {},
-        icon: 'fa fa-picture-o',
+        icon: "fa fa-picture-o",
         product: true,
-        attributes: [{id: null, name: '', objectType: {id: null}}]
+        attributes: [{id: null, name: "", objectType: {id: null}}]
     };
     self.files = [];
     self.count = 0;
@@ -85,7 +85,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
                     self.icons = d;
                 },
                 function (errResponse) {
-                    console.error('Error while fetching icons');
+                    console.error("Error while fetching icons");
                 }
             );
     }
@@ -213,8 +213,8 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
 
     function submit() {
             updateItem(self.item);
-            angular.element(document.querySelector('#addModal')).modal('hide');
-            angular.element(document.querySelector('#editModal')).modal('hide');
+            angular.element(document.querySelector("#addModal")).modal("hide");
+            angular.element(document.querySelector("#editModal")).modal("hide");
             resetAdd();
             reset();
     }
@@ -226,7 +226,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
                     console.error("Error while updating User");
                 }
             );
-        angular.element(document.querySelector('#editTypesModal')).modal('hide');
+        angular.element(document.querySelector("#editTypesModal")).modal("hide");
         resetType();
     }
 
@@ -284,11 +284,11 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         }
         self.type = {
             id: null,
-            name: '',
+            name: "",
             parent: {id: null},
-            icon: 'fa fa-picture-o',
+            icon: "fa fa-picture-o",
             product: true,
-            attributes: [{id: null, name: '', objectType: {id: null}}]
+            attributes: [{id: null, name: "", objectType: {id: null}}]
         };
         $scope.typeForm.$setPristine();
     }
@@ -298,7 +298,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         try {
             $scope.selectedItem = type.parent.id;
         }catch(e){
-            $scope.selectedItem = '';
+            $scope.selectedItem = "";
         }
         $scope.typeForm.$setPristine();
     }
@@ -329,7 +329,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
             link: function (scope, element, attrs) {
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
-                element.bind('change', function () {
+                element.bind("change", function () {
                     scope.$apply(function () {
                         modelSetter(scope, element[0].files[0]);
                     });
@@ -357,7 +357,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
                             1180: {items: 4}
                         }
                     };
-                    var customOptions = scope.$eval($(element).attr('data-options'));
+                    var customOptions = scope.$eval($(element).attr("data-options"));
                     // combine the two options objects
                     for (var key in customOptions) {
                         defaultOptions[key] = customOptions[key];
@@ -365,26 +365,26 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
                     $(element).owlCarousel(options);
                 };
                 scope.destroy = function (element) {
-                    $(element).data('owlCarousel').destroy();
+                    $(element).data("owlCarousel").destroy();
                 };
 
             }
         };
     })
-    .directive('owlCarouselItem', [function () {
+    .directive("owlCarouselItem", [function () {
         return {
-            restrict: 'A',
+            restrict: "A",
             transclude: false,
             link (scope, element) {
                 // wait for the last item in the ng-repeat then call init
                 scope.$watch("item", function () {
-                    if ($(element.parent()).data('owlCarousel') === undefined) {
+                    if ($(element.parent()).data("owlCarousel") === undefined) {
                         if (scope.$last) {
                             scope.initCarousel(element.parent());
                         }
                     } else {
                         scope.destroy(element.parent());
-                        var queryResult = element[0].querySelector('.owl-stage:last-child');
+                        var queryResult = element[0].querySelector(".owl-stage:last-child");
                         var stage = angular.element(queryResult);
                     }
                 });
