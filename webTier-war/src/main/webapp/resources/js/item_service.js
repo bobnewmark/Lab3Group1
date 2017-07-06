@@ -20,7 +20,6 @@ App.factory("ItemService", ["$http", "$q", function($http, $q){
                     deferred.resolve(response.data);
                 },
                 function(errResponse){
-                    console.error("Error while fetching Users");
                     deferred.reject(errResponse);
                 }
             );
@@ -35,7 +34,6 @@ App.factory("ItemService", ["$http", "$q", function($http, $q){
                     deferred.resolve(response.data);
                 },
                 function(errResponse){
-                    console.error("Error while fetching Users");
                     deferred.reject(errResponse);
                 }
             );
@@ -65,7 +63,6 @@ App.factory("ItemService", ["$http", "$q", function($http, $q){
                     deferred.resolve(response.data);
                 },
                 function(errResponse){
-                    console.error("Error while updating User");
                     deferred.reject(errResponse);
                 }
             );
@@ -92,7 +89,6 @@ App.factory("ItemService", ["$http", "$q", function($http, $q){
         fd.append("id", id);
         Object.keys(file).forEach(function(key) {
             fd.append(key, file[key]);
-            console.dir(file[key]);
         });
         $http.post(url, fd, {
             transformRequest (data, headersGetterFunction) {
@@ -105,7 +101,6 @@ App.factory("ItemService", ["$http", "$q", function($http, $q){
                     deferred.resolve(response.data);
                 },
                 function(errResponse){
-                    console.error("Error while updating User");
                     deferred.reject(errResponse);
                 }
             );

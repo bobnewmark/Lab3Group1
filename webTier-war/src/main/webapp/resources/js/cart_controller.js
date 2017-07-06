@@ -37,9 +37,6 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
                 function (d) {
                     self.items = d;
                     $scope.updateIndex();
-                },
-                function (errResponse) {
-                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -53,7 +50,6 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
             }
         return iCount;
     }
-
 
     function total() {
         try {
@@ -85,9 +81,6 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
                         $scope.tooMuch = 0;
                     }
                     fetchAllItems();
-                },
-                function (errResponse) {
-                    console.error("Error while checkout");
                 }
             );
     }
@@ -95,10 +88,7 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
     function deleteItem(id) {
         ItemService.deleteItem(id, REST_SERVICE_URI)
             .then(
-                fetchAllItems,
-                function (errResponse) {
-                    console.error("Error while deleting item");
-                }
+                fetchAllItems
             );
     }
 

@@ -27,9 +27,6 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
                 function(d) {
                     self.items = d;
                     fetchRelated();
-                },
-                function(errResponse){
-                    console.error("Error while fetching detailed info");
                 }
             );
     }
@@ -62,9 +59,6 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
             .then(
                 function(d) {
                     self.related = d;
-                },
-                function(errResponse){
-                    console.error("Error while fetching Users");
                 }
             );
     }

@@ -30,7 +30,6 @@ App.factory("Service", ["$http", "$q", "$window", function ($http, $q, $window) 
                     $window.location.href = "/laba/";
                 },
                 function (errResponse) {
-                    console.error("Error while creating User");
                     deferred.reject(errResponse);
                     $window.location.href = "/laba/registration?reg-err";
                 }
@@ -46,7 +45,6 @@ App.factory("Service", ["$http", "$q", "$window", function ($http, $q, $window) 
                     deferred.resolve(response.data);
                 },
                 function (errResponse) {
-                    console.error("Error while fetching Users");
                     deferred.reject(errResponse);
                 }
             );
@@ -69,9 +67,6 @@ App.controller("mainController", ["$scope", "Service", "$location", function ($s
             .then(
                 function (d) {
                     self.item = d;
-                },
-                function (errResponse) {
-                    console.error("Error while fetching User");
                 }
             );
     }

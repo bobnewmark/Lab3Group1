@@ -26,9 +26,6 @@ App.controller("SearchController", ["$scope", "ItemService", "$location", functi
             .then(
                 function (d) {
                     self.items = d;
-                },
-                function (errResponse) {
-                    console.error("Error while fetching detailed info");
                 }
             );
     }
@@ -49,9 +46,6 @@ App.controller("SearchController", ["$scope", "ItemService", "$location", functi
             .then(
                 function (d) {
                     self.related = d;
-                },
-                function (errResponse) {
-                    console.error("Error while fetching related");
                 }
             );
     }

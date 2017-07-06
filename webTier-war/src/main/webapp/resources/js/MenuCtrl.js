@@ -39,9 +39,6 @@ App.directive("setClassWhenAtTop", function ($window) {
             .then(
                 function (d) {
                     $("#cartNum").html(d);
-                },
-                function (errResponse) {
-                    console.error("Error while fetching cart index");
                 }
             );
     }

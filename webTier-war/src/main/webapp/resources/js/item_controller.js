@@ -72,9 +72,6 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
             .then(
                 function (d) {
                     self.items = d;
-                },
-                function (errResponse) {
-                    console.error("Error while fetching " + name);
                 }
             );
     }
@@ -83,9 +80,6 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
             .then(
                 function (d) {
                     self.icons = d;
-                },
-                function (errResponse) {
-                    console.error("Error while fetching icons");
                 }
             );
     }
@@ -103,9 +97,6 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
             .then(
                 function (d) {
                     self.items = d;
-                },
-                function (errResponse) {
-                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -123,9 +114,6 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
             .then(
                 function (d) {
                     self.items = d;
-                },
-                function (errResponse) {
-                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -135,9 +123,6 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
             .then(
                 function (d) {
                     self.types = d;
-                },
-                function (errResponse) {
-                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -147,9 +132,6 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
             .then(
                 function (d) {
                     self.brands = d;
-                },
-                function (errResponse) {
-                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -170,9 +152,6 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
             .then(
                 function (d) {
                     self.items = d;
-                },
-                function (errResponse) {
-                    console.error("Error while fetching Users");
                 }
             );
     }
@@ -180,30 +159,21 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     function createItem(item) {
         ItemService.createItem(item, "/laba/phone/")
             .then(
-                uploadFile,
-                function (errResponse) {
-                    console.error("Error while creating Item");
-                }
+                uploadFile
             );
     }
 
     function updateItem(item) {
         ItemService.updateItem(item, "/laba/phone/")
             .then(
-                uploadFile,
-                function (errResponse) {
-                    console.error("Error while updating User");
-                }
+                uploadFile
             );
     }
 
     function deleteItem(id) {
         ItemService.deleteItem(id, "/laba/phone/")
             .then(
-                fetchAllItems,
-                function (errResponse) {
-                    console.error("Error while deleting User");
-                }
+                fetchAllItems
             );
     }
 
@@ -221,10 +191,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     function submitType() {
         ItemService.updateItem(self.type, "/laba/save-type/")
             .then(
-                fetchAllTypes,
-                function (errResponse) {
-                    console.error("Error while updating User");
-                }
+                fetchAllTypes
             );
         angular.element(document.querySelector("#editTypesModal")).modal("hide");
         resetType();
@@ -315,10 +282,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         var uploadUrl = "/laba/fileUpload";
         ItemService.uploadFileToUrl(self.files, uploadUrl, data)
             .then(
-                fetchAllItems,
-                function (errResponse) {
-                    console.error("Error while upload file");
-                }
+                fetchAllItems
             );
     }
 
