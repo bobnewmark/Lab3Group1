@@ -15,7 +15,11 @@
         </div>
     </div>
 </div>
-
+<sec:authorize access="hasAnyRole('ADMIN')">
+    <div ng-controller="ItemController as ctrl">
+        <jsp:include page="/WEB-INF/views/modal.jsp" flush="true"></jsp:include>
+    </div>
+</sec:authorize>
 <div class="single-product-area" ng-app="myApp" ng-controller="DetailsController as ctrl" ng-cloak>
     <div class="zigzag-bottom"></div>
     <div class="container">
@@ -49,8 +53,7 @@
                             <div class="product-inner">
                                 <h2 class="product-name">{{ctrl.items.mapParameters.name.value}}</h2>
                                 <div class="product-inner-price">
-                                    <ins>Price: {{ctrl.items.mapParameters.price.value}}</ins>
-                                    <del></del>
+                                    <ins>₴ {{ctrl.items.mapParameters.price.value}}</ins>
                                 </div>
                                 <form ng-submit="ctrl.buy(ctrl.items.id, quant)" class="cart">
                                     <div class="quantity">

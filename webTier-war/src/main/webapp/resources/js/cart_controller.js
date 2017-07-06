@@ -37,26 +37,17 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
                 function (d) {
                     self.items = d;
                     $scope.updateIndex();
-                },
-                function (errResponse) {
-                    console.error("Error while fetching Users");
                 }
             );
     }
 
     function getCount(i) {
         var iCount = iCount || 0;
-        for (var item in this.items) {
-            for (var level1 in this.items[item]) {
-                for (var level2 in this.items[item][level1]) {
-                    for (var level3 in this.items[item][level1][level2]) {
-                        if (this.items[item][level1][level2][level3] == i) {
-                            iCount++;
-                        }
-                    }
+            for (var y = 0; y < this.items["references"].length; y++) {
+                if (this.items["references"][y]["refObject"]["id"] === i) {
+                    iCount++;
                 }
             }
-        }
         return iCount;
     }
 
@@ -79,21 +70,17 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
                 self.checkoutMap[item.num] = item.qty;
             }, 0);
         } catch (err) {
-            console.log("err: " + err);
         }
 
         ItemService.createItem(self.checkoutMap, "checkout")
             .then(
-                function(d) {
+                function (d) {
                     if (d.toString().length > 0) {
                         $scope.tooMuch = 1;
                     } else {
                         $scope.tooMuch = 0;
                     }
                     fetchAllItems();
-                },
-                function(errResponse){
-                    console.error("Error while checkout");
                 }
             );
     }
@@ -101,17 +88,11 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
     function deleteItem(id) {
         ItemService.deleteItem(id, REST_SERVICE_URI)
             .then(
-                fetchAllItems,
-                function (errResponse) {
-                    console.error("Error while deleting item");
-                }
+                fetchAllItems
             );
     }
 
     function remove(id) {
-        if (self.item.id === id) {
-            reset();
-        }
         deleteItem(id);
     }
 }])

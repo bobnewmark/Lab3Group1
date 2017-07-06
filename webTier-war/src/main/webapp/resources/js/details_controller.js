@@ -27,9 +27,6 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
                 function(d) {
                     self.items = d;
                     fetchRelated();
-                },
-                function(errResponse){
-                    console.error("Error while fetching detailed info");
                 }
             );
     }
@@ -39,7 +36,7 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
             contentType: "application/json; charset=utf-8",
             url: "buy",
             data: ({itemId : id, quantity : quantity}),
-            success: function() {
+            success() {
                 $scope.updateIndex();
                 //$location.path("/laba/shop");
             }
@@ -51,7 +48,7 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
             contentType: "application/json; charset=utf-8",
             url: "http://localhost:7001/laba/addToCart",
             data: ({itemId : id}),
-            success: function() {
+            success() {
                 $scope.updateIndex();
             }
         });
@@ -62,9 +59,6 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
             .then(
                 function(d) {
                     self.related = d;
-                },
-                function(errResponse){
-                    console.error("Error while fetching Users");
                 }
             );
     }

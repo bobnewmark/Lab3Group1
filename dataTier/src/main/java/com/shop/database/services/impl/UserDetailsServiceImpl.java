@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private ObjectRepository objectRepository;
 
-    private final static Logger logger = Logger.getLogger(UserDetailsServiceImpl.class);
+    private final static Logger LOGGER = Logger.getLogger(UserDetailsServiceImpl.class);
 
     /**
      * Loads user by his unique username for autologin.
@@ -42,16 +42,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         try {
             user = objectRepository.findByAttrAndObjectType("user", "login", username).get(0);
         } catch (IndexOutOfBoundsException e) {
-            logger.info("Couldn't find user for autologin, creating new one, exception: ", e);
+            LOGGER.info("Couldn't find user for autologin, creating new one, exception: ", e);
             user = new Object();
         }
         for (Parameter par : user.getParameters()) {
             user.getMapParameters().put(par.getAttribute().getName(), par);
         }
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getMapParameters().get("role").getValue()));
-        System.out.println("UserDetailsServiceImpl  " + user.getMapParameters().get("role").getValue());
         return new org.springframework.security.core.userdetails.User(user.getMapParameters().get("login").getValue(), user.getMapParameters().get("password").getValue(), grantedAuthorities);
     }
 }

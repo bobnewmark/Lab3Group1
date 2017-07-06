@@ -5,28 +5,26 @@ import com.shop.database.services.ObjectService;
 import com.shop.database.services.SecurityService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 /**
- * <code>SecurityServiceImpl</code> is a class for managing main user actions as log in, sign in,
+ * <code>SecurityServiceImpl</code> is a class for managing main user actions as log in,
  * finding user in the database, accessing user's shopping cart.
  */
 @Service
 public class SecurityServiceImpl implements SecurityService {
     @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
     private ObjectService objectService;
     @Autowired
     private UserDetailsService userDetailsService;
-
-    private static final Logger logger = Logger.getLogger(SecurityServiceImpl.class);
 
     @Override
     public String findLoggedInUsername() {
@@ -46,19 +44,21 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public Object getCart() {
-        Object cart = null;
-        try {
-            cart = objectService.findByParent(getUser()).get(0);
-        } catch (Exception ignored) {
+        if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken){
+            return null;
         }
-        return cart;
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if ("ADMIN".equals(auth.getAuthority())) {
+                return null;
+            }
+        }
+        return objectService.findByParent(getUser()).get(0); /*TODO: throw IndexOutOfBoundsException if role Admin*/
     }
 
     @Override
     public void autologin(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-        //authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }

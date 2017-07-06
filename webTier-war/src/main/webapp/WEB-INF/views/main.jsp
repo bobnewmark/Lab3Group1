@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <div class="slider-area">
     <!-- Slider -->
@@ -76,20 +77,28 @@
                             </div>
                             <h2 ng-bind="p.mapParameters.name.value"></h2>
                             <div class="product-carousel-price">
-                                <ins ng-bind="p.mapParameters.price.value"></ins>
-                                <div class="admin" data-toggle="modal" data-target="#editModal"
-                                     ng-click="ctrl.edit(p.id)"><i class="fa fa-pencil-square-o admin-edit"></i> edit
+                                <div style="text-align: center; vertical-align: middle;">
+                                    <ins ng-bind="'₴ '+p.mapParameters.price.value"></ins>
                                 </div>
-                                <div class="admin" ng-click="ctrl.remove(p.id)"><i class="fa fa-times admin-del"></i>
-                                    delete
-                                </div>
-                                <div class="admin" data-toggle="modal" data-target="#addModal"
-                                     ng-click="ctrl.resetAdd()"><i class="fa fa-plus admin-edit"></i> add
-                                </div>
+                                <sec:authorize access="hasAnyRole('ADMIN')">
+                                    <div class="admin" data-toggle="modal" data-target="#editModal"
+                                         ng-click="ctrl.edit(p.id)"><i class="fa fa-pencil-square-o admin-edit"></i>
+                                        edit
+                                    </div>
+                                    <div class="admin" ng-click="ctrl.remove(p.id)"><i
+                                            class="fa fa-times admin-del"></i>
+                                        delete
+                                    </div>
+                                    <div class="admin" data-toggle="modal" data-target="#addModal"
+                                         ng-click="ctrl.resetAdd()"><i class="fa fa-plus admin-edit"></i> add
+                                    </div>
+                                </sec:authorize>
                             </div>
                         </div>
                     </data-owl-carousel>
-                    <jsp:include page="/WEB-INF/views/modal.jsp" flush="true"></jsp:include>
+                    <sec:authorize access="hasAnyRole('ADMIN')">
+                        <jsp:include page="/WEB-INF/views/modal.jsp" flush="true"></jsp:include>
+                    </sec:authorize>
                 </div>
             </div>
         </div>

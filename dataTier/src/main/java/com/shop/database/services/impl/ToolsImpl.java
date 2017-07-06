@@ -32,4 +32,15 @@ public class ToolsImpl implements Tools {
         }
         return message;
     }
+
+    @Override
+    public String getRootPath() {
+        String resourcePath = null;
+        if(System.getProperty("os.name").toLowerCase().contains("Linux".toLowerCase())) {
+            resourcePath = "/home/folderForLab3Images/";
+        }else if (System.getProperty("os.name").toLowerCase().contains("Windows".toLowerCase())){
+            resourcePath = "C:/folderForLab3Images/";
+        }
+        return resourcePath;
+    }
 }

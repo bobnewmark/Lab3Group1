@@ -26,6 +26,7 @@
     <link href="<c:url value='/resources/css/style.css' />" rel="stylesheet">
     <link href="<c:url value='/resources/css/responsive.css' />" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://code.jquery.com/jquery.min.js"></script>
 
     <!-- Bootstrap JS form CDN -->
@@ -55,17 +56,25 @@
                             <li><a href="${contextPath}/registration" target="_self"><i class="fa fa-sign-in"></i>
                                 SignIn</a></li>
                         </sec:authorize>
-                        <sec:authorize access="isAuthenticated()">
+                        <sec:authorize access="hasAnyRole('USER')">
                             <li><a href="${contextPath}/cart" target="_self"><i class="fa fa-shopping-cart"></i> My Cart<span
                                     id="cartNum" class="product-count">
                                     </span></a></li>
-                            <li><p style="color: royalblue">Вы вошли как: <i class="fa fa-user"></i> <sec:authentication
+                            <li><p style="color: royalblue">Log In: <i class="fa fa-user"></i> <sec:authentication
                                     property="principal.username"/></p></li>
                             <li><a href="${contextPath}/logout" target="_self"><i class="fa fa-sign-out"></i> Logout
                             </a></li>
                         </sec:authorize>
-                        <li><p style="color: royalblue" data-toggle="modal" data-target="#typesModal">Добавить тип <i
-                                class="fa fa-plus"></i></p></li>
+                        <sec:authorize access="hasAnyRole('ADMIN')">
+                            <li><a style="color: red">Log In: <i class="fa fa-user"></i> <sec:authentication
+                                    property="principal.username"/></a></li>
+                            <li><a href="${contextPath}/logout" target="_self"><i class="fa fa-sign-out"></i> Logout
+                            </a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#editTypesModal"><i
+                                    class="fa fa-plus"></i> Edit Types</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#addModal" ng-click="ctrl.resetAdd()"><i
+                                    class="fa fa-plus  admin-edit"></i> Add Object</a></li>
+                        </sec:authorize>
                     </ul>
                 </div>
             </div>
