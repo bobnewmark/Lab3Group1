@@ -56,7 +56,7 @@
                             <li><a href="${contextPath}/registration" target="_self"><i class="fa fa-sign-in"></i>
                                 SignIn</a></li>
                         </sec:authorize>
-                        <sec:authorize access="isAuthenticated()">
+                        <sec:authorize access="hasAnyRole('USER')">
                             <li><a href="${contextPath}/cart" target="_self"><i class="fa fa-shopping-cart"></i> My Cart<span
                                     id="cartNum" class="product-count">
                                     </span></a></li>
@@ -65,8 +65,16 @@
                             <li><a href="${contextPath}/logout" target="_self"><i class="fa fa-sign-out"></i> Logout
                             </a></li>
                         </sec:authorize>
-                        <li><a href="#" data-toggle="modal" data-target="#editTypesModal"><i
-                                class="fa fa-plus"></i> Edit Types</a></li>
+                        <sec:authorize access="hasAnyRole('ADMIN')">
+                            <li><a style="color: red">Log In: <i class="fa fa-user"></i> <sec:authentication
+                                    property="principal.username"/></a></li>
+                            <li><a href="${contextPath}/logout" target="_self"><i class="fa fa-sign-out"></i> Logout
+                            </a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#editTypesModal"><i
+                                    class="fa fa-plus"></i> Edit Types</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#addModal" ng-click="ctrl.resetAdd()"><i
+                                    class="fa fa-plus  admin-edit"></i> Add Object</a></li>
+                        </sec:authorize>
                     </ul>
                 </div>
             </div>

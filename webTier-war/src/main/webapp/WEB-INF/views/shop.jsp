@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <div ng-controller="ItemController as ctrl">
     <div class="product-big-title-area">
@@ -70,19 +71,24 @@
                                 {{p.mapParameters.quantity.value == '0' ? 'SOLD OUT' : 'Add to cart'}}
                             </a>
                         </div>
-                        <div class="admin" data-toggle="modal" data-target="#editModal" ng-click="ctrl.editPage(p.id)">
-                            <i
-                                    class="fa fa-pencil-square-o admin-edit"></i> edit
-                        </div>
-                        <div class="admin" ng-click="ctrl.remove(p.id)"><i class="fa fa-times admin-del"></i> delete
-                        </div>
-                        <div class="admin" data-toggle="modal" data-target="#addModal" ng-click="ctrl.resetAdd()"><i
-                                class="fa fa-plus admin-edit"></i> add
-                        </div>
+                        <sec:authorize access="hasAnyRole('ADMIN')">
+                            <div class="admin" data-toggle="modal" data-target="#editModal"
+                                 ng-click="ctrl.editPage(p.id)">
+                                <i
+                                        class="fa fa-pencil-square-o admin-edit"></i> edit
+                            </div>
+                            <div class="admin" ng-click="ctrl.remove(p.id)"><i class="fa fa-times admin-del"></i> delete
+                            </div>
+                            <div class="admin" data-toggle="modal" data-target="#addModal" ng-click="ctrl.resetAdd()"><i
+                                    class="fa fa-plus admin-edit"></i> add
+                            </div>
+                        </sec:authorize>
                     </div>
                 </div>
             </div>
-            <jsp:include page="/WEB-INF/views/modal.jsp" flush="true"></jsp:include>
+            <sec:authorize access="hasAnyRole('ADMIN')">
+                <jsp:include page="/WEB-INF/views/modal.jsp" flush="true"></jsp:include>
+            </sec:authorize>
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-pagination text-center">

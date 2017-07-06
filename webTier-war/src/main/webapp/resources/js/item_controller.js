@@ -7,27 +7,16 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     let keyword = "";
     keyword = $location.search()["keyword"];
     let file = $scope.myFile;
-    self.item = {
-        id: null, name: "", objectType: {id: null}, parameters: [
-            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
-            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
-            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
-            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
-            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
-            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
-            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
-            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}},
-            {id: null, value: "", attribute: {id: null, name: ""}, object: {id: null}}], parent: {}
-    };
+    self.item = {id: null, name: "", objectType: null, parameters: [], parent: {}};
     self.items = {number: 0, content: []};
     self.types = [];
     self.type = {
         id: null,
         name: "",
-        parent: {},
+        parent: null,
         icon: "fa fa-picture-o",
         product: true,
-        attributes: [{id: null, name: "", objectType: {id: null}}]
+        attributes: [{id: null, name: "", objectType: null}]
     };
     self.files = [];
     self.count = 0;
@@ -102,12 +91,12 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     }
 
     function fetchAllItems() {
-        var URI = REST_SERVICE_URI;
+        let URI = REST_SERVICE_URI;
         if (REST_SERVICE_URI === "/laba/products") {
-            var n = self.items.number + 1;
+            let n = self.items.number + 1;
             URI = REST_SERVICE_URI + "/" + n;
         } else if (REST_SERVICE_URI === "/laba/request/") {
-            var n = self.items.number + 1;
+            let n = self.items.number + 1;
             URI = REST_SERVICE_URI + keyword + "/" + n;
         }
         ItemService.fetchAllItems(URI)
@@ -198,7 +187,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     }
 
     function edit(id) {
-        for (var i = 0; i < self.items.length; i++) {
+        for (let i = 0; i < self.items.length; i++) {
             if (self.items[i].id === id) {
                 self.item = angular.copy(self.items[i]);
                 break;
@@ -207,7 +196,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     }
 
     function editPage(id) {
-        for (var i = 0; i < self.items.content.length; i++) {
+        for (let i = 0; i < self.items.content.length; i++) {
             if (self.items.content[i].id === id) {
                 self.item = angular.copy(self.items.content[i]);
                 break;
@@ -223,18 +212,7 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
     }
 
     function reset() {
-        self.item = {
-            id: null, name: "", objectType: {id: null}, parameters: [
-                {id: null, value: "", attribute: {id: null, name: "name"}, object: {id: null}},
-                {id: null, value: "", attribute: {id: null, name: "price"}, object: {id: null}},
-                {id: null, value: "", attribute: {id: null, name: "icon"}, object: {id: null}},
-                {id: null, value: "", attribute: {id: null, name: "icon2"}, object: {id: null}},
-                {id: null, value: "", attribute: {id: null, name: "icon3"}, object: {id: null}},
-                {id: null, value: "", attribute: {id: null, name: "OS"}, object: {id: null}},
-                {id: null, value: "", attribute: {id: null, name: "diagonal"}, object: {id: null}},
-                {id: null, value: "", attribute: {id: null, name: "rating"}, object: {id: null}},
-                {id: null, value: "", attribute: {id: null, name: "quantity"}, object: {id: null}}]
-        };
+        self.item = {id: null, name: "", objectType: null, parameters: [], parent: {}};
         $scope.myForm.$setPristine(); //reset Form
     }
 
@@ -252,14 +230,13 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         self.type = {
             id: null,
             name: "",
-            parent: {id: null},
+            parent: null,
             icon: "fa fa-picture-o",
             product: true,
-            attributes: [{id: null, name: "", objectType: {id: null}}]
+            attributes: [{id: null, name: "", objectType: null}]
         };
         $scope.typeForm.$setPristine();
     }
-
     function selectType(type) {
         self.type = type;
         try {
@@ -275,11 +252,15 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         $scope.typeForm.$setPristine();
     }
     function reqIcon() {
-        self.hide=false;
+        if(self.hide === true) {
+            self.hide = false;
+        }else{
+            self.hide = true;
+        }
         $scope.typeForm.$setPristine();
     }
     function uploadFile(data) {
-        var uploadUrl = "/laba/fileUpload";
+        let uploadUrl = "/laba/fileUpload";
         ItemService.uploadFileToUrl(self.files, uploadUrl, data)
             .then(
                 fetchAllItems
@@ -291,8 +272,8 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
         return {
             restrict: "A",
             link: function (scope, element, attrs) {
-                var model = $parse(attrs.fileModel);
-                var modelSetter = model.assign;
+                let model = $parse(attrs.fileModel);
+                let modelSetter = model.assign;
                 element.bind("change", function () {
                     scope.$apply(function () {
                         modelSetter(scope, element[0].files[0]);
@@ -307,8 +288,8 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
             transclude: false,
             link (scope) {
                 scope.initCarousel = function (element) {
-                    var defaultOptions = {};
-                    var options = {
+                    let defaultOptions = {};
+                    let options = {
                         autoplay: false,
                         autoplayTimeout: 2500,
                         loop: false, nav: true,
@@ -321,9 +302,9 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
                             1180: {items: 4}
                         }
                     };
-                    var customOptions = scope.$eval($(element).attr("data-options"));
+                    let customOptions = scope.$eval($(element).attr("data-options"));
                     // combine the two options objects
-                    for (var key in customOptions) {
+                    for (let key in customOptions) {
                         defaultOptions[key] = customOptions[key];
                     }
                     $(element).owlCarousel(options);
@@ -348,8 +329,8 @@ App.controller("ItemController", ["$scope", "ItemService", "$location", function
                         }
                     } else {
                         scope.destroy(element.parent());
-                        var queryResult = element[0].querySelector(".owl-stage:last-child");
-                        var stage = angular.element(queryResult);
+                        let queryResult = element[0].querySelector(".owl-stage:last-child");
+                        let stage = angular.element(queryResult);
                     }
                 });
             }

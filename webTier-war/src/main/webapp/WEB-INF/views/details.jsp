@@ -15,7 +15,11 @@
         </div>
     </div>
 </div>
-
+<sec:authorize access="hasAnyRole('ADMIN')">
+    <div ng-controller="ItemController as ctrl">
+        <jsp:include page="/WEB-INF/views/modal.jsp" flush="true"></jsp:include>
+    </div>
+</sec:authorize>
 <div class="single-product-area" ng-app="myApp" ng-controller="DetailsController as ctrl" ng-cloak>
     <div class="zigzag-bottom"></div>
     <div class="container">

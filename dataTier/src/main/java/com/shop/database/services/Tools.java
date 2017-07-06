@@ -8,4 +8,5 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface Tools {
     String fileUpload(MultipartFile file, String name);
+    String getRootPath();
 }

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <div class="product-big-title-area">
@@ -14,7 +15,11 @@
     </div>
 </div>
 <!-- End Page title area -->
-
+<sec:authorize access="hasAnyRole('ADMIN')">
+<div ng-controller="ItemController as ctrl">
+    <jsp:include page="/WEB-INF/views/modal.jsp" flush="true"></jsp:include>
+</div>
+</sec:authorize>
 <div class="single-product-area" ng-controller="CartController as ctrl">
 
     <div class="zigzag-bottom"></div>
