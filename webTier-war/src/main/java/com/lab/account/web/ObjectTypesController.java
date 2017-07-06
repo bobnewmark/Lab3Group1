@@ -4,8 +4,8 @@ import com.shop.database.entities.Attribute;
 import com.shop.database.entities.Object;
 import com.shop.database.entities.ObjectType;
 import com.shop.database.entities.Parameter;
-import com.shop.database.services.*;
-import org.apache.log4j.Logger;
+import com.shop.database.services.ObjectService;
+import com.shop.database.services.ObjectTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +17,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * <code>ObjectTypesController</code> is a controller to handle administrator object type-related operations.
+ */
 @Controller
 public class ObjectTypesController {
     @Autowired
     private ObjectService objectService;
     @Autowired
     private ObjectTypeService objectTypeService;
-    private final static Logger LOGGER = Logger.getLogger(ObjectTypesController.class);
 
+    /**
+     * Method for saving new object type in database.
+     * @param objectType new object type
+     * @return id of stored object type
+     */
     @RequestMapping(value = "/save-type/", method = RequestMethod.POST)
     public ResponseEntity<Integer> saveType(@RequestBody ObjectType objectType) {
         objectType.setProduct(true);
@@ -36,6 +42,10 @@ public class ObjectTypesController {
         return new ResponseEntity<>(objectType.getId(), HttpStatus.OK);
     }
 
+    /**
+     * Method to get all existing object types.
+     * @return all object types in the database
+     */
     @RequestMapping(value = {"/types"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> types() {
         List<ObjectType> types = objectTypeService.findAll();
@@ -58,6 +68,10 @@ public class ObjectTypesController {
         return new ResponseEntity<>(objects, HttpStatus.OK);
     }
 
+    /**
+     * Method to get icons for different object types.
+     * @return object types icons
+     */
     @RequestMapping(value = {"/my-icons"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> icons() {
         List<Object> icons = objectService.findByObjectType(objectTypeService.findByName("icons"));
