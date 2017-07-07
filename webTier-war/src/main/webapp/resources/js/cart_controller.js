@@ -43,11 +43,11 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
 
     function getCount(i) {
         var iCount = iCount || 0;
-            for (var y = 0; y < this.items["references"].length; y++) {
-                if (this.items["references"][y]["refObject"]["id"] === i) {
-                    iCount++;
-                }
+        for (var y = 0; y < this.items["references"].length; y++) {
+            if (this.items["references"][y]["refObject"]["id"] === i) {
+                iCount++;
             }
+        }
         return iCount;
     }
 
@@ -65,12 +65,9 @@ App.controller("CartController", ["$scope", "ItemService", function ($scope, Ite
     }
 
     function checkout() {
-        try {
-            self.items.references.reduce(function (acc, item) {
-                self.checkoutMap[item.num] = item.qty;
-            }, 0);
-        } catch (err) {
-        }
+        self.items.references.reduce(function (acc, item) {
+            self.checkoutMap[item.num] = item.qty;
+        }, 0);
 
         ItemService.createItem(self.checkoutMap, "checkout")
             .then(
