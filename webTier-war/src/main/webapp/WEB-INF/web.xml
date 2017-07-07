@@ -53,6 +53,6 @@
     </servlet-mapping>
 
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        <listener-class>com.lab.account.listeners.ContextListener</listener-class>
     </listener>
 </web-app>

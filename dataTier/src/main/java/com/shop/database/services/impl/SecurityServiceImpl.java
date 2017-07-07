@@ -44,15 +44,17 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public Object getCart() {
-        if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken){
-            return null;
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if ("USER".equals(auth.getAuthority())) {
+                return objectService.findByParent(getUser()).get(0); /*TODO: throw IndexOutOfBoundsException if role Admin*/
+            }
         }
         for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
             if ("ADMIN".equals(auth.getAuthority())) {
                 return null;
             }
         }
-        return objectService.findByParent(getUser()).get(0); /*TODO: throw IndexOutOfBoundsException if role Admin*/
+        return null;
     }
 
     @Override

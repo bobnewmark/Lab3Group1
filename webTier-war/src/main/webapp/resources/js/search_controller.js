@@ -2,7 +2,7 @@
 App.controller("SearchController", ["$scope", "ItemService", "$location", function ($scope, ItemService, $location) {
     var self = this;
     var keyword = $location.search()["keyword"];
-    var URI = "http://localhost:7001/laba/request/" + keyword;
+    var URI = "/laba/request/" + keyword;
 
     self.item = {
         id: null, name: "", objectType: {id: null}, parameters: [
@@ -33,7 +33,7 @@ App.controller("SearchController", ["$scope", "ItemService", "$location", functi
     function buy(id) {
         $.ajax({
             contentType: "application/json; charset=utf-8",
-            url: "http://localhost:7001/laba/addToCart",
+            url: "/laba/addToCart",
             data: ({itemId: id}),
             success () {
                 $scope.updateIndex();

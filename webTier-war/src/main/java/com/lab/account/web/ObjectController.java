@@ -97,7 +97,6 @@ public class ObjectController {
                 new ResponseEntity(HttpStatus.BAD_REQUEST);
             }
             tools.fileUpload(entry.getValue(), tools.getRootPath() + id + "/" + entry.getKey() + "." + contentEnd);
-            System.out.println(tools.getRootPath() + id + "/" + entry.getKey() + "." + contentEnd);
         }
         return new ResponseEntity(HttpStatus.OK);
     }

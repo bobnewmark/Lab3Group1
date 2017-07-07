@@ -35,12 +35,12 @@
             <span class="icon-bar"></span>
         </div>
         <div class="list-group">
-        <span href="#" class="list-group-item active">
+        <a href="#" ng-click="ctrl.getProducts('')" class="list-group-item active">
             Products
             <span class="pull-right" id="slide-submenu">
                 <i class="fa fa-times"></i>
             </span>
-        </span>
+        </a>
             <a href="#" class="list-group-item" ng-repeat="t in ctrl.types" ng-if="t.objectType.product==true"
                ng-click="ctrl.getProducts(t.objectType.name)">
                 <i class="{{t.objectType.icon}}"></i>
