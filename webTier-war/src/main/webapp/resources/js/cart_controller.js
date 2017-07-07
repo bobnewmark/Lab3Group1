@@ -1,7 +1,7 @@
 "use strict";
 App.controller("CartController", ["$scope", "ItemService", function ($scope, ItemService) {
     var self = this;
-    var REST_SERVICE_URI = "http://localhost:7001/laba/showCart/";
+    var REST_SERVICE_URI = "/laba/showCart/";
 
     self.item = {
         id: null, name: "", objectType: {id: null},

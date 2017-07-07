@@ -44,11 +44,10 @@ public class CartController {
      * @return number of items in the cart
      */
     @RequestMapping(value = "/addToCart", method = RequestMethod.GET)
-    public @ResponseBody
-    String addToCart(@RequestParam int itemId) {
+    public ResponseEntity<Object> addToCart(@RequestParam int itemId) {
         Object cart = securityService.getCart();
         if (cart == null) {
-            return "0";
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         ObjectType cartOT = objectTypeService.findByName("cart");
         Reference item = new Reference(cart, objectService.findById(itemId), "item", attributeService.findByNameAndObjectType("item", cartOT));
@@ -62,7 +61,7 @@ public class CartController {
             cart.getReferences().add(item);
             referenceService.save(item);
         }
-        return String.valueOf(cart.getReferences().size());
+           return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -142,7 +141,6 @@ public class CartController {
         } catch (IOException e) {
             LOGGER.error("Cannot proceed with checkout, ", e);
         }
-
         // Checking if customer is trying to buy too much
         boolean buyingTooMuch = false;
         for (Map.Entry<Integer, Integer> entry : itemsToBuy.entrySet()) {

@@ -2,8 +2,8 @@
 App.controller("DetailsController", ["$scope", "ItemService", "$location", function($scope, ItemService, $location) {
     var self = this;
     var detailId = $location.path().substr($location.path().lastIndexOf("/") + 1 );
-    var URI = "http://localhost:7001/laba/detailed/" + detailId;
-    var URI_R = "http://localhost:7001/laba/related/" + detailId;
+    var URI = "/laba/detailed/" + detailId;
+    var URI_R = "/laba/related/" + detailId;
 
     self.items = {id:null, name:"", objectType:{id: null, name:""}, parameters:[
         {id:null, value:"", attribute:{id:null, name:""}, object:{id:null}},
@@ -46,7 +46,7 @@ App.controller("DetailsController", ["$scope", "ItemService", "$location", funct
     function buyR(id) {
         $.ajax({
             contentType: "application/json; charset=utf-8",
-            url: "http://localhost:7001/laba/addToCart",
+            url: "/laba/addToCart",
             data: ({itemId : id}),
             success() {
                 $scope.updateIndex();

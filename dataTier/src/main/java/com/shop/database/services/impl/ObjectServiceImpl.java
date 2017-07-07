@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ObjectServiceImpl implements ObjectService {
     @Autowired
     private ParameterRepository parameterRepository;
 
-    public Object save(Object object) throws RegistrationException {
+    private void checkUnique(Object object) throws RegistrationException {
         for (Parameter param : object.getParameters()) {
             if (param.getAttribute().isUnique()) {
                 for (Parameter par : parameterRepository.findByAttribute(param.getAttribute())) {
@@ -36,6 +37,20 @@ public class ObjectServiceImpl implements ObjectService {
                 }
             }
         }
+    }
+
+
+    @Override
+    @Transactional
+    public void saveTwoObject(Object object) throws RegistrationException {
+        Object parent = object.getParent();
+        checkUnique(parent);
+        checkUnique(object);
+        object.setParent(objectRepository.saveAndFlush(parent));
+        objectRepository.saveAndFlush(object);
+    }
+    public Object save(Object object) throws RegistrationException {
+        checkUnique(object);
         return objectRepository.saveAndFlush(object);
     }
 

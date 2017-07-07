@@ -56,17 +56,6 @@ public class OtherController {
         return "index";
     }
 
-
-    @RequestMapping(value = {"/welcome"}, method = RequestMethod.GET)
-    public ResponseEntity<List<Object>> welcome() {
-        List<Object> objects = objectService.findByObjectType(objectTypeService.findById(1));
-        if (objects.isEmpty()) {
-            LOGGER.info("");
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(objects, HttpStatus.OK);
-    }
-
     /**
      * Method for getting to the search result page
      * @param model carries search page as inner jsp

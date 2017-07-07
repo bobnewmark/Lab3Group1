@@ -17,7 +17,7 @@ App.directive("setClassWhenAtTop", function ($window) {
         }
     };
 }).controller("MenuCtrl", ["$scope", "ItemService", "$location", function ($scope, ItemService, $location) {
-    var REST_SERVICE_URI = "http://localhost:7001/laba/cartIndex";
+    var REST_SERVICE_URI = "/laba/cartIndex";
     var indexCart = 0;
     this.fetchCartIndex = fetchCartIndex;
 

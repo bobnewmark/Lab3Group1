@@ -12,6 +12,7 @@ import java.util.List;
  * <code>ObjectService</code> is an interface for working with object entities in database.
  */
 public interface ObjectService {
+    void saveTwoObject(Object object) throws RegistrationException;
     Object save(Object object) throws RegistrationException;
     Object findById(int id);
     List<Object> findByName(String name);
@@ -24,4 +25,5 @@ public interface ObjectService {
     Page<Object> getObjectByTypes(List<String> names, Pageable pageable);
     Page<Object> getObjectByType(String name, Pageable pageable);
     Page<Object> getAllProducts(Pageable pageable);
+
 }

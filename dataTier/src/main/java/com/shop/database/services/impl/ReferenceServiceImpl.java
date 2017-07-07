@@ -20,8 +20,8 @@ public class ReferenceServiceImpl implements ReferenceService{
     @Autowired
     private ReferenceRepository referenceRepository;
 
-    public void save(Reference attribute) {
-        referenceRepository.save(attribute);
+    public void save(Reference reference) {
+        referenceRepository.saveAndFlush(reference);
     }
 
     public List<Reference> findByObject(Object object) {

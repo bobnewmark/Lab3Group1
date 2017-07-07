@@ -2,6 +2,7 @@ package com.shop.database.repositories;
 
 import com.shop.database.entities.Attribute;
 import com.shop.database.entities.Object;
+import com.shop.database.entities.ObjectType;
 import com.shop.database.entities.Reference;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,6 @@ import java.util.List;
  */
 @Repository
 public interface ReferenceRepository extends JpaRepository<Reference, Integer> {
-
     List<Reference> findByObject(Object object);
     List<Reference> findByRefObject(Object refObject);
     List<Reference> findByAttribute(Attribute attribute);
