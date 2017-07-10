@@ -12,7 +12,6 @@ import java.util.List;
  * <code>ObjectService</code> is an interface for working with object entities in database.
  */
 public interface ObjectService {
-    void saveTwoObject(Object object) throws RegistrationException;
     Object save(Object object) throws RegistrationException;
     Object findById(int id);
     List<Object> findByName(String name);

@@ -9,6 +9,9 @@ import com.shop.database.repositories.ObjectRepository;
 import com.shop.database.repositories.ParameterRepository;
 import com.shop.database.services.ObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,22 +41,13 @@ public class ObjectServiceImpl implements ObjectService {
             }
         }
     }
-
-
-    @Override
     @Transactional
-    public void saveTwoObject(Object object) throws RegistrationException {
-        Object parent = object.getParent();
-        checkUnique(parent);
-        checkUnique(object);
-        object.setParent(objectRepository.saveAndFlush(parent));
-        objectRepository.saveAndFlush(object);
-    }
+    @CacheEvict(value = "objects", allEntries=true)
     public Object save(Object object) throws RegistrationException {
         checkUnique(object);
         return objectRepository.saveAndFlush(object);
     }
-
+    @Transactional(readOnly = true)
     public Object findById(int id) {
         Object obj = objectRepository.findOne(id);
         for (Parameter param : obj.getParameters()) {
@@ -61,7 +55,8 @@ public class ObjectServiceImpl implements ObjectService {
         }
         return obj;
     }
-
+    @Cacheable(value="objects")
+    @Transactional(readOnly = true)
     public List<Object> findByName(String name) {
         List<Object> objects = objectRepository.findByName(name);
         for (Object obj : objects) {
@@ -71,7 +66,8 @@ public class ObjectServiceImpl implements ObjectService {
         }
         return objects;
     }
-
+    @Cacheable(value="objects")
+    @Transactional(readOnly = true)
     public List<Object> findByObjectType(ObjectType objectType) {
         List<Object> objects = objectRepository.findByObjectType(objectType);
         for (Object obj : objects) {
@@ -81,8 +77,9 @@ public class ObjectServiceImpl implements ObjectService {
         }
         return objects;
     }
-
+    @Cacheable(value="objects")
     @Override
+    @Transactional(readOnly = true)
     public Page<Object> findByNameContaining(String keyword, Pageable pageable) {
         Page<Object> objects = objectRepository.findByNameContaining(keyword, pageable);
         for (Object obj : objects) {
@@ -92,8 +89,9 @@ public class ObjectServiceImpl implements ObjectService {
         }
         return objects;
     }
-
+    @Cacheable(value="objects")
     @Override
+    @Transactional(readOnly = true)
     public List<Object> findByNameAttrAndObjectType(String name, String otName, String value) {
         List<Object> objects = objectRepository.findByAttrAndObjectType(name, otName, value);
         for (Object obj : objects) {
@@ -103,8 +101,9 @@ public class ObjectServiceImpl implements ObjectService {
         }
         return objects;
     }
-
+    @Cacheable(value="objects")
     @Override
+    @Transactional(readOnly = true)
     public List<Object> findByParent(Object object) {
         List<Object> objects = objectRepository.findByParent(object);
         for (Object obj : objects) {
@@ -123,11 +122,14 @@ public class ObjectServiceImpl implements ObjectService {
     }
 
     @Override
+    @CacheEvict(value = "objects", allEntries=true)
+    @Transactional
     public void delete(int id) {
         objectRepository.delete(id);
     }
-
+    @Cacheable(value="objects")
     @Override
+    @Transactional(readOnly = true)
     public List<Object> getObjectByAttribute(String typeName, String name, Pageable pageable) {
         List<Object> objects =  objectRepository.findByAttrAndName(typeName, name, pageable);
         for (Object obj : objects) {
@@ -137,8 +139,9 @@ public class ObjectServiceImpl implements ObjectService {
         }
         return objects;
     }
-
+    @Cacheable(value="objects")
     @Override
+    @Transactional(readOnly = true)
     public Page<Object> getObjectByTypes(List<String> names, Pageable pageable) {
         Page<Object> objects =  objectRepository.findByTypes(names, pageable);
         for (Object obj : objects) {
@@ -148,8 +151,9 @@ public class ObjectServiceImpl implements ObjectService {
         }
         return objects;
     }
-
+    @Cacheable(value="objects")
     @Override
+    @Transactional(readOnly = true)
     public Page<Object> getObjectByType(String name, Pageable pageable) {
         Page<Object> objects =  objectRepository.findByTypeName(name, pageable);
         for (Object obj : objects) {
@@ -159,8 +163,9 @@ public class ObjectServiceImpl implements ObjectService {
         }
         return objects;
     }
-
+    @Cacheable(value="objects")
     @Override
+    @Transactional(readOnly = true)
     public Page<Object> getAllProducts(Pageable pageable) {
         Page<Object> objects =  objectRepository.findAllProducts(pageable);
         for (Object obj : objects) {
