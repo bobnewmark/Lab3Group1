@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
@@ -20,6 +21,7 @@ import java.util.Set;
 /**
  * <code>UserDetailServiceImpl</code> is a service for users authentication by their unique username.
  */
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private ObjectRepository objectRepository;

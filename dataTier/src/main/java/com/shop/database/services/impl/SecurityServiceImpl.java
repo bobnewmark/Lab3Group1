@@ -46,7 +46,7 @@ public class SecurityServiceImpl implements SecurityService {
     public Object getCart() {
         for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
             if ("USER".equals(auth.getAuthority())) {
-                return objectService.findByParent(getUser()).get(0); /*TODO: throw IndexOutOfBoundsException if role Admin*/
+                return objectService.findByParent(getUser()).get(0);
             }
         }
         for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
