@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -77,6 +79,11 @@ public class ObjectController {
      */
     @RequestMapping(value = {"/fileUpload"}, method = RequestMethod.POST)
     public ResponseEntity upload(MultipartHttpServletRequest request) {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"ADMIN".equals(auth.getAuthority())) {
+                return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
+        }
         int id = Integer.parseInt(request.getParameter("id"));
         Object object = objectService.findById(id);
         File path = new File(tools.getRootPath() + id);
@@ -108,6 +115,11 @@ public class ObjectController {
      */
     @RequestMapping(value = "/phone/", method = RequestMethod.POST)
     public ResponseEntity<Integer> updateUser(@RequestBody Object object) {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"ADMIN".equals(auth.getAuthority())) {
+                return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
+        }
         for (Parameter param : object.getParameters()) {
             param.setObject(object);
             LOGGER.info("Saving object " + param.getAttribute().getName() + " " + param.getValue());
@@ -130,6 +142,11 @@ public class ObjectController {
      */
     @RequestMapping(value = "/phone/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteUser(@PathVariable("id") int id) {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"ADMIN".equals(auth.getAuthority())) {
+                return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
+        }
         LOGGER.info("Fetching & Deleting Object with id " + id);
         objectService.delete(id);
         return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);

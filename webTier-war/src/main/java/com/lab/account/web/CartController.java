@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +47,11 @@ public class CartController {
      */
     @RequestMapping(value = "/addToCart", method = RequestMethod.GET)
     public ResponseEntity<Object> addToCart(@RequestParam int itemId) {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"USER".equals(auth.getAuthority())) {
+                return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
+        }
         Object cart = securityService.getCart();
         if (cart == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -72,6 +79,11 @@ public class CartController {
     @RequestMapping(value = {"/cart"})
     public String cart(Model model) {
         model.addAttribute("current", "/WEB-INF/views/cart.jsp");
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"USER".equals(auth.getAuthority())) {
+                model.addAttribute("current", "/WEB-INF/views/main.jsp");
+            }
+        }
         return "index";
     }
 
@@ -81,6 +93,11 @@ public class CartController {
      */
     @RequestMapping(value = {"/showCart"}, method = RequestMethod.GET)
     public ResponseEntity<Object> cartContent() {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"USER".equals(auth.getAuthority())) {
+                return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
+        }
         Object cart = securityService.getCart();
         if (cart == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         if (cart.getReferences().isEmpty()) {
@@ -104,6 +121,11 @@ public class CartController {
      */
     @RequestMapping(value = "/showCart/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> removeFromCart(@PathVariable("id") int id) {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"USER".equals(auth.getAuthority())) {
+                return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
+        }
         Object cart = securityService.getCart();
         List<Reference> refToDelete = referenceService.findByObjectAndRefObject(cart, objectService.findById(id));
         for (Reference ref : refToDelete) {
@@ -118,6 +140,11 @@ public class CartController {
      */
     @RequestMapping(value = {"/cartIndex"}, method = RequestMethod.GET)
     public ResponseEntity<String> cartIndex() {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"USER".equals(auth.getAuthority())) {
+                return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
+        }
         Object cart = securityService.getCart();
         String result = String.valueOf(cart == null ? 0 : cart.getReferences().size());
         return new ResponseEntity<String>(result, HttpStatus.OK);
