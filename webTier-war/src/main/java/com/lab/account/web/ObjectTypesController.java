@@ -9,6 +9,8 @@ import com.shop.database.services.ObjectTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,11 @@ public class ObjectTypesController {
      */
     @RequestMapping(value = "/save-type/", method = RequestMethod.POST)
     public ResponseEntity<Integer> saveType(@RequestBody ObjectType objectType) {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"ADMIN".equals(auth.getAuthority())) {
+                return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
+        }
         objectType.setProduct(true);
         for(Attribute a: objectType.getAttributes()){
             a.setObjectType(objectType);
@@ -48,6 +55,11 @@ public class ObjectTypesController {
      */
     @RequestMapping(value = {"/types"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> types() {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"ADMIN".equals(auth.getAuthority())) {
+                return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
+        }
         List<ObjectType> types = objectTypeService.findAll();
         List<Object> objects = new ArrayList<>();
         for (ObjectType oType : types) {
@@ -74,6 +86,11 @@ public class ObjectTypesController {
      */
     @RequestMapping(value = {"/my-icons"}, method = RequestMethod.GET)
     public ResponseEntity<List<Object>> icons() {
+        for(GrantedAuthority auth : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (!"ADMIN".equals(auth.getAuthority())) {
+                return new ResponseEntity(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+            }
+        }
         List<Object> icons = objectService.findByObjectType(objectTypeService.findByName("icons"));
         if (icons.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
